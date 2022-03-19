@@ -1,0 +1,53 @@
+###############################################################################
+## Script to easily manage files' permissions                                ##
+###############################################################################
+
+# Help reference
+HELP="Usage:
+perm [path]      : sets the permissions to 600 in [path]
+perm -gr [path]  : sets the permissions to 640 in [path]
+perm -ar [path]  : sets the permissions to 644 in [path]
+perm -g [path]   : sets the permissions to 664 in [path]
+perm -e [path]   : sets the permissions to 644 in [path], but keeps the
+                   executable files
+perm -aur [path] : sets the right permission for AUR folder"
+
+# Help check
+if [[ $1 = "-h" ]] || [[ $1 = "--help" ]]; then
+  print $HELP
+  return 0
+fi
+
+if [[ $# = 1 ]]; then
+  if [[ -e $1 ]]; then
+    ${SUDO_7SHI} find $1 -type d -exec ${SUDO_7SHI} chmod 700 '{}' \;
+    ${SUDO_7SHI} find $1 -type f -exec ${SUDO_7SHI} chmod 600 '{}' \;
+  else
+    print "The path $1 doesn't exist"
+    return -1
+  fi
+elif [[ $# = 2 ]]; then
+  if [[ -e $2 ]]; then
+    if [[ $1 = "-gr" ]]; then
+      ${SUDO_7SHI} find $2 -type d -exec ${SUDO_7SHI} chmod 750 '{}' \;
+      ${SUDO_7SHI} find $2 -type f -exec ${SUDO_7SHI} chmod 640 '{}' \;
+    elif [[ $1 = "-ar" ]]; then
+      ${SUDO_7SHI} find $2 -type d -exec ${SUDO_7SHI} chmod 755 '{}' \;
+      ${SUDO_7SHI} find $2 -type f -exec ${SUDO_7SHI} chmod 644 '{}' \;
+    elif [[ $1 = "-g" ]]; then
+      ${SUDO_7SHI} find $2 -type d -exec ${SUDO_7SHI} chmod 775 '{}' \;
+      ${SUDO_7SHI} find $2 -type f -exec ${SUDO_7SHI} chmod 664 '{}' \;
+    elif [[ $1 = "-e" ]]; then
+      ${SUDO_7SHI} find $2 -type d -exec ${SUDO_7SHI} chmod 755 '{}' \;
+      ${SUDO_7SHI} chmod -R a+r,a-w,u+w $2
+    elif [[ $1 == "-aur" ]]; then
+      ${SUDO_7SHI} find $2 -type d -exec ${SUDO_7SHI} chmod 775 '{}' \;
+      ${SUDO_7SHI} chmod -R a+r,a-w,u+w,g+w $2
+    fi
+  else
+    print "The path $2 doesn't exist"
+  fi
+else
+  print $HELP
+  return -1
+fi

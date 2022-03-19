@@ -1,0 +1,48 @@
+###############################################################################
+## This script uses wget to download the given urls, then uses notify-send   ##
+## to print a log file when finished.                                        ##
+## Writes the log file in $LOGFILE                                           ##
+###############################################################################
+
+## Help reference
+local HELP="Usage:
+--> xget [url 1] .. [url n] : Downloads [url 1] .. [url n], then uses
+                              notify-send to print a log file"
+
+## Variables
+local LOGFILE="/tmp/log.temp"
+
+## Help check
+if [ $# = 1 ]; then
+	if [ $1 = '-h' ] || [ $1 = '--help' ]; then
+		print $HELP
+		return 0
+	fi
+fi
+
+## Arguments check
+if [ $# = 0 ]; then
+	print $HELP
+	return -1
+fi
+
+## Creates $LOGFILE
+if [ -e $LOGFILE ]; then
+	rm $LOGFILE
+fi
+touch $LOGFILE
+print "[+]========================[+]" >> $LOGFILE
+
+## Starts downloading
+local i
+for i in $*
+do
+	wget $i && print " Dload Ok: $i  " >> $LOGFILE \
+	        || print " Dload FAILED: $i " >> $LOGFILE
+done
+
+## Writes the last line of $LOGFILE
+print "[+]========================[+]" >> $LOGFILE
+
+## Shows the xmessage
+notify-send -t 10000 -u normal -i /usr/share/pixmaps/gnome-debian.png "`< $LOGFILE`"

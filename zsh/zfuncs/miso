@@ -1,0 +1,72 @@
+###############################################################################
+## This script creates a vnode (via mdconfig) from an iso image, then mounts ##
+## it in a certain mount point, depending on how many parameters are given.  ##
+###############################################################################
+
+
+
+###############################################################################
+### Variables                                                               ###
+###############################################################################
+# Default mount point:
+local DMP="/mnt/iso"
+# ISO file:
+local ISO=${1}
+
+
+
+###############################################################################
+### Functions                                                               ###
+###############################################################################
+# Help reference:
+function show_help()
+{
+  print "Usage:"
+  print "${1} [file.iso]              : mounts file.iso in ${DMP}"
+  print "${1} [file.iso] [mountpoint] : mounts file.iso in mountpoint"
+}
+
+
+
+###############################################################################
+### Entry point                                                             ###
+###############################################################################
+# Arguments check: either 1 or 2.
+if [[ 0 == $# ]] || [[ $# -ge 3 ]]; then
+  show_help ${0}
+  return 1
+fi
+
+# Help switch beats everything:
+if [[ "${1}" == "-h" ]] || [[ "${1}" == "--help" ]]; then
+  show_help ${0}
+  return 0
+fi
+
+# Update mount point handling if the user provided one:
+if [[ $# == 2 ]]; then
+  # Update this one:
+  DMP=${2}
+fi
+
+# ISO file existence check:
+if [[ ! -e "${1}" ]]; then
+	print "File '${1}' not found."
+	  return -1
+fi
+
+# Ensure DMP is a folder:
+if [[ -d "${DMP}" ]]; then
+  # Ensure it's empty:
+  if [[ "$(ls ${DMP})" ]]; then
+    print "Folder is not empty: '${DMP}'"
+    return -2
+  fi
+else
+  print "Not a folder: '${DMP}'"
+  return -3
+fi
+
+# If we got here, run the mount command:
+${SUDO_7SHI} mount -t auto -o ro "${ISO}" "${DMP}"
+

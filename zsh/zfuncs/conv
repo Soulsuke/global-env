@@ -1,0 +1,98 @@
+###############################################################################
+## Script made to convert an image type to another.                          ##
+## It uses ImageMagick.                                                      ##
+###############################################################################
+
+## Help reference
+local HELP="Usage:
+--> $0 -f [pic] [type]     : converts a picture to the given type.
+--> $0 -fr [pic] [type]    : converts a picture to the given type,
+                               then deletes the source file.
+--> $0 -a [type1] [type2]  : converts all the pictures .type1 to .type2.
+--> $0 -ar [type1] [type2] : converts all the pictures .type1 to .type2,
+                               then deletes the source files.
+BEWARE: this script uses ImageMagick to convert pictures. Since it is 
+compatible with almost every picture type, I didn't add a check for the 
+extensions.
+Check http://www.imagemagick.org/script/formats.php for the complete list."
+
+## Help check
+if [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
+	print $HELP
+	return 0
+fi
+
+if [[ $# = 3 ]]; then
+	local CHO
+	typeset -l CHO
+	CHO=$1
+	if [[ $CHO = '-a' ]]; then
+		local EX1
+		local EX2
+		typeset -l EX2
+		EX1=$(print "$2"|nawk -F . '{print $NF}')
+		EX2=$(print "$3"|nawk -F . '{print $NF}')
+		if [[ $EX1 = $EX2 ]]; then
+			print "You don't want to convert $EX1 to $EX2..."
+			return -1
+		else
+			local pic
+			for pic in *.$EX1
+			do
+				print "Converting $pic to $(basename $pic .$EX1).$EX2"
+				convert $pic $(basename $pic .$EX1).$EX2
+			done
+		fi
+	elif [[ $CHO = '-ar' ]]; then
+	 	local EX1
+		local EX2
+		typeset -l EX2
+		EX1=$(print "$2"|nawk -F . '{print $NF}')
+		EX2=$(print "$3"|nawk -F . '{print $NF}')
+		if [[ $EX1 = $EX2 ]]; then
+			print "You don't want to convert $EX1 to $EX2..."
+			return -1
+		else
+			local pic
+			for pic in *.$EX1
+			do
+				print "Converting $pic to $(basename $pic .$EX1).$EX2"
+				convert $pic $(basename $pic .$EX1).$EX2
+				rm $pic
+			done
+		fi
+	elif [[ $CHO = '-f' ]]; then
+		if [[ -e $2 ]]; then
+			local EX1
+			local EX2
+			typeset -l EX2
+			EX1=$(print "$2"|nawk -F . '{print $NF}')
+			EX2=$3
+			print "Converting $2 to $(basename $2 .$EX1).$EX2"
+			convert $2 $(basename $2 .$EX1).$EX2
+		else
+			print "The file $1 doesn't exist."
+			return -1
+		fi
+	elif [[ $CHO = '-fr' ]]; then
+		if [[ -e $2 ]]; then
+			local EX1
+			local EX2
+			typeset -l EX2
+			EX1=$(print "$2"|nawk -F . '{print $NF}')
+			EX2=$3
+			print "Converting $2 to $(basename $2 .$EX1).$EX2"
+			convert $2 $(basename $2 .$EX1).$EX2
+			rm $2
+		else
+			print "The file $1 doesn't exist."
+			return -1
+		fi
+	else
+		print $HELP
+		return -1
+	fi
+else
+	print $HELP
+	return -1
+fi

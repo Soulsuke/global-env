@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Common startup applications
+Icon=utilities-terminal
+Exec=zsh -c '${HOME}/.scripts/7shi/startup/01-common_startup.zsh'
+Terminal=false
+Categories=Utility;
+

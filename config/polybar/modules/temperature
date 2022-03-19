@@ -1,0 +1,18 @@
+; To set hwmon-path:
+; for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+;
+; To set thermal-zone:
+; for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+
+[temperature-common]
+format = <label>
+interval = 0.5
+label =  %temperature-c%
+label-warn =  %temperature-c%
+label-warn-foreground = ${colors.warning}
+thermal-zone = 0
+type = internal/temperature
+warn-temperature = 70
+
+; vim:ft=dosini
+

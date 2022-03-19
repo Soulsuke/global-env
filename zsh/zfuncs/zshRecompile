@@ -1,0 +1,63 @@
+##############################################################################
+## Ricompila i file della zsh.                                               ##
+## Se non esiste il file ~/.zsh/nomeutente, lo crea.                         ##
+###############################################################################
+
+## Help reference
+local HELP="Usage:
+--> $0 : Recompiles the Zsh"
+
+## Variables
+local DATE=$(date "+%Y/%m/%d")
+local NEW="###############################################################################
+## User's personal zsh aliases.                                              ##
+###############################################################################
+
+"
+
+## Help check
+if [ $# = 1 ]; then
+	if [ $1 = '-h' ] || [ $1 = '--help' ]; then
+		print $HELP
+		return 0
+	else
+		print $HELP
+		return 1
+	fi
+fi
+
+## Arguments check
+if [ ! $# = 0 ]; then
+	print $HELP
+	return -1
+fi
+
+## If ~/.zsh/username doesn't exist, it'll be created with the default lines
+## in it.
+if [ ! -e ~/.z$(whoami) ]; then
+	touch ~/.z$(whoami)
+	print ${NEW} >> ~/.z$(whoami)
+fi
+## Recompiles the zsh's files.
+autoload -U zrecompile
+Z_FILES=(
+  ~/.zshrc
+  ~/.zcompdump
+  ${GLOBAL_ENV}/env
+  ${GLOBAL_ENV}/func
+  ${GLOBAL_ENV}/aliases
+  ${GLOBAL_ENV}/theme
+  ${GLOBAL_ENV}/hosts
+  ${GLOBAL_ENV}/hosts_envs/${HOST}
+  ~/.z$(whoami)
+)
+for i in $Z_FILES; do
+  if [ -f $i ]; then
+    zrecompile -p $i
+  fi
+done
+unset Z_FILES i
+/bin/chmod a+r ${GLOBAL_ENV}/*
+
+source ~/.zshrc
+

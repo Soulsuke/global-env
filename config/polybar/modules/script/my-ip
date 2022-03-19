@@ -1,0 +1,10 @@
+[module/my-ip]
+click-left = kill -USR1 %pid%
+click-middle = kill -CONT %pid%
+click-right = kill -USR2 %pid%
+exec = ruby ~/.config/polybar/scripts/my-ip.rb "" "#F00" "#FFB52A"
+tail = true
+type = custom/script
+
+; vim:ft=dosini
+

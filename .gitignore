@@ -1,0 +1,7 @@
+*~
+*.sw[op]
+*.zwc
+*.old
+vim/vim/.netrwhist
+config/tilda/*.tmp
+

@@ -1,0 +1,22 @@
+###############################################################################
+## This script uses rsync to copy the given files, then uses notify-send to  ##
+## print a message when finished.                                            ##
+###############################################################################
+
+# Help reference:
+HELP="Usage:
+--> $0 [files] [dest-dir] : copy [files] in [dest-dir]"
+
+# Help check:
+if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
+  print $HELP
+fi
+
+if [[ $# -ge 2 ]]; then
+  rsync -avP "$@"
+  sync
+  notify-send "Copy finished"
+else
+  print $HELP
+  return -1
+fi

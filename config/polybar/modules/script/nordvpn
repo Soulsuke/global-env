@@ -1,0 +1,10 @@
+[module/nordvpn]
+click-left = kill -CONT %pid%
+click-middle = kill -USR2 %pid%
+click-right = kill -USR1 %pid%
+exec = ruby ~/.config/polybar/scripts/nordvpn.rb "" "#F00" "#FFB52A" "#00F"
+tail = true
+type = custom/script
+
+; vim:ft=dosini
+

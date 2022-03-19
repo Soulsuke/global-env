@@ -1,0 +1,60 @@
+###############################################################################
+## This script is made to easily manage file compression.                    ##
+## It needs the following programs to work:                                  ##
+##  --> bzip2 (.bz2/.bzip)                                                   ##
+##  --> gzip (.gz/.gzip)                                                     ##
+##  --> rar (.rar)                                                           ##
+##  --> tar (.tar.gz/.tar.bz/.tar.Z/.tar)                                    ##
+##  --> zip (.zip)                                                           ##
+###############################################################################
+
+## Help Reference
+local HELP="Usage:
+--> $0 [file] [compression type]
+Allowed compression types:
+--> bz2        --> tar.bz2
+--> bzip2      --> tar.gz
+--> gz         --> tar.Z
+--> gzip       --> tbz2
+--> rar        --> tgz
+--> tar        --> zip"
+
+## Help check
+if [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
+	print $HELP
+	return 0
+fi
+
+if [[ $# = 1 ]]; then
+ 	if [[ -e $1 ]]; then
+		tar -jcvf $1.tar.bz2 $1
+	else
+		print "The file $1 doesn't exist"
+		return -1
+	fi
+elif [[ $# = 2 ]]; then
+	if [[ -e $1 ]]; then
+		local EX
+		typeset -f EX
+		EX=$2
+		case $EX in
+			tgz | tar.gz)     tar -zcvf $1.$2 $1                   ;;
+			tbz2 | tar.bz2)   tar -jcvf $1.$2 $1                   ;;
+			tar.Z)            tar -Zcvf $1.$2 $1                   ;;
+			tar)              tar -cvf $1.$2  $1                   ;;
+			gz | gzip)        cp $1 $1.bk ; gzip $1 ; mv $1.bk $1  ;;
+			bz2 | bzip2)      bzip2 -k $1                          ;;
+			rar)              rar a $1.$2 $1                       ;;
+			zip)              zip -r $1.$2 $1                      ;;
+      7z)               7z a $1 $1                           ;;
+			*) print "Error: $2 isn't an allowed compression type" 
+			   return -1                                           ;;
+		esac
+	else
+		print "The file $1 doesn't exist"
+		return -1
+	fi
+else
+	print $HELP
+	return -1
+fi

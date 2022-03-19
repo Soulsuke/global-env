@@ -1,0 +1,59 @@
+###############################################################################
+## Global environmental variables.                                           ##
+###############################################################################
+
+### Shell settings ############################################################
+export PATH="/opt/7shi/bin:${PATH}:/usr/sbin:/sbin"
+
+# To be sure grub won't ever break with zfs:
+export ZPOOL_VDEV_NAME_PATH=1
+
+#export RPROMPT="%B%F{cyan}%*  %(?.%B%F{green}●.%B%F{red}!)"
+export HISTIGNORE="[   ]*:&:bg:fg"  # Ignore bg, fg, etc
+export IGNOREEOF=3
+export DIRSTACKSIZE=40
+export CSH_JUNKIE_HISTORY=1 # Use !-1..n to call previews events
+#
+## History:
+setopt share_history
+setopt inc_append_history
+export HISTSIZE=2000
+HISTFILE="$HOME/.zhistory"
+SAVEHIST=${HISTSIZE}
+#
+## Correction prompt in colors!
+export SPROMPT=$'%BError!%b Correct %{\e[31m%}%R%{ \e[0m%}to%{ \e[36m%}%r\%{ \e[0m%}? [No/Yes/Abort/Edit]: '
+
+### Shell prg #################################################################
+export LANG="en_GB.UTF-8"
+export LC_ALL="en_GB.UTF-8"
+export PAGER="less"
+export EDITOR="vim"
+export MOST_EDITOR="${EDITOR} %s +%d"
+export CVS_RSH="ssh"
+export WWW_HOME="https://duckduckgo.com/"
+export HTTP_HOME="${WWW_HOME}"
+if [ ${DISPLAY} ]; then
+	export WWW_BROWSER="/usr/bin/vivaldi-stable"
+else
+	export WWW_BROWSER="/usr/bin/browsh"
+fi
+# format of process time reports with 'time'
+#  %%     A `%'.
+#  %U     CPU seconds spent in user mode.
+#  %S     CPU seconds spent in kernel mode.
+#  %E     Elapsed time in seconds.
+#  %P     The CPU percentage, computed as  (%U+%S)/%E.
+#  %J     The name of this job.
+# Default is: 
+#       %E real  %U user  %S system   %P  %J
+export TIMEFMT="Real: %E User: %U System: %S Percent: %P Cmd: %J"
+#
+## Set the right sudo command to be used:
+SUDO_7SHI=sudo
+which doas &> /dev/null
+if [[ 0 == $? ]]; then
+  SUDO_7SHI=doas
+fi
+export SUDO_7SHI
+

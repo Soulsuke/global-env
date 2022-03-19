@@ -1,0 +1,51 @@
+###############################################################################
+## Global zsh aliases, usable by all users.                                  ##
+###############################################################################
+
+### Hashes ####################################################################
+hash -d 7shi="/opt/7shi"
+
+### Shell global ##############################################################
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....="cd ../../.."
+alias mv="nocorrect mv"
+alias cp="nocorrect cp"
+alias mkdir="nocorrect mkdir"
+alias j=jobs
+alias pu=pushd
+alias po=popd
+alias d="dirs -v"
+alias h=history
+alias locate="noglob locate"
+alias find="noglob find"
+alias head="head -n 20"
+
+### ls ########################################################################
+alias ls='/bin/ls --color -F -b' # default ls command (for easy editing)
+alias ls.='ls -d .*'             # show .files
+alias lsa='ls -A'                # show files and .files
+alias lsd='ls -d *(/)'           # show dirs and .dirs
+alias ll='ls -lh'                # show detailed info of files
+alias ll.='ls -lhd .*'           # show detailed info of .files
+alias lla='ls -lAh'              # show detailed info of files and .files
+alias lld='ls -lhd *(/)'         # show detailed info of dirs and .dirs
+
+### Programs ##################################################################
+alias df='df -h'
+alias du='du -h'
+alias eject='eject /dev/sr0'
+alias free="free -h"
+alias g='noglob gvim -geometry 80x39 -fg white -bg black'
+alias grep="grep --color"
+alias myip="curl ifconfig.co"
+alias pss="ps aux | head -n1 && ps aux | grep"
+alias v='vim'
+
+### Programs that need sudo or the right privilegess to work properly #########
+alias cdr='cdrecord dev=/dev/sr0 -v -eject driveropts=burnfree'
+alias cdrb='cdrecord dev=/dev/sr0 -v -eject driveropts=burnfree blank=all'
+#alias cdr='${SUDO_7SHI}  growisofs -Z /dev/dvd -R -J'
+#alias cdrb='${SUDO_7SHI} dvd+rw-format -force /dev/dvd'
+alias kmon='kmon -c 00FF00'
+

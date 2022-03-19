@@ -1,0 +1,70 @@
+*
+{{
+  background-color: transparent;
+  font: "DejaVu Sans Mono 9";
+}}
+
+window
+{{
+  anchor: center;
+  background-color: {foreground};
+  children: [ mainbox ];
+  padding: 1px;
+  text-color: {foreground};
+  width: 20%;
+}}
+
+mainbox
+{{
+  background-color: {background};
+  children: [ prompt, entry, listview ];
+  orientation: vertical;
+  padding: 0.3em;
+}}
+
+prompt
+{{
+  font: "DejaVu Sans Mono Bold 10";
+  text-color: {foreground};
+}}
+
+listview
+{{
+  layout: vertical;
+  lines: 10;
+}}
+
+entry
+{{
+  expand: false;
+  text-color: {foreground};
+  width: 10em;
+}}
+
+element
+{{
+  padding: 0.3em;
+}}
+
+element.selected
+{{
+  background-color: {foreground};
+  text-color: {background};
+}}
+
+element-text
+{{
+  background-color: {background};
+  text-color: {foreground};
+}}
+
+element-text.selected
+{{
+  background-color: {foreground};
+  text-color: {background};
+}}
+
+
+
+/* vim:ft=css
+

@@ -1,0 +1,38 @@
+###############################################################################
+## Zsh functions.                                                            ##
+###############################################################################
+
+### Functions in $fpath #######################################################
+### To see the help reference of a certain function, run it with -h or --help #
+#
+## Add the main folder to fpath:
+fpath=($fpath ${GLOBAL_ENV}/zfuncs)
+#
+## Then load all of them:
+for i in ${GLOBAL_ENV}/zfuncs/*; do
+  autoload ${i}
+done
+
+### Short functions ###########################################################
+#
+## Calculator
+function calc()
+{
+	print $(($*))
+}
+#
+## Use vim to convert plaintext to HTML
+function 2html()
+{
+  vim -n -c ':so ${VIMRUNTIME}/syntax/2html.vim' -c ':wqa' $1 > \
+  /dev/null 2> /dev/null
+}
+#
+## Needed by pskill
+function morons()
+{
+  reply=(`ps -eo pid,tty,s,time,comm | grep -v COMMAND | \
+  perl -nle '@a=split(" ",$_,9);$_=$a[4];s/[()]//g;s/.*\///g;print'`)
+}
+compctl -K morons pskill pkill
+

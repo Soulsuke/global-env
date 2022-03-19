@@ -1,0 +1,59 @@
+[section/base]
+; Bars
+include-file = ~/.config/polybar/bars/chunchunmaru
+include-file = ~/.config/polybar/bars/chunchunmaru.d/hdmi
+include-file = ~/.config/polybar/bars/chunchunmaru.d/primary
+include-file = ~/.config/polybar/bars/ronin
+include-file = ~/.config/polybar/bars/unmei
+include-file = ~/.config/polybar/bars/unmei.d/hdmi
+include-file = ~/.config/polybar/bars/unmei.d/primary
+; Modules:
+include-file = ~/.config/polybar/modules/backlight
+include-file = ~/.config/polybar/modules/battery
+include-file = ~/.config/polybar/modules/cpu
+include-file = ~/.config/polybar/modules/date
+include-file = ~/.config/polybar/modules/i3
+include-file = ~/.config/polybar/modules/memory
+include-file = ~/.config/polybar/modules/network
+include-file = ~/.config/polybar/modules/pulseaudio
+include-file = ~/.config/polybar/modules/script/iostat
+include-file = ~/.config/polybar/modules/script/my-ip
+include-file = ~/.config/polybar/modules/script/nordvpn
+include-file = ~/.config/polybar/modules/script/nvidia
+include-file = ~/.config/polybar/modules/temperature
+
+
+
+[colors]
+bg = ${xrdb:background:#000000} 
+fg = ${xrdb:foreground:#00FF00}
+bg-unfocused = ${xrdb:color0:#2E3436}
+bg-urgent = ${xrdb:color9:#FF0000}
+fg-urgent = ${xrdb:color15:#FFFFFF}
+warning = ${xrdb:color11:#FFFF00}
+notification-0 = ${xrdb:color5:#AD7FA8}
+notification-1 = ${xrdb:color4:#4682B4}
+
+
+
+[vars]
+height = 28
+
+
+
+[settings]
+pseudo-transparency = false
+screenchange-reload = true
+throttle-output = 5
+throttle-output-for = 10
+
+
+
+[global/wm]
+margin-bottom = 0
+margin-top = 0
+
+
+
+; vim:ft=dosini
+

@@ -1,0 +1,15 @@
+[bar/unmei_hdmi]
+inherit = unmei
+
+; Monitor:
+monitor = HDMI-0
+
+; Modules:
+modules-center = date
+modules-left = i3
+modules-right = unmei_wifi unmei_eth cpu unmei_cpu_temp memory nvidia pulse battery
+
+
+
+; vim:ft=dosini
+

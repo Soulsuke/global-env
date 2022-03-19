@@ -1,0 +1,75 @@
+###############################################################################
+## Wrapper to easily show contents of or to extract an archive.              ## 
+###############################################################################
+
+# Help reference
+local HELP="Usage:
+--> $0 [archive]        : extracts [archive] in the current folder.
+--> $0 [archive] [path] : extracts [archive] in [path], creating the various
+                           directories in [path] if they don't exist.
+--> $0 -s [archive]     : shows contents of [archive] without extracting it."
+
+# Help check
+if [[ $1 = "-h" ]] || [[ $1 = "--help" ]]; then
+  print $HELP
+  return 0
+fi
+
+# Arguments check
+if [[ $# != 1 ]] && [[ $# != 2 ]]; then
+  print $HELP
+  return -1
+fi
+
+# Useful variables:
+local ARCHIVE
+local TMP
+typeset -l TMP
+
+# Archive existence check
+if [[ $1 == "-s" ]] && [[ $# == 2 ]]; then
+  ARCHIVE=$2
+else
+  ARCHIVE=$1
+fi
+if [ ! -e $ARCHIVE ]; then
+  print "The file $ARCHIVE doesn't exist."
+  return -1
+fi
+
+TMP=$ARCHIVE
+# Extract the archive:
+if [[ ! $1 == "-s" ]]; then
+  # Path setup
+  if [ $# = 2 ]; then
+    if [ -e $2 ]; then
+      mkdir -p $2
+    fi
+    local EP="$2"
+  else
+    local EP="."
+  fi
+  case $TMP in
+    *.tar.bz2 | *.tbz2) tar -xjvf $ARCHIVE -C $EP                            ;;
+    *.tar.gz | *.tgz)   tar -xzvf $ARCHIVE -C $EP                            ;;
+    *.tar)              tar -xvf $ARCHIVE -C $EP                             ;;
+    *.bz2)              bunzip2 -k $ARCHIVE                                  ;;
+    *.gz)               gunzip $ARCHIVE                                      ;;
+    *.rar)              unrar x -y $ARCHIVE $EP                              ;;
+    *.zip)              unzip $ARCHIVE -d "${EP}/$(basename $ARCHIVE .zip)/" ;;
+    *.7z)               7z x $ARCHIVE -o$EP                                  ;; 
+    *) print "Archive type not supported" && return -1                       ;;
+  esac
+# Show the archive's content:
+else
+  case $TMP in
+    *.tar.bz2 | *.tbz2) tar -tjf $ARCHIVE                                 ;;
+    *.tar.gz | *.tgz)   tar -ztf $ARCHIVE                                 ;;
+    *.tar)              tar -tf $ARCHIVE                                  ;;
+    *.bz2)              bzless $ARCHIVE                                   ;;
+    *.rar)              unrar lb $ARCHIVE                                 ;;
+    *.zip)              unzip -l $ARCHIVE -p "$(basename $ARCHIVE .zip)/" ;;
+    *.7z)               7z l $ARCHIVE                                     ;;
+    *) print "Archive type not supported" && return -1                    ;;
+  esac
+fi

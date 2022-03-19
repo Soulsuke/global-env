@@ -1,0 +1,21 @@
+/*\
+|* Rofi configuration
+\*****************************************************************************/
+configuration
+{
+  icon-theme: "Adwaita";
+  modi: "run,drun";
+  show-icons: true;
+  timeout
+  {
+    delay: 15;
+    action: "kb-cancel";
+  }
+}
+
+@theme "~/.cache/wal/rofi.rasi"
+
+
+
+/* vim:ft=css
+

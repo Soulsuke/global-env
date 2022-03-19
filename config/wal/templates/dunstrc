@@ -1,0 +1,194 @@
+###############################################################################
+### Global settings                                                         ###
+###############################################################################
+[global]
+
+  ### Notification area
+  #############################################################################
+
+  # On dispaly 0:
+  monitor = 0
+
+  # Width:
+  # NOTE: 300 is fixed, (0, 300) is dynamic.
+  width = 300
+
+  # Maxmum height for a single notification (excluding frame):
+  height = 300
+
+  # Offset (right below polybar):
+  offset = 0x28
+
+  # Max number of shown notifications:
+  notification_limit = 10
+
+  # Show the number of hidden messages:.
+  indicate_hidden = yes
+
+  # Transparency:
+  transparency = 0
+
+  # Notification padding:
+  padding = 5
+  horizontal_padding = 5
+
+  # Notification area border:
+  frame_width = 1
+  frame_color = "{foreground}"
+
+  # Separator between notifications:
+  separator_color = frame
+
+  # Sort messages by urgency:
+  sort = yes
+
+  # Don't remove messages if the user has been idle for seconds:
+  idle_threshold = 120
+
+  # Corner radius:
+  corner_radius = 0
+
+
+
+  ### Text
+  #############################################################################
+
+  # Font:
+  font = DejaVu Sans Mono 10
+
+  # Space between lines:
+  line_height = 0
+
+  # Markup support (full, strip, no):
+  markup = full
+
+  # Message format (markup enabled/disabled depending on above setting).
+  # Legend:
+  #   %a  appname
+  #   %s  summary
+  #   %b  body
+  #   %i  iconname (including its path)
+  #   %I  iconname (without its path)
+  #   %p  progress value if set ([  0%] to [100%]) or nothing
+  #   %n  progress value if set without any extra characters
+  #   %%  Literal %
+  format = "<b>%a</b>: %s\n%b"
+
+  # Text alignment (left, center, right):
+  alignment = left
+
+  # Show age of message if is older than seconds (-1 = off):
+  show_age_threshold = 60
+
+  # Split notifications into multiple lines if needed:
+  word_wrap = yes
+
+  # If the above is set to no, put the ellipsis in at the (start, middle, end):
+  ellipsize = end
+
+  # Ignore newlines:
+  ignore_newline = no
+
+  # Stack notifications with the same content:
+  stack_duplicates = true
+
+  # Hide the count of stacked notifications with the same content:
+  hide_duplicate_count = false
+
+  # Display indicators for URLs (U) and actions (A):
+  show_indicators = no
+
+
+
+  ### icons
+  #############################################################################
+
+  # Align icons (left, right, off):
+  icon_position = off
+
+  # Max icon size (0 = no limit):
+  max_icon_size = 16
+
+  # Paths to default icons:
+  icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+
+
+
+  ### History
+  #############################################################################
+
+  # Allow history notification to be sticky if they normally would be:
+  sticky_history = yes
+
+  # Max notification history length:
+  history_length = 20
+
+
+
+  ### Misc
+  #############################################################################
+
+  # Browser for opening urls in context menu:
+  browser = xdg-open
+
+  # Always run rule-defined scripts, even if the notification is suppressed:
+  always_run_script = true
+
+  # Dunst window class and title:
+  class = Dunst
+  title = Dunst
+
+  # Startup notification:
+  startup_notification = false
+
+  # Verbosity (crit, warn, mesg, info, debug):
+  verbosity = mesg
+
+
+
+  ### Mouse behaviour
+  #############################################################################
+  # nome, do_action, close_current, close_all:
+  mouse_left_click = close_current
+  mouse_middle_click = do_action
+  mouse_right_click = close_all
+
+
+
+###############################################################################
+### Urgency settings                                                        ###
+###############################################################################
+
+[urgency_low]
+  background = "{color8}"
+  foreground = "{foreground}"
+  frame-color = "{foreground}"
+  timeout = 10
+
+[urgency_normal]
+  background = "{background}"
+  foreground = "{foreground}"
+  frame-color = "{foreground}"
+  timeout = 10
+
+[urgency_critical]
+  background = "{foreground}"
+  foreground = "{background}"
+  frame-color = "{background}"
+  timeout = 0
+
+
+
+###############################################################################
+### Per-application settings                                                ###
+###############################################################################
+
+[pasystray]
+  appname = "pasystray"
+  history_ignore = yes
+  skip_display = true
+
+
+
+# vim: ft=cfg
+

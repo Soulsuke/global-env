@@ -1,0 +1,29 @@
+###############################################################################
+## Creates a Zsh script                                                      ##
+###############################################################################
+
+## Help reference
+local HELP="Usage:
+--> $0 [name] : Creates a Zsh script called [name]"
+
+## Parameters check
+if [ ! $#  = 1 ]; then
+	print $HELP
+	return -1
+fi
+
+# Help check
+if [ $1 = '-h' ] || [ $1 = '--help' ]; then
+	print $HELP
+	return 0
+fi
+
+## Existence check
+if [ -e $1 ]; then
+	print "The file $1 already exists!"
+	return -1
+else
+	touch $1
+	chmod +x $1
+	print "#! /usr/bin/env zsh\n\n" >> $1
+fi

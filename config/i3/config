@@ -1,0 +1,303 @@
+###############################################################################
+### Variables                                                               ###
+###############################################################################
+#
+### Workspaces' names
+###############################################################################
+set $ws01 "01:一"
+set $ws02 "02:二"
+set $ws03 "03:三"
+set $ws04 "04:四"
+set $ws05 "05:五"
+set $ws06 "06:六"
+set $ws07 "07:七"
+set $ws08 "08:八"
+set $ws09 "09:九"
+set $ws10 "10:十"
+#
+### Colors
+###############################################################################
+set_from_resource $fg_foc foreground #00FF00
+set_from_resource $bg_foc background #000000
+set_from_resource $bg_unf color2 #73D216
+set_from_resource $fg_urg color15 #FFFFFF
+set_from_resource $bg_urg color9 #FF0000
+set_from_resource $bg_plc color8 #2E3436
+
+
+
+###############################################################################
+### Functions                                                               ###
+###############################################################################
+#
+# Window resizing modality (keyboard):
+mode "resize"
+{
+  # Keys to resize with:
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  # Exit resizing mode:
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+
+
+###############################################################################
+### Status bar                                                              ###
+###############################################################################
+#
+# Polybar:
+exec_always --no-startup-id "~/.config/polybar/launcher.zsh $(uname -n)"
+
+
+
+###############################################################################
+### Tab style                                                               ###
+###############################################################################
+#
+### Title format:
+for_window [ class=".*" ] title_format "%class"
+#
+### Tilte alignment:
+title_align center
+#
+### Colors:
+# class                 border  backgr. text    indicator child_border
+client.focused          $fg_foc $fg_foc $bg_foc $fg_foc   $fg_foc
+client.focused_inactive $bg_unf $bg_unf $bg_foc $bg_unf   $bg_unf
+client.unfocused        $bg_foc $bg_foc $fg_foc $bg_foc   $bg_foc
+client.urgent           $bg_urg $bg_urg $fg_urg $bg_urg   $bg_urg
+client.placeholder      $bg_plc $bg_plc $fg_urg $bg_plc   $bg_plc
+
+
+
+###############################################################################
+### Workspaces' configuration                                               ###
+###############################################################################
+#
+### Default layout:
+###############################################################################
+for_window [ workspace=$ws01 ] layout tabbed
+for_window [ workspace=$ws02 ] layout tabbed
+for_window [ workspace=$ws03 ] layout tabbed
+for_window [ workspace=$ws04 ] floating enable # This is the gaming workspace
+for_window [ workspace=$ws05 ] layout tabbed
+for_window [ workspace=$ws06 ] layout tabbed
+for_window [ workspace=$ws07 ] layout tabbed
+for_window [ workspace=$ws08 ] layout tabbed
+for_window [ workspace=$ws09 ] layout tabbed
+for_window [ workspace=$ws10 ] layout tabbed
+#
+### Per-window overrides:
+###############################################################################
+for_window [ class="Tilda" instance="tilda" ] floating enable
+for_window [ class="gw2-64.exe" instance="gw2-64.exe" ] floating enable
+for_window [ class="Steam" title="^Steam$" ] floating disable
+#
+### Window pinning:
+###############################################################################
+# 01
+assign [ class="Vivaldi-stable" ] $ws01
+assign [ class="Cherrytree" ] $ws01
+assign [ class="Claws-mail" ] $ws01
+assign [ class="Evolution" ] $ws01
+# 02
+assign [ class="Rambox" ] $ws02
+assign [ class="TelegramDesktop" ] $ws02
+assign [ class="Signal" ] $ws02
+assign [ class="discord" ] $ws02
+assign [ class="dotswitch-nativefier.*" ] $ws02
+assign [ class="Skype" ] $ws02
+assign [ class="Slack" ] $ws02
+# 03
+assign [ class="Insomnia Designer" ] $ws03
+assign [ class="Apache NetBeans.*" ] $ws03
+assign [ class="jetbrains-studio" ] $ws03
+assign [ class="Eclipse" ] $ws03
+# 04
+assign [ class="Deluge-gtk" ] $ws05
+# 09
+assign [ class="gw2-64.exe" ] $ws09
+# 10
+assign [ class="Steam" ] $ws10
+assign [ title="Origin" ] $ws10
+assign [ title="Ubisoft Connect" ] $ws10
+assign [ title="Uplay" ] $ws10
+
+
+
+###############################################################################
+### General configuration                                                   ###
+###############################################################################
+#
+# Focus stealing prevention:
+no_focus [ class="*" ]
+#
+# Windows' border:
+default_border none
+default_floating_border normal 0
+#
+### Font to use:
+font pango:DejaVu Sans Mono Book 10
+
+
+
+###############################################################################
+### Keybindings                                                             ###
+###############################################################################
+#
+# Modifier: WinKey
+set $mod Mod4
+#
+### Keybindings: custom functions
+###############################################################################
+#
+# Window resizing mode:
+bindsym $mod+r mode "resize"
+#
+### Keybindings: media keys
+###############################################################################
+#
+# Volume down:
+bindsym XF86AudioLowerVolume exec --no-startup-id \
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+#
+# Volume up:
+bindsym XF86AudioRaiseVolume exec --no-startup-id \
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+#
+# Mute:
+bindsym XF86AudioMute exec --no-startup-id \
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
+#
+# Brightness down:
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
+bindsym $mod+o exec --no-startup-id light -U 5
+#
+# Brightness up:
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
+bindsym $mod+p exec --no-startup-id light -A 5
+#
+# Media player play:
+bindsym XF86AudioPlay exec --no-startup-id playerctl play
+#
+# Media player pause:
+bindsym XF86AudioPause exec --no-startup-id playerctl pause
+#
+# Media player next:
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+#
+# Media player previous:
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+#
+### Keybindings: session behaviour
+###############################################################################
+#
+# Reload the configuration file:
+bindsym $mod+Shift+c reload
+#
+# Restart i3 (preserves session, even after an i3 update):
+bindsym $mod+Shift+r restart
+#
+# Lock session:
+bindsym $mod+Shift+Return exec --no-startup-id \
+  ~/.scripts/7shi/lockscreen/lockers/i3lock.zsh
+#
+# Session manager (rofi-script menu):
+bindsym $mod+Shift+e exec \
+  rofi -show sessionmgr \
+    -modi "sessionmgr:~/.config/rofi/scripts/sessionmgr.zsh"
+#
+### Keybindings: windows behaviour
+###############################################################################
+#
+# Start the terminal:
+bindsym $mod+Return exec kitty
+#
+# Close focused window:
+bindsym $mod+Shift+q kill
+#
+# Fullscreen for focused window:
+bindsym $mod+f fullscreen toggle
+#
+# Menu using .desktop files:
+bindsym $mod+d exec --no-startup-id rofi -show drun
+#
+# Menu using executables within path:
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+#
+# Take a screenshot of the whole desktop:
+bindsym Print exec escrotum
+#
+# Take a screenshot of an area/window:
+bindsym --release Shift+Print exec escrotum -s
+#
+# Change focused window:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+#
+# Move focused window:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+#
+# Will split the focused window horizontally:
+bindsym $mod+h split h
+#
+# Will split the focused window vertically:
+bindsym $mod+v split v
+#
+# Change layout (stacked, tabbed, split):
+bindsym $mod+z layout stacking
+bindsym $mod+x layout tabbed
+bindsym $mod+c layout toggle split
+#
+# Toggle tiling/floating for focused window:
+bindsym $mod+Shift+space floating toggle
+#
+# Hold down to drag floating windows with the mouse:
+floating_modifier $mod
+#
+# Change the focus between tiling and floating windows:
+bindsym $mod+space focus mode_toggle
+#
+# Focus the parent container
+bindsym $mod+a focus parent
+#
+# Focus the child container
+bindsym $mod+Shift+a focus child
+#
+### Keybindings: workspaces behaviour
+###############################################################################
+#
+# Switch to workspace:
+bindsym $mod+1 workspace $ws01
+bindsym $mod+2 workspace $ws02
+bindsym $mod+3 workspace $ws03
+bindsym $mod+4 workspace $ws04
+bindsym $mod+5 workspace $ws05
+bindsym $mod+6 workspace $ws06
+bindsym $mod+7 workspace $ws07
+bindsym $mod+8 workspace $ws08
+bindsym $mod+9 workspace $ws09
+bindsym $mod+0 workspace $ws10
+#
+# Move focused to workspace:
+bindsym $mod+Shift+1 move container to workspace $ws01
+bindsym $mod+Shift+2 move container to workspace $ws02
+bindsym $mod+Shift+3 move container to workspace $ws03
+bindsym $mod+Shift+4 move container to workspace $ws04
+bindsym $mod+Shift+5 move container to workspace $ws05
+bindsym $mod+Shift+6 move container to workspace $ws06
+bindsym $mod+Shift+7 move container to workspace $ws07
+bindsym $mod+Shift+8 move container to workspace $ws08
+bindsym $mod+Shift+9 move container to workspace $ws09
+bindsym $mod+Shift+0 move container to workspace $ws10
+

@@ -1,0 +1,9 @@
+[network-common]
+format-connected = <label-connected>
+format-disconnected =
+interval = 1
+label-connected = %upspeed%⬆⬇%downspeed%
+type = internal/network
+
+; vim:ft=dosini
+

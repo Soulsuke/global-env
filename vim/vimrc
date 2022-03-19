@@ -1,0 +1,134 @@
+" Work in (not so active) progress
+
+" Pathogen stuff:
+execute pathogen#infect()
+
+" Make everything readable:
+set background=dark
+
+" To be extra sure.
+set colorcolumn=80
+
+" ruby/typescript lag fix:
+set re=2
+
+" Swap files folder:
+set directory=$HOME/.vimswap/
+silent !mkdir ${HOME}/.vimswap/ > /dev/null 2>&1
+
+" Disable visual mode on mouse click:
+set mouse-=a
+
+" Use Vim defaults instead of 100% vi compatibility
+set nocompatible
+" More powerful backspacing
+set backspace=indent,eol,start
+" No search highlighting
+set nohlsearch
+" Because I like tabs.
+set tabpagemax=100
+
+" Toggle line numbers
+set number
+nmap <F2> :set invnumber<CR>
+" Toggle tab paste
+set pastetoggle=<F3>
+"set paste
+" Toggle folding
+set foldmethod=syntax
+set foldlevel=99
+inoremap <F4> <C-O>za
+nnoremap <F4> za
+onoremap <F4> <C-C>za
+vnoremap <F4> zf
+
+" Folding settings:
+let javaScript_fold=1    " JavaScript
+let perl_fold=1          " Perl
+let php_folding=1        " PHP
+let r_syntax_folding=1   " R
+let ruby_fold=1          " Ruby
+let sh_fold_enabled=1    " sh
+let vimsyn_folding='af'  " Vim script
+let xml_syntax_folding=1 " XML
+
+" Autoindenting on
+"set autoindent
+" Don't wrap lines by default
+set textwidth=0
+" Read/write a .viminfo file, don't store more than 50 lines of registers
+set viminfo='20,\"50
+" Keep 50 lines of command line history
+set history=50
+" Show the cursor position all the time
+set ruler
+" Disable beeping
+set vb t_vb=".
+" Indent with tab
+set tabstop=2
+" Make p in Visual mode replace the selected text with the "" register.
+vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+
+let fortran_free_source=1
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+syntax on
+
+" Grep command
+set grepprg=grep\ -nH\ $*
+
+if has("autocmd")
+ " Enabled file type detection
+ " Use the default filetype settings. If you also want to load indent files
+ " to automatically do language-dependent indenting add 'indent' as well.
+ filetype plugin on
+endif
+
+" Do case insensitive matching
+set ignorecase
+" Incremental search
+set incsearch
+" Automatically save before commands like :next, :make
+"set autowrite
+
+
+
+" -----------------------------------------------------------------------------
+" --- Plugins                                                               ---
+" -----------------------------------------------------------------------------
+
+" --- NERDTree
+"
+" Toggle:
+map <leader>n :NERDTreeToggle<CR>
+
+
+" --- vim-rubocop
+"
+" Set config file:
+let g:vimrubocop_config = "~/.vim/resources/rubocop.yml"
+"
+" Check for violations:
+map <Leader>r :RuboCop<CR>
+"
+" Autofix violations:
+map <leader>ra :RuboCop -a<CR>
+"
+" Formatter:
+map <leader>rx :RuboCop -x<CR>
+
+" --- vim-prettier
+"
+" Settings:
+let g:prettier#config#print_width = 80
+let g:prettier#config#tab_width = 2
+let g:prettier#config#use_tabs = "false"
+let g:prettier#config#parser = ""
+let g:prettier#config#config_precedence = "file-override"
+let g:prettier#config#prose_wrap = "preserve"
+let g:prettier#config#html_whitespace_sensitivity = "css"
+let g:prettier#config#require_pragma = "false"
+let g:prettier#config#end_of_line = "lf"
+"
+" Prettify:
+map <leader>p :Prettier<CR>
+

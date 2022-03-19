@@ -1,0 +1,34 @@
+###############################################################################
+## Finds a process and kills it                                              ##
+###############################################################################
+
+## Help reference
+local HELP="Usage:
+--> $0 [process]          : Kills [process]
+--> $0 [process] [signal] : Kills [process] with [signal]"
+
+## Arguments check
+if [ $# != 1 ] && [ $# != 2 ]; then
+	print $HELP
+	return -1
+fi
+
+## Help check
+if [ $1 = '-h' ] || [ $1 = '--help' ]; then
+	print $HELP
+	return 0
+fi
+
+local signal="KILL" # era HUP
+[[ $2 != "" ]] && signal=$2
+	set -A pids $(command ps -eo user,pid,pcpu,pmem,vsz,rss,tty,s,stime,time,comm | grep $1 | grep -v "grep $1" | awk '{ print $2 }')
+if [[ ${#pids} -lt 1 ]]; then
+	print "No matching processes for »$1«" && return 1
+fi
+if [[ ${#pids} -gt 1 ]]; then
+print "${#pids} processes matched: $pids"
+	read -q "?Kill all? [y/n] " || return 0
+fi
+if kill -$signal $pids; then
+	print "Killed $1 pid $pids with SIG$signal"
+fi

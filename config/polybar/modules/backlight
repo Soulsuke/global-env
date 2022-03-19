@@ -1,0 +1,27 @@
+[_backlight]
+enable-scroll = true
+format = <ramp> <label>
+label = %percentage%%
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+type = internal/backlight
+
+
+
+[module/backlight_nvidia]
+inherit = _backlight
+card = nvidia_0
+
+
+
+[module/backlight_intel]
+inherit = _backlight
+card = intel_backlight
+
+
+
+; vim:ft=dosini
+

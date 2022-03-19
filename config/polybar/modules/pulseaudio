@@ -1,0 +1,14 @@
+[module/pulse]
+format-muted = <label-muted>
+format-volume = <ramp-volume> <label-volume>
+interval = 5
+label-muted = 🔇
+label-volume = %percentage%%
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+type = internal/pulseaudio
+use-ui-max = true
+
+; vim:ft=dosini
+

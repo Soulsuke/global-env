@@ -1,0 +1,142 @@
+###############################################################################
+## This file loads the various config files to make editing easier and       ##
+## cleaner. Also sets the global zsh options.                                ##
+###############################################################################
+
+### global-env directory ######################################################
+export GLOBAL_ENV="$(dirname $(readlink ~/.zshrc))"
+
+### Configuration files #######################################################
+source ${GLOBAL_ENV}/func      # loads zsh functions
+source ${GLOBAL_ENV}/env       # loads the enviroment
+source ${GLOBAL_ENV}/aliases   # loads the general aliases
+source ${GLOBAL_ENV}/hosts     # loads host aliases
+source ${HOME}/.z${USER}           # loads user aliases
+
+### Modules ###################################################################
+
+zmodload zsh/mathfunc 
+zmodload -a zsh/stat stat
+zmodload -a zsh/zpty zpty
+zmodload -a zsh/zprof zprof
+zmodload -ap zsh/mapfile mapfile
+zmodload zsh/complist
+
+### Autocomplete extras #######################################################
+compctl -k ping telnet ncftp host nslookup ssh
+compctl -g '*.(gz|z|Z|t[agp]z|tarZ|tz)' + -g '*(-/)' gunzip gzcat zcat
+compctl -g '*.(pdf|PDF)' + -g '*(-/)'  xpdf evince
+compctl -g '[^.]*(-/) *(*)' + -f strip ldd gdb
+compctl -j -P % -x 's[-] p[1]' -k signals -- kill
+
+### Assorted keybindings ######################################################
+#
+## Vim-like, but misses some commands
+bindkey -v
+case ${TERM} in
+  xterm*)
+    # Arch-specific:
+    if [[ $(lsb_release --id | grep Arch) ]]; then
+      bindkey "^[[H" beginning-of-line
+      bindkey "^[[F" end-of-line
+
+    # Other distros:
+    else
+      bindkey "^[OH" beginning-of-line
+      bindkey "^[OF" end-of-line
+    fi
+  ;;
+  screen*)
+    bindkey "^[[1~" beginning-of-line
+    bindkey "^[[4~" end-of-line
+  ;;
+  linux*)
+    bindkey "^[[1~" beginning-of-line
+    bindkey "^[[4~" end-of-line
+  ;;
+  *rxvt*)
+    bindkey "^[[1~" beginning-of-line
+    bindkey "^[[4~" end-of-line
+  ;;
+  Eterm*|mrxvt*)
+    bindkey "^[[1~" beginning-of-line
+    bindkey "^[[4~" end-of-line
+  ;;
+esac
+bindkey '^B' backward-word
+bindkey '^F' forward-word
+bindkey '^D' kill-word
+bindkey '^K' kill-line
+bindkey '^[[3~' delete-char
+bindkey '^Y' yank
+bindkey '^R' history-incremental-search-backward
+bindkey "^[[6~" expand-or-complete 
+bindkey "^P" quote-line
+
+### Shell options #############################################################
+setopt   notify globdots correct pushdtohome cdablevars autolist
+setopt   correctall autocd recexact longlistjobs glob extendedglob
+setopt   autoresume pushdsilent noclobber interactiveComments
+setopt   autopushd pushdminus rcquotes
+unsetopt bgnice autoparamslash
+setopt    nobeep ignoreeof histignorealldups histignorespace PUSHD_IGNORE_DUPS
+setopt   GlobComplete ListPacked ListTypes HistFindNoDups HistReduceBlanks
+setopt   SunKeyboardHack multios list_packed
+
+### Autoloads ################################################################
+autoload -U compinit
+compinit -u
+autoload -U promptinit
+promptinit
+autoload zrecompile
+autoload -U zmv
+autoload colors ; colors
+
+### Zstyle misc ###############################################################
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+zstyle ':completion:*:expand:*' tag-order all-expansions
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+zstyle '*' single-ignored show
+zstyle -e ':completion:*:approximate:*' max-errors \
+    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle -e ':completion:*:sudo:*' command-path 'reply=($path)' 
+
+### Misc ######################################################################
+cdpath=(.. ~)
+#
+## Sysctl completion:
+listsysctls () { set -A reply $(sysctl -AN ${1%.*}) }
+compctl -K listsysctls sysctl
+#
+## Automatically remove duplicates from these arrays
+typeset -U path cdpath fpath manpath
+#
+## csh compatibility
+setenv() { typeset -x "${1}${1:+=}${(@)argv[2,$#]}" }
+#
+## Prevent core files from being written at all
+umask 027
+ulimit -c 0
+#
+## Dircolors:
+eval "$(dircolors)"
+
+### Pywall support ############################################################
+if [[ -f ${HOME}/.cache/wal/sequences ]]; then
+  (cat ${HOME}/.cache/wal/sequences &)
+fi
+
+### Custom theme ##############################################################
+if [ ${DISPLAY} ]; then
+  source ${GLOBAL_ENV}/theme 8bit
+else
+  source ${GLOBAL_ENV}/theme
+fi
+

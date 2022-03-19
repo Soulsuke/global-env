@@ -1,0 +1,21 @@
+[bar/unmei_primary]
+inherit = unmei
+
+; Monitor:
+monitor = DP-0
+
+; Modules:
+modules-center = date
+modules-left = i3
+modules-right = unmei_wifi unmei_eth nordvpn my-ip cpu unmei_cpu_temp memory nvidia pulse backlight_nvidia battery
+
+; Systray:
+tray-maxsize = ${vars.height}
+tray-padding = 1
+tray-position = right
+tray-scale = 1.0
+
+
+
+; vim:ft=dosini
+

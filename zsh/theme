@@ -1,0 +1,208 @@
+###############################################################################
+## Custom theme.                                                             ##
+###############################################################################
+
+# Prompt setup function.
+# Sets up the variables needed to compose the prompt later on.
+function prompt_nns_setup()
+{
+  # Local variables:
+  # NOTE: the following are used elsewhere: 
+  #  - prompt_nns_hyphen -> prompt_nns_compose_top_prompt_line
+  #  - prompt_l_paren -> prompt_nns_compose_top_prompt_line
+  #  - prompt_r_paren -> prompt_nns_compose_top_prompt_line
+  #  - prompt_r_quadr -> prompt_nns_compose_top_prompt_line
+  #  - prompt_gfx_bbox_to_mbox -> prompt_nns_precmd
+  #  - prompt_line_1a -> prompt_nns_compose_top_prompt_line
+  #  - prompt_line_1b -> prompt_nns_compose_top_prompt_line
+  #  - prompt_line_2 -> prompt_nns_precmd
+  local prompt_nns_tlc prompt_nns_mlc prompt_nns_blc prompt_l_quadr
+
+  # Check for 8bit support:
+  if [[ $1 == '8bit' ]]; then
+    shift
+    if [[ ${LC_ALL:-${LC_CTYPE:-$LANG}} = *UTF-8* ]]; then
+      prompt_nns_tlc=$'\xe2\x94\x8c'
+      prompt_nns_mlc=$'\xe2\x94\x9c'
+      prompt_nns_blc=$'\xe2\x94\x94'
+      prompt_nns_hyphen=$'\xe2\x94\x80'
+    else
+      prompt_nns_tlc=$'\xda'
+      prompt_nns_mlc=$'\xc3'
+      prompt_nns_blc=$'\xc0'
+      prompt_nns_hyphen=$'\xc4'
+    fi
+  else
+    prompt_nns_tlc='/'
+    prompt_nns_mlc='|'
+    prompt_nns_blc='\'
+    prompt_nns_hyphen='-'
+  fi
+
+  # Parenthesis shortcuts:
+  prompt_l_paren="%B%F{cyan}(%b"
+  prompt_r_paren="%B%F{cyan})%b"
+  prompt_l_quadr="%B%F{cyan}[%b"
+  prompt_r_quadr="%B%F{cyan}]%b"
+
+  # Hackish, but it works (I won't dare to multiline it):
+  prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_nanashi_color1}${prompt_gfx_mlc}%b%F{$prompt_nanashi_color1}${prompt_gfx_hyphen}%{"$'\e[B%}'
+
+  # Shortcut for the very start of the top prompt line::
+  prompt_nns_tbox="%b%F{cyan}${prompt_nns_tlc}"
+
+  # Left part of the top prompt line (USER@HOST:PWD):
+  prompt_line_1a="$prompt_nns_tbox$prompt_nns_hyphen$prompt_l_quadr"
+  prompt_line_1a+="%n%B@%b%m%f%B:%F{green}%~"
+
+  # Right part of the top prompt line (DATE, TIME $?):
+  prompt_line_1b="$prompt_l_quadr%D{%Y-%m-%d, %H:%M:%S} "
+  prompt_line_1b+="%(?.%B%F{green}●.%B%F{red}▲)"
+  prompt_line_1b+="%b%f$prompt_r_quadr${prompt_nns_hyphen}${prompt_nns_hyphen}"
+
+  # Bottom prompt line:
+  prompt_line_2="%b%F{cyan}${prompt_nns_blc}${prompt_nns_hyphen}%b%F{cyan}"
+
+  # Prompt character depending on the user:
+  prompt_char="%(!.#.$)"
+
+  # Ensures the real prompt-composing function will be called when needed:
+  add-zsh-hook precmd prompt_nns_precmd
+}
+
+
+
+# Obtains git data to display.
+function prompt_nns_git_data()
+{
+  # Local variables:
+  local porcelain porcelain_legend name reg cnt
+
+  # Git checks:
+  prompt_git="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+  if [[ "" != $prompt_git ]]; then
+    # Make it bold and use the right color:
+    prompt_git=" %F{magenta}%B$prompt_git"
+
+    # Add in some data from git porcelain:
+    porcelain="$(git status --porcelain)"
+
+    # Porcelain data to show:
+    typeset -A porcelain_legend=(
+      [modified]="^.M"
+      [deleted]="^.D"
+      [added]="^A."
+      [untracked]="^??"
+      [uncommitted]="^[MR]"
+    )
+
+    # Iterate over the data to show:
+    for name reg in ${(kv)porcelain_legend}; do
+      cnt="$(grep $reg <<< $porcelain | wc -l)"
+      if [[ 0 < $cnt ]]; then
+        prompt_git+=" %F{yellow}$name:$cnt"
+      fi
+    done
+
+    # Check for stashed data:
+    if [[ "" != "$(git stash list)" ]]; then
+      prompt_git+=" %F{yellow}stashed"
+    fi
+
+    # Check for unpushed branch:
+    if [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
+      prompt_git+=" %F{yellow}ahead"
+    fi
+
+    # Bold not needed anymore:
+    prompt_git+="%b"
+  fi
+}
+
+
+
+# Composes the top prompt line for the current terminal width.
+function prompt_nns_compose_top_prompt_line()
+{
+  # Local variables: 
+  local prompt_git prompt_line_1a_git prompt_line_1a_w \
+    prompt_line_1b_w prompt_padding_size
+
+  # Add eventual git data::
+  prompt_nns_git_data
+  prompt_line_1a_git="$prompt_line_1a$prompt_git$prompt_r_quadr$prompt_nns_hyphen"
+
+  # Calculate some widths and padding size:
+  prompt_line_1a_w=${#${(S%%)prompt_line_1a_git//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  prompt_line_1b_w=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  prompt_padding_size=$(( COLUMNS - prompt_line_1a_w -
+                          prompt_line_1b_w
+                      ))
+
+  # Everything can fit and there's some extra space to fill with padding:
+  if [[ $prompt_padding_size > 0 ]]; then
+    local prompt_padding
+    prompt_padding="prompt_padding=\${(l:${prompt_padding_size}::"
+    prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
+    eval "$prompt_padding"
+    prompt_line_1="$prompt_line_1a_git$prompt_padding$prompt_line_1b"
+    return
+  fi
+
+  # If it won't fit however, let's try taking out the right part of the prompt,
+  # giving priority to the long USER@HOST:PWD part:
+  prompt_padding_size=$(( COLUMNS - prompt_line_1a_w ))
+  if [[ $prompt_padding_size > 0 ]]; then
+    local prompt_padding
+    prompt_padding="prompt_padding=\${(l:${prompt_padding_size}::"
+    prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
+    eval "$prompt_padding"
+    prompt_line_1="$prompt_line_1a_git$prompt_padding"
+    return
+  fi
+
+  # If we got here we are out of options and gotta truncate the prompt:
+  local prompt_pwd_size=$(( COLUMNS - 5 ))
+  prompt_line_1="$prompt_nns_tbox$prompt_l_paren%B%F{green}%$prompt_pwd_size"
+  prompt_line_1+="<...<%~%<<$prompt_r_paren%b%F{cyan}$prompt_nns_hyphen"
+}
+
+
+
+# Composes the prompt putting everything together. 
+prompt_nns_precmd()
+{
+  # Local variables:
+  local prompt_line_1
+
+  # May as well keep these:
+  setopt noxtrace localoptions extendedglob
+
+  # Input text stype:
+  zle_highlight[(r)default:*]="default:fg=green,bold"
+
+  # Compose the top prompt line:
+  prompt_nns_compose_top_prompt_line
+
+  # Set the tab's title:
+  print -Pn "\e]0;${USER}@${HOST}:%~\a"
+
+  # PS1, default prompt:
+  PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{white}"
+  PS1+="$prompt_char %b%f%k"
+
+  # PS2, continuation interactive prompt:
+  PS2="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}%_> %b%f%k"
+
+  # PS3, select:
+  PS3="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}?# %b%f%k"
+
+  # PS4, tracing:
+  PS4="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white} %N.%i >"
+}
+
+
+
+# Since we got here, setup the prompt:
+prompt_nns_setup "$@"
+

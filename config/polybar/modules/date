@@ -1,0 +1,12 @@
+[module/date]
+date = %Y-%m-%d, %A
+date-alt = %m-%d
+interval = 1
+label = %{A3:gsimplecal:}%time% %date%%{A}
+time = %H:%M:%S
+time-alt = %H:%M
+type = internal/date
+
+
+; vim:ft=dosini
+

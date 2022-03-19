@@ -1,0 +1,5 @@
+# Locker modality to use. Allowed values are:
+#  - fakeBsod10
+#  - pixelated
+modality=fakeBsod10
+

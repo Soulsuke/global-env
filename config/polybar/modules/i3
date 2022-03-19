@@ -1,0 +1,30 @@
+[module/i3]
+enable-click = true
+enable-scroll = true
+index-sort = true
+pin-workspaces = true
+strip-wsnumbers = true
+type = internal/i3
+wrapping-scroll = true
+; Focused workspace:
+label-focused = %name%
+label-focused-foreground = ${colors.bg}
+label-focused-background = ${colors.fg}
+label-focused-underline = 
+label-focused-padding = 1
+; Unfocused workspace:
+label-unfocused = %name%
+label-unfocused-padding = 1
+; Active workspace on another monitor:
+label-visible = %name%
+label-visible-background = ${colors.bg-unfocused}
+label-visible-underline = ${colors.fg}
+label-visible-padding = ${self.label-focused-padding}
+; Workspace with urgency hint:
+label-urgent = %name%
+label-urgent-background = ${colors.bg-urgent}
+label-urgent-foreground = ${colors.fg-urgent}
+label-urgent-padding = 1
+
+; vim:ft=dosini
+
