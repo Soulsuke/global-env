@@ -10,6 +10,6 @@ if [[ -x ~/.scripts/7shi/lockscreen/lockers/${1}.zsh ]]; then
   xset dpms 0 0 $(( ${MINS} * 60 + 30 ))
   
   # Run the real locking command every 15 minutes via xautolock:
-  xautolock -time ${MINS} -locker ~/.scripts/7shi/lockscreen/lockers/${1}.zsh
+  xautolock -time ${MINS} -locker ~/.scripts/7shi/lockscreen/lockers/${1}.zsh &
 fi
 
