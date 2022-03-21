@@ -1,7 +1,7 @@
 #! /usr/bin/env zsh
 
 # Only do something if the given locker exists:
-if [[ -x ~/.scripts/lockscreen/lockers/${1}.zsh ]]; then
+if [[ -x ~/.scripts/7shi/lockscreen/lockers/${1}.zsh ]]; then
   # Minutes to wait before lock & powersave:
   local MINS=10
   
