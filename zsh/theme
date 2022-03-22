@@ -76,13 +76,13 @@ function prompt_nns_setup()
 function prompt_nns_git_data()
 {
   # Local variables:
-  local porcelain porcelain_legend name reg cnt
+  local porcelain porcelain_legend name reg cnt branch_git
 
   # Git checks:
-  prompt_git="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-  if [[ "" != $prompt_git ]]; then
+  branch_git="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+  if [[ "" != $pbranch_git ]]; then
     # Make it bold and use the right color:
-    prompt_git=" %F{magenta}%B$prompt_git"
+    prompt_git=" %F{magenta}%B$branch_git"
 
     # Add in some data from git porcelain:
     porcelain="$(git status --porcelain)"
@@ -109,7 +109,12 @@ function prompt_nns_git_data()
       prompt_git+=" %F{yellow}stashed"
     fi
 
-    # Check for unpushed branch:
+    # Check for unpushed commits:
+    if [[ "" != $(git log "origin/$branch_git..HEAD") ]]; then
+      prompt_git+=" %F{yellow}to_push"
+    fi
+
+    # Check if we are ahead::
     if [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
       prompt_git+=" %F{yellow}ahead"
     fi
