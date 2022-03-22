@@ -76,11 +76,11 @@ function prompt_nns_setup()
 function prompt_nns_git_data()
 {
   # Local variables:
-  local porcelain porcelain_legend name reg cnt branch_git
+  local porcelain porcelain_legend name reg cnt
 
   # Git checks:
   branch_git="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-  if [[ "" != $pbranch_git ]]; then
+  if [[ "" != $branch_git ]]; then
     # Make it bold and use the right color:
     prompt_git=" %F{magenta}%B$branch_git"
 
@@ -110,7 +110,7 @@ function prompt_nns_git_data()
     fi
 
     # Check for unpushed commits:
-    if [[ "" != $(git log "origin/$branch_git..HEAD") ]]; then
+    if [[ "" != "$(git log origin/$branch_git..HEAD)" ]]; then
       prompt_git+=" %F{yellow}to_push"
     fi
 
