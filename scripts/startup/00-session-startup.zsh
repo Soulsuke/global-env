@@ -42,7 +42,7 @@ esac
 
 
 # Common for Every DE, after the compositor is in place:
-gnome-keyring-daemon --start --daemonize --unlock
+gnome-keyring-daemon --start
 pasystray &
 redshift-gtk &
 tilda &
