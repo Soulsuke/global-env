@@ -84,13 +84,13 @@ client.placeholder      $bg_plc $bg_plc $fg_urg $bg_plc   $bg_plc
 for_window [ workspace=$ws01 ] layout tabbed
 for_window [ workspace=$ws02 ] layout tabbed
 for_window [ workspace=$ws03 ] layout tabbed
-for_window [ workspace=$ws04 ] floating enable # This is the gaming workspace
+for_window [ workspace=$ws04 ] layout tabbed
 for_window [ workspace=$ws05 ] layout tabbed
 for_window [ workspace=$ws06 ] layout tabbed
 for_window [ workspace=$ws07 ] layout tabbed
 for_window [ workspace=$ws08 ] layout tabbed
 for_window [ workspace=$ws09 ] layout tabbed
-for_window [ workspace=$ws10 ] layout tabbed
+for_window [ workspace=$ws10 ] floating enable # This is the gaming workspace
 #
 ### Per-window overrides:
 ###############################################################################
@@ -118,8 +118,8 @@ assign [ class="Insomnia Designer" ] $ws03
 assign [ class="Apache NetBeans.*" ] $ws03
 assign [ class="jetbrains-studio" ] $ws03
 assign [ class="Eclipse" ] $ws03
-# 04
-assign [ class="Deluge-gtk" ] $ws05
+# 08
+assign [ class="Deluge-gtk" ] $ws08
 # 09
 assign [ class="gw2-64.exe" ] $ws09
 # 10
