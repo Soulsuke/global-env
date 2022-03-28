@@ -1,64 +1,14 @@
-# Default editors: change accordingly to your tastes
-MY_CLI_EDITOR=vim
-MY_GUI_EDITOR=gvim
-
-##################################
-## DO NOT EDIT BELOW THIS POINT ##
-##################################
-
-# Help check:
-if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
-  print "Usage:"
-  print "$0    : edit the zsh config files this account can write on."
-  print ""
-  print "Allowed switches:"
-  print "\-a/--all: open all zsh config files, ignoring permissions."
-  print "\-g/--gui: use a graphical text editor."
-  print "\-h/--help: show this help reference."
-  print ""
-  print "Text editors that will be used:"
-  print "cli: $MY_CLI_EDITOR"
-  print "gui: $MY_GUI_EDITOR"
-  return 0
-fi
-
-# Features' control variables:
-EDIT_ALL=0
-USE_GUI=0
-
-# Switches check:
-for i in $@; do
-  if [[ $i == "-a" ]] || [[ $i == "--all" ]]; then
-    EDIT_ALL=1
-  elif [[ $i == "-g" ]] || [[ $i == "--gui" ]]; then
-    USE_GUI=1
-  fi
-done
-
-# Set the editor, depending on the GUI switch and X availability:
-if [[ ! "" == $DISPLAY ]] && [[ 1 == $USE_GUI ]]; then
-  EXEC_EDITOR=$MY_GUI_EDITOR
-  PARAMS=("-geom" "84x40" "-fg" "#00FF00" "-bg" "black")
+# If the main zshrc file is writable, all files can be opened for editing:
+if [[ -w "${GLOBAL_ENV}/zshrc" ]]; then
+  vim -p "${GLOBAL_ENV}/zshrc" \
+    "${GLOBAL_ENV}/env" \
+    "${GLOBAL_ENV}/func" \
+    "${GLOBAL_ENV}/aliases" \
+    "${GLOBAL_ENV}/hosts" \
+    "${GLOBAL_ENV}/hosts_envs/$HOST" \
+    "${HOME}/.z$(whoami)"
+# Otherwise it's just the user's config file:
 else
-  EXEC_EDITOR=$MY_CLI_EDITOR
-  PARAMS=()
+  vim "${HOME}/.z$(whoami)"
 fi
-
-# The global files should be edited only if this script has been run by root, or
-# if the bypass switch has been passed:
-if [[ $(whoami) == "root" ]] || [[ 1 == $EDIT_ALL ]]; then
-  cd $GLOBAL_ENV
-  $EXEC_EDITOR $PARAMS zshrc \
-    -c "tabnew env" \
-    -c "tabnew func" \
-    -c "tabnew aliases" \
-    -c "tabnew hosts" \
-    -c "tabnew hosts_envs/$HOST" \
-    -c "tabnew ~/.z$(whoami)"
-  cd -
-else
-  $EXEC_EDITOR $PARAMS ~/.z$(whoami)
-fi
-
-unset MY_CLI_EDITOR MY_GUI_EDITOR EXEC_EDITOR PARAMS EDIT_ALL USE_GUI 
 
