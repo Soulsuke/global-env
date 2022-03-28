@@ -47,15 +47,14 @@ fi
 # The global files should be edited only if this script has been run by root, or
 # if the bypass switch has been passed:
 if [[ $(whoami) == "root" ]] || [[ 1 == $EDIT_ALL ]]; then
-  cd $GLOBAL_ENV/zsh
-  $EXEC_EDITOR $PARAMS zshrc -c "tabnew env" -c "tabnew func" \
-               -c "tabnew aliases" -c "tabnew hosts" \
-               -c "tabnew hosts_envs/ALIBIVM06" \
-               -c "tabnew hosts_envs/chunchunmaru" \
-               -c "tabnew hosts_envs/debian" \
-               -c "tabnew hosts_envs/otp-mmes-build" \
-               -c "tabnew hosts_envs/unmei" \
-               -c "tabnew ~/.z$(whoami)"
+  cd $GLOBAL_ENV
+  $EXEC_EDITOR $PARAMS zshrc \
+    -c "tabnew env" \
+    -c "tabnew func" \
+    -c "tabnew aliases" \
+    -c "tabnew hosts" \
+    -c "tabnew hosts_envs/$HOST" \
+    -c "tabnew ~/.z$(whoami)"
   cd -
 else
   $EXEC_EDITOR $PARAMS ~/.z$(whoami)
