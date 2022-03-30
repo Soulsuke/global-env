@@ -110,7 +110,7 @@ function prompt_nns_git_data()
     fi
 
     # Check for unpushed commits:
-    if [[ "" != "$(git log origin/$branch_git..HEAD)" ]]; then
+    if [[ "" != "$(git log origin/$branch_git..HEAD 2&> /dev/null)" ]]; then
       prompt_git+=" %F{yellow}to_push"
     fi
 

@@ -3,6 +3,7 @@ if [[ -w "${GLOBAL_ENV}/zshrc" ]]; then
   vim -p "${GLOBAL_ENV}/zshrc" \
     "${GLOBAL_ENV}/env" \
     "${GLOBAL_ENV}/func" \
+    "${GLOBAL_ENV}/theme" \
     "${GLOBAL_ENV}/aliases" \
     "${GLOBAL_ENV}/hosts" \
     "${GLOBAL_ENV}/hosts_envs/$HOST" \
