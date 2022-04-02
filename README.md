@@ -28,3 +28,16 @@ TL;DR: I should probably feel ashamed and rewrite some of these files (most
 notably the ones within zsh folder), but it probably won't happen anytime
 soon.  
 
+
+
+### Notes
+
+Just to remind that PAM should be configured to unlock gnome-keyring-daemon 
+keyrings on login:  
+```
+/etc/pam.d/login
+
+auth       optional     pam_gnome_keyring.so
+session    optional     pam_gnome_keyring.so auto_start
+```
+
