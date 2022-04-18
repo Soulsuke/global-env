@@ -5,6 +5,9 @@ xrandr --dpi 100
 setxkbmap it
 ibus-daemon -drx
 case ${HOST} in
+  chunchunmaru)
+    nvidia-settings -l
+  ;;
   unmei)
     nvidia-settings -l
   ;;

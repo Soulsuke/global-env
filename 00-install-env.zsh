@@ -35,7 +35,11 @@ local _WAL_PRESENT_=$+commands[wal]
 # System-wide config, only if run as root:
 if [[ 0 == ${UID} ]]; then
   cd ${_GLOBAL_ENV_PATH_}/root
-  env_link "X11/73-keyboard.conf" "/etc/X11/xorg.conf.d/73-keyboard.conf"
+  env_link "X11/74-keyboard.conf" "/etc/X11/xorg.conf.d/74-keyboard.conf"
+
+  if [[ $(command -v "nvidia-settings") ]]; then
+    env_link "X11/74-nvidia.conf" "/etc/X11/xorg.conf.d/74-nvidia.conf"
+  fi
 fi
 
 # Vim:
