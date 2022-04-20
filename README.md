@@ -32,12 +32,37 @@ soon.
 
 ### Notes
 
-Just to remind that PAM should be configured to unlock gnome-keyring-daemon 
+##### Gnome keyring
+
+Just areminder that PAM should be configured to unlock gnome-keyring-daemon 
 keyrings on login:  
+
 ```
 /etc/pam.d/login
 
 auth       optional     pam_gnome_keyring.so
 session    optional     pam_gnome_keyring.so auto_start
+```
+
+##### Xorg nvidia config
+
+Configuration to avoid a couple of tearing issues with picom when using a
+nvidia card:  
+
+```
+Section "Device"
+  Identifier "nvidia"
+  Driver "nvidia"
+  VendorName "NVIDIA Corporation"
+  Option "Coolbits" "28"
+  Option "RegistryDwords" "EnableBrightnessControl=1"
+EndSection
+
+Section "Screen"
+  Identifier "nvidia"
+  Option "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+  Option "AllowIndirectGLXProtocol" "off"
+  Option "TripleBuffer" "on"
+EndSection
 ```
 
