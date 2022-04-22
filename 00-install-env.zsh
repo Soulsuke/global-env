@@ -36,11 +36,21 @@ local _WAL_PRESENT_=$+commands[wal]
 if [[ 0 == ${UID} ]]; then
   cd ${_GLOBAL_ENV_PATH_}/root
 
-  # Common X11 settings:
+  ### X11
+  #############################################################################
   mkdir -p /etc/X11/xorg.conf.d
-  for f in X11/*.conf ; do
-    env_link "${f}" "/etc/X11/xorg.conf.d/$(basename ${f})"
-  done
+
+   # Common X11 settings:
+   for f in X11/*.conf ; do
+     env_link "${f}" "/etc/X11/xorg.conf.d/$(basename ${f})"
+   done
+
+  # Per host X11 settings:
+  if [[ -d "X11/${HOST}" ]]; then
+    for f in "X11/${HOST}/"* ; do
+      env_link "${f}" "/etc/X11/xorg.conf.d/$(basename ${f})"
+    done
+  fi
 fi
 
 # Vim:
