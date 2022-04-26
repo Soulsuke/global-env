@@ -71,7 +71,21 @@ source "${HOME}/.zshrc"
 cd ${_GLOBAL_ENV_PATH_}/config
 for i in *; do
   mkdir -p "${HOME}/.config"
-  env_link ${i} "${HOME}/.config/${i}"
+
+  case $i in
+    # Cherrytree needs to have its config copied:
+    cherrytree)
+      mkdir -p "${HOME}/.config/cherrytree"
+      rm -fr "${HOME}/.config/cherrytree/config.cfg*" &> /dev/null
+      cp cherrytree/config.cfg "${HOME}/.config/cherrytree/"
+      env_link cherrytree/styles "${HOME}/.config/cherrytree/styles"
+    ;;
+
+    # Everything else:
+    default)
+      env_link ${i} "${HOME}/.config/${i}"
+    ;;
+  esac
 done
 
 # Dunst:
