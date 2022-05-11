@@ -46,19 +46,7 @@ case ${TERM} in
       bindkey "^[OF" end-of-line
     fi
   ;;
-  screen*)
-    bindkey "^[[1~" beginning-of-line
-    bindkey "^[[4~" end-of-line
-  ;;
-  linux*)
-    bindkey "^[[1~" beginning-of-line
-    bindkey "^[[4~" end-of-line
-  ;;
-  *rxvt*)
-    bindkey "^[[1~" beginning-of-line
-    bindkey "^[[4~" end-of-line
-  ;;
-  Eterm*|mrxvt*)
+  Eterm*|linux*|screen*|*rxvt*)
     bindkey "^[[1~" beginning-of-line
     bindkey "^[[4~" end-of-line
   ;;
