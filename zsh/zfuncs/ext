@@ -1,75 +1,148 @@
 ###############################################################################
-## Wrapper to easily show contents of or to extract an archive.              ## 
+## Wrapper to easily show contents of or to extract an archive.              ##
 ###############################################################################
 
-# Help reference
-local HELP="Usage:
---> $0 [archive]        : extracts [archive] in the current folder.
---> $0 [archive] [path] : extracts [archive] in [path], creating the various
-                           directories in [path] if they don't exist.
---> $0 -s [archive]     : shows contents of [archive] without extracting it."
+# Help reference:
+function help()
+{
+  local NAME="$(basename "${1}")"
+  print "Usage:" \
+    "\n--> ${NAME} [archive]        : extracts [archive] in the current " \
+      "folder." \
+    "\n--> ${NAME} [archive] [path] : extracts [archive] in [path]," \
+      "creating the various directories in [path] if they don't exist." \
+    "\n--> ${NAME} -s [archive]     : shows contents of [archive] without" \
+      "extracting it."
+}
 
-# Help check
-if [[ $1 = "-h" ]] || [[ $1 = "--help" ]]; then
-  print $HELP
-  return 0
-fi
+# Help check:
+[[ ${1} = "-h" ]] || [[ ${1} = "--help" ]] && help "${0}" && return 0
 
-# Arguments check
-if [[ $# != 1 ]] && [[ $# != 2 ]]; then
-  print $HELP
-  return -1
-fi
+# Arguments check:
+[[ $# != 1 ]] && ([[ $# != 2 ]] ) && help "${0}" && return 1
 
-# Useful variables:
+# Valorize these:
 local ARCHIVE
-local TMP
-typeset -l TMP
-
-# Archive existence check
-if [[ $1 == "-s" ]] && [[ $# == 2 ]]; then
-  ARCHIVE=$2
+local EXT_PATH
+if [[ ${1} == "-s" ]] && [[ $# == 2 ]]; then
+  ARCHIVE=${2}
 else
-  ARCHIVE=$1
-fi
-if [ ! -e $ARCHIVE ]; then
-  print "The file $ARCHIVE doesn't exist."
-  return -1
-fi
+  ARCHIVE=${1}
+  EXT_PATH=${2}
 
-TMP=$ARCHIVE
-# Extract the archive:
-if [[ ! $1 == "-s" ]]; then
-  # Path setup
-  if [ $# = 2 ]; then
-    if [ -e $2 ]; then
-      mkdir -p $2
-    fi
-    local EP="$2"
+  # No EXP_PATH given, default to current foldeR:
+  if [[ "" == "${EXT_PATH}" ]]; then
+    EXT_PATH="."
+
+  # Otherwise check if it can be created:
   else
-    local EP="."
+    mkdir -p "${EXT_PATH}" &> /dev/null
+    if [[ 0 != $? ]]; then
+      print "Cannot create path: '${EXT_PATH}'"
+      return 2
+    fi
   fi
-  case $TMP in
-    *.tar.bz2 | *.tbz2) tar -xjvf $ARCHIVE -C $EP                            ;;
-    *.tar.gz | *.tgz)   tar -xzvf $ARCHIVE -C $EP                            ;;
-    *.tar)              tar -xvf $ARCHIVE -C $EP                             ;;
-    *.bz2)              bunzip2 -k $ARCHIVE                                  ;;
-    *.gz)               gunzip $ARCHIVE                                      ;;
-    *.rar)              unrar x -y $ARCHIVE $EP                              ;;
-    *.zip)              unzip $ARCHIVE -d "${EP}/$(basename $ARCHIVE .zip)/" ;;
-    *.7z)               7z x $ARCHIVE -o$EP                                  ;; 
-    *) print "Archive type not supported" && return -1                       ;;
+fi
+
+# Archive existence check:
+if [[ ! -f "${ARCHIVE}" ]]; then
+  print "File not found: '${ARCHIVE}'"
+  return 3
+fi
+
+# If we have to show the archive's contents:
+if [[ ${1} == '-s' ]]; then
+  case "${ARCHIVE:l}" in
+    *.tar.bz2 | *.tbz2)
+      tar -tjf "${ARCHIVE}"
+    ;;
+
+    *.tar.gz | *.tgz)
+      tar -ztf "${ARCHIVE}"
+    ;;
+
+    *.7z)
+      7z l "${ARCHIVE}"
+    ;;
+
+    *.bz2)
+      bzless "${ARCHIVE}"
+    ;;
+
+    *.gz)
+      gunzip -l "${ARCHIVE}"
+    ;;
+
+    *.rar)
+      unrar lb "${ARCHIVE}"
+    ;;
+
+    *.tar)
+      tar -tf "${ARCHIVE}"
+    ;;
+
+    *.xz)
+      xz -l "${ARCHIVE}"
+    ;;
+
+    *.zip)
+      unzip -l "${ARCHIVE}"
+    ;;
+
+    *)
+      print "Archive type not supported"
+      return 4
+    ;;
   esac
-# Show the archive's content:
+
+# If we gotta extract the archive:
 else
-  case $TMP in
-    *.tar.bz2 | *.tbz2) tar -tjf $ARCHIVE                                 ;;
-    *.tar.gz | *.tgz)   tar -ztf $ARCHIVE                                 ;;
-    *.tar)              tar -tf $ARCHIVE                                  ;;
-    *.bz2)              bzless $ARCHIVE                                   ;;
-    *.rar)              unrar lb $ARCHIVE                                 ;;
-    *.zip)              unzip -l $ARCHIVE -p "$(basename $ARCHIVE .zip)/" ;;
-    *.7z)               7z l $ARCHIVE                                     ;;
-    *) print "Archive type not supported" && return -1                    ;;
+  case "${ARCHIVE:l}" in
+    *.tar.bz2 | *.tbz2)
+      tar -xjvf "${ARCHIVE}" -C "${EXT_PATH}"
+    ;;
+
+    *.tar.gz | *.tgz)
+      tar -xzvf "${ARCHIVE}" -C "${EXT_PATH}"
+    ;;
+
+    *.7z)
+      7z x "${ARCHIVE}" -o "${EXT_PATH}"
+    ;;
+
+    *.bz2)
+      bunzip2 -k "${ARCHIVE}"
+    ;;
+
+    *.gz)
+      gunzip "${ARCHIVE}"
+    ;;
+
+    *.rar)
+      unrar x -y "${ARCHIVE}" "${EXT_PATH}"
+    ;;
+
+    *.tar)
+      tar -xvf "${ARCHIVE}" -C "${EXT_PATH}"
+    ;;
+
+    *.xz)
+      mv "${ARCHIVE}" "${ARCHIVE}.or"
+      cp "${ARCHIVE}.or" "${EXT_PATH}/$(basename "${ARCHIVE}")"
+      cd ${EXT_PATH}
+      xz -d "${ARCHIVE}"
+      cd -
+      mv "${ARCHIVE}.or" "${ARCHIVE}"
+    ;;
+
+    *.zip)
+      unzip "${ARCHIVE}" -d "${EXT_PATH}"
+    ;;
+
+    *)
+      print "Archive type not supported"
+      return 4
+    ;;
   esac
 fi
+

@@ -1,3 +1,7 @@
+###############################################################################
+## Quick script to edit zsh configuration files.                             ##
+###############################################################################
+
 # If the main zshrc file is writable, all files can be opened for editing:
 if [[ -w "${GLOBAL_ENV}/zshrc" ]]; then
   vim -p "${GLOBAL_ENV}/zshrc" \
