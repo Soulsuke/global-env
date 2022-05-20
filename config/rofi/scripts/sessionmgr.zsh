@@ -11,11 +11,11 @@ source ~/.scripts/7shi/lib/load_conf.zsh
 
 # Commands to execute in an ordered array which will be used as a sort of hash:
 roficmds=(
-  'Lock screen' "$(7shi_load_conf ~/.config/7shi/rofi_sessionmgr locker)"
-  'Suspend'     'systemctl suspend'
-  'Logout'      "${LOGOUT_CMD}"
-  'Reboot'      'reboot'
-  'Shutdown'    'shutdown -h now'
+  'Lock screen'    "$(7shi_load_conf ~/.config/7shi/rofi_sessionmgr locker)"
+  'Logout'         "${LOGOUT_CMD}"
+  'Reboot'         'reboot'
+  'Shutdown'       'shutdown -h now'
+  'Suspend to ram' 'systemctl suspend'
 )
 
 # If no parameters have been given, print the menu:
