@@ -6,10 +6,10 @@
 ### To see the help reference of a certain function, run it with -h or --help #
 #
 ## Add the main folder to fpath:
-fpath=($fpath ${GLOBAL_ENV}/zfuncs)
+fpath=($fpath ${GLOBAL_ENV}/funcs)
 #
 ## Then load all of them:
-for i in ${GLOBAL_ENV}/zfuncs/*; do
+for i in ${GLOBAL_ENV}/funcs/*; do
   autoload ${i}
 done
 
@@ -26,6 +26,14 @@ function 2html()
 {
   vim -n -c ':so ${VIMRUNTIME}/syntax/2html.vim' -c ':wqa' $1 > \
   /dev/null 2> /dev/null
+}
+#
+## Show terminal colors
+function cols()
+{
+  for i in {0..255}; do
+    print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}
+  done
 }
 #
 ## Needed by pskill
