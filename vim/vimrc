@@ -132,3 +132,8 @@ let g:prettier#config#end_of_line = "lf"
 " Prettify:
 map <leader>p :Prettier<CR>
 
+" --- coc.nvim
+"
+" Add ruby completion:
+let g:coc_global_extensions = [ 'coc-solargraph' ]
+
