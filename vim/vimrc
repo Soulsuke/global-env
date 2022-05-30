@@ -104,13 +104,13 @@ map <leader>n :NERDTreeToggle<CR>
 
 
 " --- vim-easycomplete
-map ae :EasyCompleteEnable<CR>
-map ad :EasyCompleteDisable<CR>
-map ar :EasyCompleteReference<CR>
-map ac :EasyCompleteCheck<CR>
-map adp :EasyCompletePreviousDiagnostic<CR>
-map adn :EasyCompleteNextDiagnostic<CR>
-map al :EasyCompleteLint<CR>
+map <Leader>ae :EasyCompleteEnable<CR>
+map <Leader>ad :EasyCompleteDisable<CR>
+map <Leader>ar :EasyCompleteReference<CR>
+map <Leader>ac :EasyCompleteCheck<CR>
+map <Leader>adp :EasyCompletePreviousDiagnostic<CR>
+map <Leader>adn :EasyCompleteNextDiagnostic<CR>
+map <Leader>al :EasyCompleteLint<CR>
 
 
 
