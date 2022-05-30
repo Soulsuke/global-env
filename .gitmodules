@@ -1,0 +1,17 @@
+[submodule "vim/vim/bundle/coc.nvim"]
+	path = vim/vim/bundle/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
+	branch = release
+[submodule "vim/vim/bundle/nerdtree"]
+	path = vim/vim/bundle/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule "vim/vim/bundle/vim-coffee-script"]
+	path = vim/vim/bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "vim/vim/bundle/vim-prettier"]
+	path = vim/vim/bundle/vim-prettier
+	url = https://github.com/prettier/vim-prettier.git
+[submodule "vim/vim/bundle/vim-rubocop"]
+	path = vim/vim/bundle/vim-rubocop
+	url = https://github.com/ngmy/vim-rubocop.git
+
