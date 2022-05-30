@@ -26,6 +26,12 @@ function env_link()
   ln -s "${PWD}/${1}" "${2}"
 }
 
+# Download git submodules:
+git submodule update --init --recursive
+
+# Update git submodules:
+git submodule update --remote --merge
+
 # Global env's directory:
 local _GLOBAL_ENV_PATH_=${0:A:h}
 
