@@ -102,6 +102,18 @@ set incsearch
 map <leader>n :NERDTreeToggle<CR>
 
 
+
+" --- vim-easycomplete
+map <Leader>ae :EasyCompleteEnable<CR>
+map <Leader>ad :EasyCompleteDisable<CR>
+map <Leader>ar :EasyCompleteReference<CR>
+map <Leader>ac :EasyCompleteCheck<CR>
+map <Leader>adp :EasyCompletePreviousDiagnostic<CR>
+map <Leader>adn :EasyCompleteNextDiagnostic<CR>
+map <Leader>al :EasyCompleteLint<CR>
+
+
+
 " --- vim-rubocop
 "
 " Set config file:
@@ -115,6 +127,8 @@ map <leader>ra :RuboCop -a<CR>
 "
 " Formatter:
 map <leader>rx :RuboCop -x<CR>
+
+
 
 " --- vim-prettier
 "
@@ -131,9 +145,4 @@ let g:prettier#config#end_of_line = "lf"
 "
 " Prettify:
 map <leader>p :Prettier<CR>
-
-" --- coc.nvim
-"
-" Add ruby completion:
-let g:coc_global_extensions = [ 'coc-solargraph' ]
 

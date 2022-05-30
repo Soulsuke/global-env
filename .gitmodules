@@ -1,7 +1,3 @@
-[submodule "vim/vim/bundle/coc.nvim"]
-	path = vim/vim/bundle/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
-	branch = release
 [submodule "vim/vim/bundle/nerdtree"]
 	path = vim/vim/bundle/nerdtree
 	url = https://github.com/preservim/nerdtree.git
@@ -14,4 +10,6 @@
 [submodule "vim/vim/bundle/vim-rubocop"]
 	path = vim/vim/bundle/vim-rubocop
 	url = https://github.com/ngmy/vim-rubocop.git
-
+[submodule "vim/vim/bundle/vim-easycomplete"]
+	path = vim/vim/bundle/vim-easycomplete
+	url = https://github.com/jayli/vim-easycomplete.git
