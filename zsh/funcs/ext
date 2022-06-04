@@ -107,7 +107,7 @@ else
     ;;
 
     *.7z)
-      7z x "${ARCHIVE}" -o "${EXT_PATH}"
+      7z x "${ARCHIVE}" -o"${EXT_PATH}"
     ;;
 
     *.bz2)
