@@ -160,9 +160,9 @@
 ###############################################################################
 
 [urgency_low]
-  background = "{color8}"
-  foreground = "{foreground}"
-  frame-color = "{foreground}"
+  background = "{color0}"
+  foreground = "{color2}"
+  frame-color = "{color2}"
   timeout = 10
 
 [urgency_normal]
