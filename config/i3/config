@@ -90,7 +90,8 @@ for_window [ workspace=$ws06 ] layout tabbed
 for_window [ workspace=$ws07 ] layout tabbed
 for_window [ workspace=$ws08 ] layout tabbed
 for_window [ workspace=$ws09 ] layout tabbed
-for_window [ workspace=$ws10 ] floating enable # This is the gaming workspace
+# This is Steam's workspace:
+for_window [ workspace=$ws10 ] floating enable
 #
 ### Per-window overrides:
 ###############################################################################
