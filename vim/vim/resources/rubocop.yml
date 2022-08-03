@@ -100,6 +100,12 @@ Style/RescueStandardError:
   Enabled: true
   EnforcedStyle: implicit
 
+# Because yes.
+StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
 # This is just to be consistent: I'm fine with pushing for unless instead of
 # if !, but shouldn't this apply to cases with an else as well?
 Style/UnlessElse:
