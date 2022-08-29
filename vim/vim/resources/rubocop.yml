@@ -101,7 +101,13 @@ Style/RescueStandardError:
   EnforcedStyle: implicit
 
 # Because yes.
-StringLiterals:
+Style/SymbolArray:
+  Enabled: true
+  EnforcedStyle: brackets
+  MinSize: 1
+
+# Because yes.
+Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
   ConsistentQuotesInMultiline: true
@@ -111,6 +117,13 @@ StringLiterals:
 Style/UnlessElse:
   Enabled: false
 
+# Because yes.
+Style/WordArray:
+  Enabled: true
+  EnforcedStyle: brackets
+  MinSize: 1
+
+# Because yes.
 Style/YodaCondition:
   EnforcedStyle: require_for_equality_operators_only
 
