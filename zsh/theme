@@ -109,17 +109,24 @@ function prompt_nns_git_data()
       prompt_git+=" %F{yellow}stashed"
     fi
 
-    # Check for unpushed commits:
-    if [[ "" != "$(git log origin/$branch_git..HEAD 2&> /dev/null)" ||
-          0 != $?
-       ]];
-    then
-      prompt_git+=" %F{yellow}to_push"
-    fi
+    # If there are no remote repositories set, show a notice:
+    if [[ "" == "$(git remote)" ]]; then
+      prompt_git+=" %F{blue}no_remotes"
 
-    # Check if we are ahead::
-    if [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
-      prompt_git+=" %F{yellow}ahead"
+    # Otherwise:
+    else
+      # Check for unpushed commits:
+      if [[ "" != "$(git log origin/$branch_git..HEAD 2&> /dev/null)" ||
+            0 != $?
+         ]];
+      then
+        prompt_git+=" %F{blue}to_push"
+      fi
+
+      # Check if we are ahead::
+      if [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
+        prompt_git+=" %F{blue}ahead"
+      fi
     fi
 
     # Bold not needed anymore:
