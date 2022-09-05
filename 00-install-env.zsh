@@ -89,6 +89,16 @@ for i in *; do
       env_link cherrytree/styles "${HOME}/.config/cherrytree/styles"
     ;;
 
+    # The contents of this folder must be linked directly into the user's
+    # HOME and not in ~/config:
+    outside_config)
+      cd outside_config
+        for ii in *; do
+          env_link ${ii} "${HOME}/.${ii}"
+        done
+      cd ..
+    ;;
+
     # Everything else:
     default)
       env_link ${i} "${HOME}/.config/${i}"
