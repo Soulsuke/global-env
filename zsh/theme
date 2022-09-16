@@ -76,13 +76,17 @@ function prompt_nns_setup()
 function prompt_nns_git_data()
 {
   # Local variables:
-  local porcelain porcelain_legend name reg cnt
+  local porcelain porcelain_legend name reg cnt git_branch git_origin
 
   # Git checks:
-  branch_git="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-  if [[ "" != $branch_git ]]; then
+  NNS_GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+  NNS_GIT_REMOTE=""
+  if [[ "" != ${NNS_GIT_BRANCH} ]]; then
+    # Mark down the current remote:
+    NNS_GIT_REMOTE="$(git remote 2> /dev/null)"
+
     # Make it bold and use the right color:
-    prompt_git=" %F{magenta}%B$branch_git"
+    prompt_git=" %F{magenta}%B${NNS_GIT_BRANCH}"
 
     # Add in some data from git porcelain:
     porcelain="$(git status --porcelain)"
@@ -109,16 +113,17 @@ function prompt_nns_git_data()
       prompt_git+=" %F{yellow}stashed"
     fi
 
+
     # If there are no remote repositories set, show a notice:
-    if [[ "" == "$(git remote)" ]]; then
+    if [[ "" == "${NNS_GIT_REMOTE}" ]]; then
       prompt_git+=" %F{blue}no_remotes"
 
     # Otherwise:
     else
+      local shorthand="${NNS_GIT_REMOTE}/${NNS_GIT_BRANCH}"
+
       # Check for unpushed commits:
-      if [[ "" != "$(git log origin/$branch_git..HEAD 2&> /dev/null)" ||
-            0 != $?
-         ]];
+      if [[ "" != "$(git log ${shorthand}..HEAD 2&> /dev/null)" || 0 != $? ]];
       then
         prompt_git+=" %F{blue}to_push"
       fi
