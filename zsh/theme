@@ -134,10 +134,9 @@ function prompt_nns_git_data()
         ]];
         then
           prompt_git+=" %F{blue}to_push"
-        fi
-  
-        # Check if we are ahead::
-        if [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
+
+        # Otherwise check if we are ahead:
+        elif [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
           prompt_git+=" %F{blue}ahead"
         fi
       fi
