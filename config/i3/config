@@ -102,7 +102,7 @@ for_window [ class="Steam" title="^Steam$" ] floating disable
 ### Window pinning:
 ###############################################################################
 # 01
-assign [ class="Vivaldi-stable" ] $ws01
+assign [ class="firefox" ] $ws01
 assign [ class="Cherrytree" ] $ws01
 assign [ class="Claws-mail" ] $ws01
 assign [ class="Evolution" ] $ws01
