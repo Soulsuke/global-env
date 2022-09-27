@@ -5,7 +5,7 @@ case ${HOST} in
     # Screen 1:
     cherrytree /home/nanashi/data/nextcloud/cherrytree/nanashi.ctx &
     cherrytree /home/nanashi/data/nextcloud/cherrytree/dotvocal.ctx &
-    firefox &
+    vivaldi-stable &
     evolution &
     # Screen 2:
     rambox &
@@ -23,7 +23,7 @@ case ${HOST} in
     signal-desktop &
     steam-native &
     telegram-desktop &
-    firefox &
+    vivaldi-stable &
   ;;
 
   *)
