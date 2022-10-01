@@ -124,9 +124,9 @@ assign [ class="Deluge-gtk" ] $ws08
 # 10
 assign [ class="Steam" ] $ws10
 assign [ class="steam_app_.*" ] $ws10
-assign [ title="Origin" ] $ws10
-assign [ title="Ubisoft Connect" ] $ws10
-assign [ title="Uplay" ] $ws10
+assign [ title="^Origin.*" ] $ws10
+assign [ title="^Ubisoft.*" ] $ws10
+assign [ title="^Uplay.*" ] $ws10
 
 
 
