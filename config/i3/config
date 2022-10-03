@@ -60,7 +60,8 @@ exec_always --no-startup-id "~/.config/polybar/launcher.zsh $(uname -n)"
 ###############################################################################
 #
 ### Title format:
-for_window [ class=".*" ] title_format " %title" title_window_icon yes
+for_window [tiling] title_format "%class" title_window_icon no
+for_window [floating] title_format "%title" title_window_icon no
 #
 ### Tilte alignment:
 title_align center
