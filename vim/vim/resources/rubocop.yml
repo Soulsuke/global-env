@@ -202,3 +202,15 @@ Layout/TrailingEmptyLines:
   Enabled: true
   EnforcedStyle: final_blank_line
 
+
+
+###############################################################################
+### Lint                                                                    ###
+### Reference: https://docs.rubocop.org/rubocop/cops_lint.html              ###
+###############################################################################
+
+# Because sometimes it's necessary:
+Lint/SuppressedException:
+  Enabled: true
+  AllowNil: true
+
