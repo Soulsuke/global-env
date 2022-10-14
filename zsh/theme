@@ -15,8 +15,13 @@ function prompt_nns_setup()
   #  - prompt_gfx_bbox_to_mbox -> prompt_nns_precmd
   #  - prompt_line_1a -> prompt_nns_compose_top_prompt_line
   #  - prompt_line_1b -> prompt_nns_compose_top_prompt_line
+  #  - prompt_line_1c -> prompt_nns_compose_top_prompt_line
   #  - prompt_line_2 -> prompt_nns_precmd
   local prompt_nns_tlc prompt_nns_mlc prompt_nns_blc prompt_l_quadr
+  NNS_TIMER_CONTROL=0
+  NNS_TIMER_START=0
+  NNS_TIMER_END=0
+  NNS_TIMER_ELAPSED=0
 
   # Check for 8bit support:
   if [[ $1 == '8bit' ]]; then
@@ -55,10 +60,12 @@ function prompt_nns_setup()
   prompt_line_1a="$prompt_nns_tbox$prompt_nns_hyphen$prompt_l_quadr"
   prompt_line_1a+="%n%B@%b%m%f%B:%F{green}%~"
 
-  # Right part of the top prompt line (DATE, TIME $?):
-  prompt_line_1b="$prompt_l_quadr%D{%Y-%m-%d, %H:%M:%S} "
-  prompt_line_1b+="%(?.%B%F{green}●.%B%F{red}▲)"
-  prompt_line_1b+="%b%f$prompt_r_quadr${prompt_nns_hyphen}${prompt_nns_hyphen}"
+  # Middle part of the top prompt line (DATE, TIME $?):
+  prompt_line_1b="$prompt_l_quadr%D{%Y-%m-%d, %H:%M:%S}"
+
+  # Right part of the top prompt line (end):
+  prompt_line_1c=" %(?.%B%F{green}●.%B%F{red}▲)"
+  prompt_line_1c+="%b%f$prompt_r_quadr${prompt_nns_hyphen}${prompt_nns_hyphen}"
 
   # Bottom prompt line:
   prompt_line_2="%b%F{cyan}${prompt_nns_blc}${prompt_nns_hyphen}%b%F{cyan}"
@@ -68,6 +75,7 @@ function prompt_nns_setup()
 
   # Ensures the real prompt-composing function will be called when needed:
   add-zsh-hook precmd prompt_nns_precmd
+  add-zsh-hook preexec prompt_nns_preexec
 }
 
 
@@ -154,17 +162,27 @@ function prompt_nns_compose_top_prompt_line()
 {
   # Local variables: 
   local prompt_git prompt_line_1a_git prompt_line_1a_w \
-    prompt_line_1b_w prompt_padding_size
+    prompt_line_1b_w prompt_line_1c_w \
+    prompt_line_1_timer prompt_line_1_timer_w \
+    prompt_padding_size
 
   # Add eventual git data::
   prompt_nns_git_data
   prompt_line_1a_git="$prompt_line_1a$prompt_git$prompt_r_quadr$prompt_nns_hyphen"
+  prompt_line_1_timer=""
+  if [[ 1 == ${NNS_TIMER_CONTROL} ]]; then
+    prompt_line_1_timer=" %b%F{green}${NNS_TIMER_ELAPSED}ms"
+  fi
 
   # Calculate some widths and padding size:
   prompt_line_1a_w=${#${(S%%)prompt_line_1a_git//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   prompt_line_1b_w=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  prompt_line_1c_w=${#${(S%%)prompt_line_1c//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  prompt_line_1_timer_w=${#${(S%%)prompt_line_1_timer//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_w -
-                          prompt_line_1b_w
+                          prompt_line_1b_w - prompt_line_1c_w -
+                          prompt_line_1_timer_w
                       ))
 
   # Everything can fit and there's some extra space to fill with padding:
@@ -174,6 +192,7 @@ function prompt_nns_compose_top_prompt_line()
     prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
     eval "$prompt_padding"
     prompt_line_1="$prompt_line_1a_git$prompt_padding$prompt_line_1b"
+    prompt_line_1+="$prompt_line_1_timer$prompt_line_1c"
     return
   fi
 
@@ -197,9 +216,24 @@ function prompt_nns_compose_top_prompt_line()
 
 
 
+# Needed for a working timer.
+prompt_nns_preexec()
+{
+  NNS_TIMER_CONTROL=1 
+  NNS_TIMER_START=$(($(date +%s%0N)/1000000))
+}
+
+
+
 # Composes the prompt putting everything together. 
 prompt_nns_precmd()
 {
+  # Timer only if needed:
+  if [[ 1 == ${NNS_TIMER_CONTROL} ]]; then
+    NNS_TIMER_END=$(($(date +%s%0N)/1000000))
+    NNS_TIMER_ELAPSED=$(( ${NNS_TIMER_END} - ${NNS_TIMER_START} ))
+  fi
+
   # Local variables:
   local prompt_line_1
 
@@ -227,6 +261,9 @@ prompt_nns_precmd()
 
   # PS4, tracing:
   PS4="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white} %N.%i >"
+
+  # Reset this:
+  NNS_TIMER_CONTROL=0
 }
 
 
