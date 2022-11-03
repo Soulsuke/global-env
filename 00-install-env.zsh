@@ -149,3 +149,6 @@ if (( ${_WAL_PRESENT_} )); then
   wal --theme green-on-black
 fi
 
+# Restart dunst:
+killall dunst &> /dev/null
+
