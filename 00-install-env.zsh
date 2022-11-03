@@ -77,16 +77,31 @@ source "${HOME}/.zshrc"
 
 # Config:
 cd ${_GLOBAL_ENV_PATH_}/config
+mkdir -p "${HOME}/.config"
 for i in *; do
-  mkdir -p "${HOME}/.config"
-
   case $i in
-    # Cherrytree needs to have its config copied:
+    # Cherrytree needs to have its config copied: 
     cherrytree)
       mkdir -p "${HOME}/.config/cherrytree"
       rm -fr "${HOME}/.config/cherrytree/config.cfg*" &> /dev/null
       cp cherrytree/config.cfg "${HOME}/.config/cherrytree/"
       env_link cherrytree/styles "${HOME}/.config/cherrytree/styles"
+    ;;
+
+    # Special care for dunst:
+    dunst)
+      mkdir -p "${HOME}/.config/dunst"
+      if [[ -L "${HOME}/.config/dunst/dunstrc" ]]; then
+        rm "${HOME}/.config/dunst/dunstrc"
+      elif [[ -e "${HOME}/.config/dunst/dunstrc" ]]; then
+        mv "${HOME}/.config/dunst/dunstrc" "${HOME}/.config/dunst/dunstrc.old"
+      fi
+      ln -s "${HOME}/.cache/wal/dunstrc" "${HOME}/.config/dunst/dunstrc"
+      cd dunst
+      for ii in *; do
+        env_link ${ii} "${HOME}/.config/dunst/${ii}"
+      done
+      cd ..
     ;;
 
     # The contents of this folder must be linked directly into the user's
@@ -100,16 +115,11 @@ for i in *; do
     ;;
 
     # Everything else:
-    default)
+    *)
       env_link ${i} "${HOME}/.config/${i}"
     ;;
   esac
 done
-
-# Dunst:
-rm -fr "${HOME}/.config/dunst" &> /dev/null
-mkdir -p "${HOME}/.config/dunst" &> /dev/null
-ln -s "${HOME}/.cache/wal/dunstrc" "${HOME}/.config/dunst/dunstrc"
 
 # Global scripts:
 cd ${_GLOBAL_ENV_PATH_}

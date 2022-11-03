@@ -100,7 +100,7 @@
 
 
 
-  ### icons
+  ### Icons
   #############################################################################
 
   # Align icons (left, right, off):
@@ -133,6 +133,9 @@
 
   # Always run rule-defined scripts, even if the notification is suppressed:
   always_run_script = true
+
+  # Default script to run:
+  script = "~/.config/dunst/scripts/00-always.zsh"
 
   # Dunst window class and title:
   class = Dunst
