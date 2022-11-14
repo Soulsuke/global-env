@@ -92,6 +92,10 @@ Style/RedundantReturn:
   Enabled: false
   AllowMultipleReturnValues: true
 
+# Just to be sure they won't get removed:
+Style/RedundantSelf:
+  Enabled: false
+
 # This is bloody mandatory when using certain external libraries (shame on you
 # Google Cloud API) which throw a StandardError when they fail.
 # It has probably been corrected on their side since then, but this breaks a
