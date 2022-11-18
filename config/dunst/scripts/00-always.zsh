@@ -20,3 +20,28 @@
 # DUNST_DESKTOP_ENTRY
 # DUNST_STACK_TAG
 
+# Quick way to log notification data:
+#OUT="~/dunst_notifications"
+#touch ${OUT}
+#echo "=============================================================" >> ${OUT}
+#echo "DUNST_APP_NAME: __${DUNST_APP_NAME}__" >> ${OUT}
+#echo "DUNST_SUMMARY: __${DUNST_SUMMARY}__" >> ${OUT}
+#echo "DUNST_BODY: __${DUNST_BODY}__" >> ${OUT}
+#echo "DUNST_ICON_PATH: __${DUNST_ICON_PATH}__" >> ${OUT}
+#echo "DUNST_URGENCY: __${DUNST_URGENCY}__" >> ${OUT}
+#echo "DUNST_ID: __${DUNST_ID}__" >> ${OUT}
+#echo "DUNST_PROGRESS: __${DUNST_PROGRESS}__" >> ${OUT}
+#echo "DUNST_CATEGORY: __${DUNST_CATEGORY}__" >> ${OUT}
+#echo "DUNST_STACK_TAG: __${DUNST_STACK_TAG}__" >> ${OUT}
+#echo "DUNST_URLS: __${DUNST_URLS}__" >> ${OUT}
+#echo "DUNST_TIMEOUT: __${DUNST_TIMEOUT}__" >> ${OUT}
+#echo "DUNST_TIMESTAMP: __${DUNST_TIMESTAMP}__" >> ${OUT}
+#echo "DUNST_DESKTOP_ENTRY: __${DUNST_DESKTOP_ENTRY}__" >> ${OUT}
+#echo "DUNST_STACK_TAG: __${DUNST_STACK_TAG}__" >> ${OUT}
+#echo "=============================================================" >> ${OUT}
+
+# Sadly, the day is here:
+if [[ "${DUNST_SUMMARY}" =~ "Support Dotvocal" ]]; then
+  mpv /usr/share/sounds/freedesktop/stereo/service-login.oga &> /dev/null
+fi
+
