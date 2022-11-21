@@ -21,7 +21,7 @@
 # DUNST_STACK_TAG
 
 # Quick way to log notification data:
-#OUT="~/dunst_notifications"
+#OUT="${HOME}/dunst_notifications"
 #touch ${OUT}
 #echo "=============================================================" >> ${OUT}
 #echo "DUNST_APP_NAME: __${DUNST_APP_NAME}__" >> ${OUT}
@@ -41,7 +41,7 @@
 #echo "=============================================================" >> ${OUT}
 
 # Sadly, the day is here:
-if [[ "${DUNST_SUMMARY}" =~ "Support Dotvocal" ]]; then
+if [[ "${DUNST_BODY}" =~ "support.dotvocal.com" ]]; then
   mpv /usr/share/sounds/freedesktop/stereo/service-login.oga &> /dev/null
 fi
 
