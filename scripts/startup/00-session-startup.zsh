@@ -23,12 +23,14 @@ esac
 # gnome-cassic
 # i3
 # plasma
+# plasmawayland
 # xfce
 case ${GDMSESSION:l} in
   enlightenment)
     blueman-applet &
     gkrellm &
-    ;;
+  ;;
+
   i3)
     picom --config ~/.config/i3/picom -bG
     ${HOME}/.scripts/7shi/lockscreen/xautolock.zsh i3lock
@@ -36,10 +38,15 @@ case ${GDMSESSION:l} in
     dunst &
     blueman-applet &
     nm-applet &
-    ;;
+  ;;
+
+  plasmawayland)
+    yakuake &
+  ;;
+
   *)
     gkrellm &
-    ;;
+  ;;
 esac
 
 
