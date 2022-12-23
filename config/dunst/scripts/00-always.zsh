@@ -52,9 +52,23 @@ function log_everything()
 # Sets window as urgent.
 function set_window_urgent()
 {
-  xdotool set_window --urgency 1 \
-    "$(xdotool search --name "${DUNST_APP_NAME}" | sort -n | head -n1)" \
-    &> /dev/null
+  # Kept for reference.
+  # This would work if it wasn't for stuff like Evolution and Thunderbird.
+  #  xdotool set_window --urgency 1 \
+  #    "$(xdotool search --name "${DUNST_APP_NAME}" | sort -n | head -n1)" \
+  #    &> /dev/null
+
+  # Fix for Evolution and possibly other gnome apps:
+  local NORMALIZED="${DUNST_DESKTOP_ENTRY:s,org.gnome.,,}"
+
+  # Do nothing if we can't get a valid pid:
+  local PID=$(xdotool search --name "${NORMALIZED}" getwindowpid 2> /dev/null)
+  [[ -z ${PID} ]] && return
+
+  # Set each window as urgent:
+  for WID in $(xdotool search --pid ${PID} | sort -n); do
+    xdotool set_window --urgency 1 ${WID}
+  done
 }
 
 
