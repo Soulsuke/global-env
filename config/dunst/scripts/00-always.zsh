@@ -53,7 +53,7 @@ function log_everything()
 function set_window_urgent()
 {
   xdotool set_window --urgency 1 \
-    "$(xdotool search --name "${DUNST_APP_NAME}" | sort | head -n1)" \
+    "$(xdotool search --name "${DUNST_APP_NAME}" | sort -n | head -n1)" \
     &> /dev/null
 }
 
