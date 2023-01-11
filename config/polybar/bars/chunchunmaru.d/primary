@@ -4,7 +4,7 @@ inherit = chunchunmaru
 ; Modules:
 modules-center = date
 modules-left = i3
-modules-right = chunchunmaru_wifi chunchunmaru_eth nordvpn my-ip cpu chunchunmaru_cpu_temp memory pulse backlight_intel battery
+modules-right = chunchunmaru_wifi chunchunmaru_eth nordvpn my-ip cpu chunchunmaru_cpu_temp memory nvidia pulse backlight_intel battery
 
 ; Systray:
 tray-maxsize = ${vars.height}
