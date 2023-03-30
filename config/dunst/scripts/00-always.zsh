@@ -77,9 +77,6 @@ function set_window_urgent()
 ### Actual rules                                                            ###
 ###############################################################################
 
-# Sadly, the day is here:
-if [[ "${DUNST_BODY}" =~ "support.dotvocal.com" ]]; then
-  set_window_urgent
-  mpv /usr/share/sounds/freedesktop/stereo/service-login.oga &> /dev/null
-fi
+
+# Yay, no per-app rules!
 
