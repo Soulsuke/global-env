@@ -16,6 +16,10 @@ format-connected-underline = ${colors.notification-1}
 inherit = temperature-common
 hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
 
+[module/chunchunmaru_battery]
+inherit = battery-common
+full-at = 95
+
 
 
 ;/============================================================================\

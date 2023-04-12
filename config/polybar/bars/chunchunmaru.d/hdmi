@@ -7,7 +7,7 @@ monitor = HDMI-1
 ; Modules:
 modules-center = date
 modules-left = i3
-modules-right = chunchunmaru_wifi chunchunmaru_eth cpu chunchunmaru_cpu_temp memory pulse battery
+modules-right = chunchunmaru_wifi chunchunmaru_eth cpu chunchunmaru_cpu_temp memory pulse chunchunmaru_battery
 
 
 
