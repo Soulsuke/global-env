@@ -97,7 +97,7 @@ for_window [ workspace=$ws10 ] floating enable
 ### Per-window overrides:
 ###############################################################################
 for_window [ class="Tilda" instance="tilda" ] floating enable
-for_window [ class="Steam" title="^Steam$" ] floating disable
+for_window [ title="^Steam$" ] floating disable
 #
 ### Window pinning:
 ###############################################################################
@@ -124,6 +124,7 @@ assign [ class="Eclipse" ] $ws03
 assign [ class="Deluge-gtk" ] $ws08
 # 10
 assign [ class="Steam" ] $ws10
+assign [ class="steamwebhelper" ] $ws10
 assign [ title="^Steam$" ] $ws10
 assign [ class="steam_app_.*" ] $ws10
 assign [ title="^Origin.*" ] $ws10
