@@ -3,8 +3,7 @@
 case ${HOST} in
   chunchunmaru)
     # Screen 1:
-    cherrytree /home/nanashi/data/nextcloud/cherrytree/nanashi.ctx &
-    cherrytree /home/nanashi/data/nextcloud/cherrytree/dotvocal.ctx &
+    cherrytree /home/nanashi/.config/cherrytree/nanashi.ctx &
     vivaldi-stable &
     evolution &
     # Screen 2:
@@ -12,8 +11,6 @@ case ${HOST} in
     telegram-desktop &
     discord-canary &
     ~/.nativefier/DotSwitch-linux-x64/DotSwitch &
-    # No particular screen:
-    nextcloud &
   ;;
 
   unmei)
