@@ -4,9 +4,9 @@
 
 # Set brightness values for each status.
 # Range from 1 to 100 is valid
-brightness_day=0
+brightness_day=30
 brightness_transition=0
-brightness_night=0
+brightness_night=15
 # Set fade time for changes to one minute (60000)
 fade_time=10000
 
