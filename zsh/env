@@ -25,8 +25,11 @@ SAVEHIST=${HISTSIZE}
 export SPROMPT=$'%BError!%b Correct %{\e[31m%}%R%{ \e[0m%}to%{ \e[36m%}%r\%{ \e[0m%}? [No/Yes/Abort/Edit]: '
 
 ### Shell prg #################################################################
-export LANG="en_GB.UTF-8"
-export LC_ALL="en_GB.UTF-8"
+# LANG/LC should not be set on Termux:
+if [[ -z ${TERMUX_APP_PID} ]]; then
+  export LANG="en_GB.UTF-8"
+  export LC_ALL="en_GB.UTF-8"
+fi
 export PAGER="less"
 export EDITOR="vim"
 export MOST_EDITOR="${EDITOR} %s +%d"
