@@ -123,10 +123,8 @@ assign [ class="Eclipse" ] $ws03
 # 08
 assign [ class="Deluge-gtk" ] $ws08
 # 10
-assign [ class="[Ss]team" ] $ws10
-assign [ class="steamwebhelper" ] $ws10
+assign [ class="[Ss]team(webhelper|_app_.*)?" ] $ws10
 assign [ title="^Steam$" ] $ws10
-assign [ class="steam_app_.*" ] $ws10
 assign [ title="^Origin.*" ] $ws10
 assign [ title="^Ubisoft.*" ] $ws10
 assign [ title="^Uplay.*" ] $ws10
