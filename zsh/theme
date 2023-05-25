@@ -127,7 +127,6 @@ function prompt_nns_git_data()
         prompt_git+=" %F{yellow}stashed"
       fi
   
-  
       # If there are no remote repositories set, show a notice:
       if [[ "" == "${NNS_GIT_REMOTE}" ]]; then
         prompt_git+=" %F{blue}no_remotes"

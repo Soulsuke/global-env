@@ -3,7 +3,7 @@
 ###############################################################################
 
 ### Common stuff ##############################################################
-#
+
 ## One-time password prompt for all ssh keys (if there are any):
 if [[ $(find ${HOME}/.ssh -iname *.pub) ]]; then
   export SSH_AUTH_SOCK="/tmp/ssh-agent.${USER}.${HOST}.sock"
@@ -14,6 +14,8 @@ if [[ $(find ${HOME}/.ssh -iname *.pub) ]]; then
     ssh-add
   fi
 fi
+
+
 
 ### Automatic integration of configuration files ##############################
 if [[ -f ${GLOBAL_ENV}/hosts_envs/${HOST} ]]; then

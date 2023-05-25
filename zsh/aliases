@@ -5,6 +5,8 @@
 ### Hashes ####################################################################
 hash -d 7shi="/opt/7shi"
 
+
+
 ### Shell global ##############################################################
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -21,6 +23,8 @@ alias locate="noglob locate"
 alias find="noglob find"
 alias head="head -n 20"
 
+
+
 ### ls ########################################################################
 alias ls='/bin/ls --color -F -b' # default ls command (for easy editing)
 alias ls.='ls -d .*'             # show .files
@@ -30,6 +34,8 @@ alias ll='ls -lh'                # show detailed info of files
 alias ll.='ls -lhd .*'           # show detailed info of .files
 alias lla='ls -lAh'              # show detailed info of files and .files
 alias lld='ls -lhd *(/)'         # show detailed info of dirs and .dirs
+
+
 
 ### Programs ##################################################################
 alias df='df -h'
@@ -41,6 +47,8 @@ alias grep="grep --color"
 alias myip="curl ifconfig.co"
 alias pss="ps aux | head -n1 && ps aux | grep"
 alias v='vim'
+
+
 
 ### Programs that need sudo or the right privilegess to work properly #########
 alias cdr='cdrecord dev=/dev/sr0 -v -eject driveropts=burnfree'

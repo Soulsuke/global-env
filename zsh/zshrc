@@ -6,12 +6,16 @@
 ### global-env directory ######################################################
 export GLOBAL_ENV="$(dirname $(readlink ~/.zshrc))"
 
+
+
 ### Configuration files #######################################################
 source ${GLOBAL_ENV}/func      # loads zsh functions
 source ${GLOBAL_ENV}/env       # loads the enviroment
 source ${GLOBAL_ENV}/aliases   # loads the general aliases
 source ${GLOBAL_ENV}/hosts     # loads host aliases
 source ${HOME}/.z${USER}           # loads user aliases
+
+
 
 ### Modules ###################################################################
 zmodload zsh/mathfunc 
@@ -21,6 +25,8 @@ zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile
 zmodload zsh/complist
 
+
+
 ### Autocomplete extras #######################################################
 compctl -k ping telnet ncftp host nslookup ssh
 compctl -g '*.(gz|z|Z|t[agp]z|tarZ|tz)' + -g '*(-/)' gunzip gzcat zcat
@@ -28,9 +34,11 @@ compctl -g '*.(pdf|PDF)' + -g '*(-/)'  xpdf evince
 compctl -g '[^.]*(-/) *(*)' + -f strip ldd gdb
 compctl -j -P % -x 's[-] p[1]' -k signals -- kill
 
+
+
 ### Keybindings ###############################################################
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
+# Create a zkbd compatible hash.
+# To add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
 
 key[Home]="${terminfo[khome]}"
@@ -46,7 +54,7 @@ key[PageUp]="${terminfo[kpp]}"
 key[PageDown]="${terminfo[knp]}"
 key[Shift-Tab]="${terminfo[kcbt]}"
 
-# setup key accordingly
+# Setup keys accordingly
 [[ -n "${key[Home]}"      ]] && bindkey -- "${key[Home]}"       beginning-of-line
 [[ -n "${key[End]}"       ]] && bindkey -- "${key[End]}"        end-of-line
 [[ -n "${key[Insert]}"    ]] && bindkey -- "${key[Insert]}"     overwrite-mode
@@ -60,8 +68,8 @@ key[Shift-Tab]="${terminfo[kcbt]}"
 [[ -n "${key[PageDown]}"  ]] && bindkey -- "${key[PageDown]}"   end-of-buffer-or-history
 [[ -n "${key[Shift-Tab]}" ]] && bindkey -- "${key[Shift-Tab]}"  reverse-menu-complete
 
-# Finally, make sure the terminal is in application mode, when zle is
-# active. Only then are the values from $terminfo valid.
+# Finally, make sure the terminal is in application mode, when zle is active.
+# Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	autoload -Uz add-zle-hook-widget
 	function zle_application_mode_start { echoti smkx }
@@ -71,6 +79,8 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 bindkey '^R' history-incremental-search-backward
+
+
 
 ### Shell options #############################################################
 setopt   notify globdots correct pushdtohome cdablevars autolist
@@ -82,6 +92,8 @@ setopt    nobeep ignoreeof histignorealldups histignorespace PUSHD_IGNORE_DUPS
 setopt   GlobComplete ListPacked ListTypes HistFindNoDups HistReduceBlanks
 setopt   SunKeyboardHack multios list_packed
 
+
+
 ### Autoloads ################################################################
 autoload -U compinit
 compinit -u
@@ -90,6 +102,8 @@ promptinit
 autoload zrecompile
 autoload -U zmv
 autoload colors ; colors
+
+
 
 ### Zstyle misc ###############################################################
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
@@ -107,33 +121,40 @@ zstyle -e ':completion:*:approximate:*' max-errors \
     'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
 zstyle -e ':completion:*:sudo:*' command-path 'reply=($path)' 
 
+
+
 ### Misc ######################################################################
 cdpath=(.. ~)
-#
-## Sysctl completion:
+
+# Sysctl completion:
 listsysctls () { set -A reply $(sysctl -AN ${1%.*}) }
 compctl -K listsysctls sysctl
-#
-## Automatically remove duplicates from these arrays
+
+# Automatically remove duplicates from these arrays:
 typeset -U path cdpath fpath manpath
-#
-## csh compatibility
+
+# Compatibility with csh:
 setenv() { typeset -x "${1}${1:+=}${(@)argv[2,$#]}" }
-#
-## Prevent core files from being written at all
+
+# Prevent core files from being written at all:
 umask 027
 ulimit -c 0
-#
-## Dircolors:
-eval "$(dircolors)"
+
+# Dircolors (if available):
+[[ $(command -v dircolors) ]] && eval "$(dircolors)"
+
+# Do not close on eof:
+setopt ignoreeof
+
+
 
 ### Pywall support ############################################################
-if [[ -f ${HOME}/.cache/wal/sequences ]]; then
-  (cat ${HOME}/.cache/wal/sequences &)
-fi
+[[ -f ${HOME}/.cache/wal/sequences ]] && (cat ${HOME}/.cache/wal/sequences &)
+
+
 
 ### Custom theme ##############################################################
-if [ ${DISPLAY} ]; then
+if [[ ${DISPLAY} ]]; then
   source ${GLOBAL_ENV}/theme 8bit
 else
   source ${GLOBAL_ENV}/theme

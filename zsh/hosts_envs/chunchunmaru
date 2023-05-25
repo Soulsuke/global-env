@@ -7,6 +7,8 @@ hash -d 0c="${HOME}/data/code"
 hash -d 0d="${HOME}/data/docs"
 hash -d 0g="${HOME}/data/google_drive"
 
+
+
 ### Other #####################################################################
 eval "$(rbenv init -)"
 
