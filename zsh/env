@@ -7,7 +7,7 @@ export PATH="/opt/7shi/bin:${HOME}/.rbenv/shims:${HOME}/.gem/bin:${PATH}:${HOME}
 export DIRSTACKSIZE=40
 
 # Correction prompt:
-export SPROMPT=$'%BCorrect \e[31m\'%R\'\e[0m%B to \e[36m\'%r\'\e[0m%B? [N/y]%b '
+export SPROMPT=$'%BCorrect \'\e[31m%R\e[0m%B\' to \'\e[36m%r\e[0m%B\'? [N/y]%b '
 
 # Time format:
 # format of process time reports with 'time'
