@@ -3,8 +3,12 @@
 ## cleaner. Also sets the global zsh options.                                ##
 ###############################################################################
 
-### global-env directory ######################################################
+### Meain variables setup ######################################################
+# Main folder:
 export GLOBAL_ENV="$(dirname $(readlink ~/.zshrc))"
+
+# Apparently Termux won't set USER, so let's fix it:
+[[ -z ${TERMUX_APP_PID} ]] || export USER=$(whoami)
 
 
 
@@ -13,7 +17,7 @@ source ${GLOBAL_ENV}/func      # loads zsh functions
 source ${GLOBAL_ENV}/env       # loads the enviroment
 source ${GLOBAL_ENV}/aliases   # loads the general aliases
 source ${GLOBAL_ENV}/hosts     # loads host aliases
-source ${HOME}/.z${USER}           # loads user aliases
+source ${HOME}/.z${USER}       # loads user aliases
 
 
 
