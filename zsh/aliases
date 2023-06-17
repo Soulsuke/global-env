@@ -37,7 +37,15 @@ alias lld='ls -lhd *(/)'         # show detailed info of dirs and .dirs
 
 
 
-### Programs ##################################################################
+### zfs #######################################################################
+if [[ $(command -v zfs) ]]; then
+  alias zsnapshot="sync && zpool sync && zfs snapshot"
+  alias zrollback="sync && zpool sync && zfs rollback"
+fi
+
+
+
+### Various ###################################################################
 alias df='df -h'
 alias du='du -h'
 alias eject='eject /dev/sr0'

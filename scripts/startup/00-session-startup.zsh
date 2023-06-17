@@ -1,17 +1,39 @@
 #! /usr/bin/env zsh
 
-# Common for every DE, before an eventual compositor:
+
+
+###############################################################################
+### Environment variables                                                   ###
+###############################################################################
+
+# Locale:
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
+
+# GTK dialogues in telegram-desktop:
+export QT_QPA_PLATFORMTHEME=gtk3
+
+
+
+###############################################################################
+### ibus                                                                    ###
+###############################################################################
+
+# export GTK_IM_MODULE=ibus
+# export QT_IM_MODULE=ibus
+# export XMODIFIERS=@im=ibus
+# ibus-daemon -drx
+
+
+
+###############################################################################
+### Startup programs                                                        ###
+###############################################################################
+
+# Common for every DE, before an eventual compositor is started:
 xrandr --dpi 100
 setxkbmap it
-ibus-daemon -drx
-case ${HOST} in
-  chunchunmaru)
-    nvidia-settings -l
-  ;;
-  unmei)
-    nvidia-settings -l
-  ;;
-esac
+[[ $(command -v nvidia-settings) ]] && nvidia-settings -l
 
 
 
@@ -56,12 +78,5 @@ gnome-keyring-daemon --start
 pasystray &
 redshift-gtk &
 tilda &
-case ${HOST} in
-  chunchunmaru)
-    optimus-manager-qt &
-  ;;
-  unmei)
-    akbl --start-indicator &
-  ;;
-esac
+[[ $(command -v akbl) ]] && akbl --start-indicator &
 
