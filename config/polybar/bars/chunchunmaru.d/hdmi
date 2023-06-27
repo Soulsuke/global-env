@@ -2,7 +2,7 @@
 inherit = chunchunmaru
 
 ; Monitor:
-monitor = HDMI-1
+monitor = HDMI1
 
 ; Modules:
 modules-center = date
