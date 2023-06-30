@@ -29,10 +29,6 @@ function env_link()
 # Global env's directory:
 local _GLOBAL_ENV_PATH_=${0:A:h}
 
-# Before linking any scripts, check if wal is present:
-local _WAL_PRESENT_=$+commands[wal]
-
-
 # Init/update git submodules, but only when this isn't run as root:
 if [[ 0 != ${UID} ]]; then
   cd ${_GLOBAL_ENV_PATH_}
@@ -145,9 +141,7 @@ for i in $(find . -type f); do
 done
 
 # If wal is present, run it once to ensure everything is there:
-if (( ${_WAL_PRESENT_} )); then
-  wal --theme green-on-black
-fi
+[[ $(command -v wal) ]] && wal --theme green-on-black
 
 # Restart dunst:
 killall dunst &> /dev/null
