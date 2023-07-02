@@ -25,8 +25,8 @@ export TIMEFMT="Real: %E User: %U System: %S Percent: %P Cmd: %J"
 SUDO_7SHI=sudo
 [[ $(command -v doas) ]] && SUDO_7SHI=doas
 
-# LANG/LC should not be set on Termux:
-if [[ -z ${TERMUX_APP_PID} ]]; then
+# LANG/LC should not be set on Termux and SteamOS:
+if [[ -z ${TERMUX_APP_PID} ]] && [[ ! $(lsb_release -a | grep SteamOS) ]]; then
   export LANG="en_GB.UTF-8"
   export LC_ALL="en_GB.UTF-8"
 fi
