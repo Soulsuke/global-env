@@ -25,8 +25,8 @@ TO_INSTALL=(
 # Locales to enable:
 LOCALES=(
   "en_GB.UTF-8"
-  "ja_JP.UTF-8"
   "it_IT.UTF-8"
+  "ja_JP.UTF-8"
 )
 
 
@@ -89,12 +89,10 @@ execho "Setting user shell to zsh..." "chsh -s /bin/zsh deck"
 
 for l in ${LOCALES[@]}; do
   execho "Enabling locale '${l}'..." \
-         "sed -i \"s,^#[ ]+${l},${l},\" /etc/locale.gen"
+         "sed -i \"s,^#${l},${l},\" /etc/locale.gen"
 done
 
 execho "Generating locales..." "locale-gen"
-
-execho "Enabling locals..." ""
 
 execho "Setting back readonly flag..." "steamos-readonly enable"
 
