@@ -6,8 +6,8 @@
 ### Environment variables                                                   ###
 ###############################################################################
 
-# Locale should not be set on Termux and SteamOS:
-if [[ -z ${TERMUX_APP_PID} ]] && [[ ! $(lsb_release -a | grep SteamOS) ]]; then
+# Locale should not be set on Termux:
+if [[ -z ${TERMUX_APP_PID} ]]; then
   export LANG=en_GB.UTF-8
   export LC_ALL=en_GB.UTF-8
 fi
