@@ -23,48 +23,18 @@ hwmon-path = /sys/devices/virtual/thermal/thermal_zone5/hwmon4/temp1_input
 ;\============================================================================/
 
 [bar/ronin]
-; General:
-background = ${colors.bg}
-fixed-center = false
-height = ${vars.height}
-locale = en_GB.UTF-8
-padding = 0
-width = 100%
-
-; Avoid i3lock showing systray:
-override-redirect = false
-wm-restack = i3
-
-; Fonts:
-font-0 = Roboto Mono:style=Regular:size=10;2
-font-1 = DejaVu Sans:style=Regular:size=10;2
-font-2 = Source Han Serif JP,源ノ明朝 JP:style=Regular:size=14
-font-3 = Symbola:style=Regular
-font-4 = Font Awesome 6 Free:style=Solid:size=12;2
-font-5 = Font Awesome 6 Brands:style=Solid;size=12;2
-foreground = ${colors.fg}
+inherit = bar-default
 
 ; Modules:
-module-margin-left = 1
-module-margin-right = 1
 modules-center = date
 modules-left = i3
 modules-right = ronin_wifi ronin_eth my-ip cpu ronin_cpu_temp memory pulse xbacklight battery
-separator = |
-
-; Mouse behaviour:
-cursor-click = pointer
-cursor-scroll = ns-resize
 
 ; Systray:
 tray-maxsize = ${vars.height}
 tray-padding = 1
 tray-position = right
 tray-scale = 1.0
-
-; Underlines:
-line-color = ${colors.bg-urgent}
-line-size = 3
 
 
 

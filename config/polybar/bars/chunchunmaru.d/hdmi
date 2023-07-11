@@ -1,5 +1,5 @@
 [bar/chunchunmaru_hdmi]
-inherit = chunchunmaru
+inherit = bar-default
 
 ; Monitor:
 monitor = HDMI1

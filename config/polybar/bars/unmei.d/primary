@@ -1,5 +1,5 @@
 [bar/unmei_primary]
-inherit = unmei
+inherit = bar-default
 
 ; Monitor:
 monitor = DP-0

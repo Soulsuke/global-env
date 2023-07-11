@@ -1,5 +1,5 @@
 [bar/chunchunmaru_primary]
-inherit = chunchunmaru
+inherit = bar-default
 
 ; Modules:
 modules-center = date

@@ -1,5 +1,5 @@
 [bar/unmei_hdmi]
-inherit = unmei
+inherit = bar-default
 
 ; Monitor:
 monitor = HDMI-0
