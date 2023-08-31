@@ -3,7 +3,7 @@
 ###############################################################################
 
 ### General settings ##########################################################
-export PATH="/opt/7shi/bin:${HOME}/.rbenv/shims:${HOME}/.gem/bin:${PATH}:${HOME}/.nodenv/shims${PATH}:/usr/sbin:/sbin"
+export PATH="/opt/7shi/bin:${PATH}:/usr/sbin:/sbin"
 export DIRSTACKSIZE=40
 
 # Correction prompt:
@@ -49,7 +49,7 @@ fi
 
 
 ### Development evals #########################################################
-[[ $(command -v rbenvs) ]] && eval "$(rbenv init -)"
+[[ $(command -v rbenv) ]] && eval "$(rbenv init -)"
 [[ $(command -v nodenv) ]] && eval "$(nodenv init -)"
 
 
