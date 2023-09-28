@@ -33,7 +33,6 @@ set number
 nmap <F2> :set invnumber<CR>
 " Toggle tab paste
 set pastetoggle=<F3>
-"set paste
 " Toggle folding
 set foldmethod=syntax
 set foldlevel=99
@@ -42,18 +41,8 @@ nnoremap <F4> za
 onoremap <F4> <C-C>za
 vnoremap <F4> zf
 
-" Folding settings:
-let javaScript_fold=1    " JavaScript
-let perl_fold=1          " Perl
-let php_folding=1        " PHP
-let r_syntax_folding=1   " R
-let ruby_fold=1          " Ruby
-let sh_fold_enabled=1    " sh
-let vimsyn_folding='af'  " Vim script
-let xml_syntax_folding=1 " XML
-
-" Autoindenting on
-"set autoindent
+" Autoindenting on:
+set autoindent
 " Don't wrap lines by default
 set textwidth=0
 " Read/write a .viminfo file, don't store more than 50 lines of registers
@@ -68,6 +57,8 @@ set vb t_vb=".
 set tabstop=2
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+" Keep 10 lines around the cursor, context is always helpful:
+set scrolloff=10
 
 let fortran_free_source=1
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
@@ -75,6 +66,9 @@ syntax on
 
 " Grep command
 set grepprg=grep\ -nH\ $*
+
+" JSON beautifier (jq):
+nnoremap <Leader>j :%!jq '.'<CR>
 
 if has("autocmd")
  " Enabled file type detection
@@ -87,14 +81,32 @@ endif
 set ignorecase
 " Incremental search
 set incsearch
-" Automatically save before commands like :next, :make
-"set autowrite
 
 
 
 " -----------------------------------------------------------------------------
 " --- Plugins                                                               ---
 " -----------------------------------------------------------------------------
+
+" --- FastFold
+let g:baan_fold=1
+let g:clojure_fold = 1
+let g:fortran_fold=1
+let g:javaScript_fold = 1
+let g:markdown_folding = 1
+let g:perl_fold = 1
+let g:perl_fold_blocks = 1
+let g:php_folding = 1
+let g:r_syntax_folding = 1
+let g:rst_fold_enabled = 1
+let g:ruby_fold = 1
+let g:rust_fold = 1
+let g:sh_fold_enabled= 7
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:zsh_fold_enable = 1
+
 
 " --- NERDTree
 "
@@ -104,13 +116,18 @@ map <leader>n :NERDTreeToggle<CR>
 
 
 " --- vim-easycomplete
-map <Leader>ae :EasyCompleteEnable<CR>
-map <Leader>ad :EasyCompleteDisable<CR>
+"
+map <Leader>aon :EasyCompleteEnable<CR>
+map <Leader>aoff :EasyCompleteDisable<CR>
 map <Leader>ar :EasyCompleteReference<CR>
 map <Leader>ac :EasyCompleteCheck<CR>
+map <Leader>ad :EasyCompleteGotoDefinition<CR>
 map <Leader>adp :EasyCompletePreviousDiagnostic<CR>
 map <Leader>adn :EasyCompleteNextDiagnostic<CR>
 map <Leader>al :EasyCompleteLint<CR>
+map <Leader>arn :EasyCompleteRename<CR>
+map <Leader>ab :BackToOriginalBuffer<CR>
+let g:easycomplete_scheme = "rider"
 
 
 

@@ -13,3 +13,6 @@
 [submodule "vim/vim/bundle/vim-easycomplete"]
 	path = vim/vim/bundle/vim-easycomplete
 	url = https://github.com/jayli/vim-easycomplete.git
+[submodule "vim/vim/bundle/FastFold"]
+	path = vim/vim/bundle/FastFold
+	url = https://github.com/Konfekt/FastFold.git
