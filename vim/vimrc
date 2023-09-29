@@ -43,6 +43,8 @@ vnoremap <F4> zf
 
 " Autoindenting on:
 set autoindent
+" Never use tabs:
+set expandtab
 " Don't wrap lines by default
 set textwidth=0
 " Read/write a .viminfo file, don't store more than 50 lines of registers
