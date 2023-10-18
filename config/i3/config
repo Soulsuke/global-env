@@ -195,6 +195,20 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 # Media player previous:
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 #
+### Keybindings: rofi
+###############################################################################
+#
+# Menu using .desktop files:
+bindsym $mod+d exec --no-startup-id rofi -show drun
+#
+# Menu using executables within path:
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+#
+# Session manager (rofi-script menu):
+bindsym $mod+Shift+e exec \
+  rofi -show sessionmgr \
+    -modi "sessionmgr:~/.config/rofi/scripts/sessionmgr.zsh"
+#
 ### Keybindings: session behaviour
 ###############################################################################
 #
@@ -208,11 +222,6 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+Return exec --no-startup-id \
   ~/.scripts/7shi/lockscreen/lockers/i3lock.zsh
 #
-# Session manager (rofi-script menu):
-bindsym $mod+Shift+e exec \
-  rofi -show sessionmgr \
-    -modi "sessionmgr:~/.config/rofi/scripts/sessionmgr.zsh"
-#
 ### Keybindings: windows behaviour
 ###############################################################################
 #
@@ -224,12 +233,6 @@ bindsym $mod+Shift+q kill
 #
 # Fullscreen for focused window:
 bindsym $mod+f fullscreen toggle
-#
-# Menu using .desktop files:
-bindsym $mod+d exec --no-startup-id rofi -show drun
-#
-# Menu using executables within path:
-bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 #
 # Take a screenshot of the whole desktop:
 bindsym Print exec escrotum

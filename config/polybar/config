@@ -16,6 +16,7 @@ include-file = ~/.config/polybar/modules/i3
 include-file = ~/.config/polybar/modules/memory
 include-file = ~/.config/polybar/modules/network
 include-file = ~/.config/polybar/modules/pulseaudio
+include-file = ~/.config/polybar/modules/script/dunst
 include-file = ~/.config/polybar/modules/script/iostat
 include-file = ~/.config/polybar/modules/script/my-ip
 include-file = ~/.config/polybar/modules/script/nordvpn
