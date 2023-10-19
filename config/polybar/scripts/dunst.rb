@@ -6,6 +6,7 @@ class Dunst
 
   attr_reader :icon
   attr_reader :on_color
+  attr_reader :paused_color
   attr_reader :off_color
 
 
@@ -15,9 +16,10 @@ class Dunst
   #############################################################################
 
   # Constructor.
-  def initialize( icon:, on_color:, off_color: )
+  def initialize( icon:, on_color:, paused_color:, off_color: )
     @icon = icon
     @off_color = off_color
+    @paused_color = paused_color
     @on_color = on_color
   end
 
@@ -27,8 +29,10 @@ class Dunst
   def show
     out = `dunstctl is-paused`.chomp
 
-    if !$?.success? or out == "true" then
+    if !$?.success? then
       puts "%{F#{@off_color}}#{@icon}%{F-}"
+    elsif out == "true" then
+      puts "%{F#{@paused_color}}#{@icon}%{F-}"
     else
       puts "%{F#{@on_color}}#{@icon}%{F-}"
     end
@@ -56,7 +60,8 @@ if __FILE__ == $0 then
   d = Dunst.new \
     icon: ARGV[ 0 ],
     on_color: ARGV[ 1 ],
-    off_color: ARGV[ 2 ]
+    paused_color: ARGV[ 2 ],
+    off_color: ARGV[ 3 ]
 
   # Update info on USR1 signal:
   Signal.trap "USR1" do
