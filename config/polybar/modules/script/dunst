@@ -1,6 +1,6 @@
 [module/dunst]
 click-left = kill -USR1 %pid%
-exec = ruby ~/.config/polybar/scripts/dunst.rb  0F0 FF0 F00
+exec = ~/.config/polybar/scripts/dunst.zsh  0F0 FF0 F00
 tail = true
 type = custom/script
 
