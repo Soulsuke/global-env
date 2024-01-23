@@ -2,6 +2,7 @@
 ## Host zsh aliases for: steamdeck                                           ##
 ###############################################################################
 
+alias 7shi-update="cd ${GLOBAL_ENV} && git pull origin master"
 alias ssh-up="sudo systemctl start sshd"
 alias ssh-down="sudo systemctl stop sshd"
 
