@@ -1,0 +1,7 @@
+###############################################################################
+## Host zsh aliases for: steamdeck                                           ##
+###############################################################################
+
+alias ssh-up="sudo systemctl start sshd"
+alias ssh-down="sudo systemctl stop sshd"
+

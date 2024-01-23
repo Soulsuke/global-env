@@ -18,7 +18,7 @@ hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
 
 [module/chunchunmaru_battery]
 inherit = battery-common
-full-at = 95
+full-at = 100
 
 
 
