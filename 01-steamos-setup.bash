@@ -83,6 +83,8 @@ execho "Setting up keyring..." "pacman-key --init"
 
 execho "Populating keyring..." "pacman-key --populate archlinux"
 
+execho "Updating keyring..." "pacman -S --noconfirm --overwrite \* archlinux-keyring"
+
 execho "Installing packages..." "pacman -S --noconfirm --overwrite \* ${TO_INSTALL[*]}"
 
 execho "Setting user shell to zsh..." "chsh -s /bin/zsh deck"
