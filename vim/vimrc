@@ -84,6 +84,9 @@ set ignorecase
 " Incremental search
 set incsearch
 
+" Remove trailing spaces from all files:
+autocmd BufWritePre * %s/\s\+$//e
+
 
 
 " -----------------------------------------------------------------------------
