@@ -4,12 +4,12 @@
 
 [module/chunchunmaru_wifi]
 inherit = network-common
-interface = wlp3s0
+interface = wlp0s20f3
 format-connected-underline = ${colors.notification-0}
 
 [module/chunchunmaru_eth]
 inherit = network-common
-interface = enp4s0
+interface = enp153s0
 format-connected-underline = ${colors.notification-1}
 
 [module/chunchunmaru_cpu_temp]
@@ -18,7 +18,7 @@ hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
 
 [module/chunchunmaru_battery]
 inherit = battery-common
-full-at = 95
+battery = BAT0
 
 
 

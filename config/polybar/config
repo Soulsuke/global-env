@@ -26,7 +26,7 @@ include-file = ~/.config/polybar/modules/temperature
 
 
 [colors]
-bg = ${xrdb:background:#000000} 
+bg = ${xrdb:background:#000000}
 fg = ${xrdb:foreground:#00FF00}
 bg-unfocused = ${xrdb:color0:#2E3436}
 bg-urgent = ${xrdb:color9:#FF0000}
@@ -59,11 +59,13 @@ margin-top = 0
 [bar-default]
 ; General:
 background = ${colors.bg}
+dpi = ${xrdb:Xft.dpi:-1}
 fixed-center = false
 height = ${vars.height}
 locale = en_GB.UTF-8
 padding = 0
 width = 100%
+
 
 ; Avoid i3lock showing systray:
 override-redirect = false

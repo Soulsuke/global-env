@@ -6,7 +6,7 @@
 # NOTE: PWD is appented to origin's path.
 function env_link()
 {
-  if [[ -L "${2}" ]]; then 
+  if [[ -L "${2}" ]]; then
     rm -fr "${2}" > /dev/null
 
   elif [[ -e "${2}" ]]; then
@@ -76,7 +76,7 @@ cd ${_GLOBAL_ENV_PATH_}/config
 mkdir -p "${HOME}/.config"
 for i in *; do
   case $i in
-    # Cherrytree needs to have its config copied: 
+    # Cherrytree needs to have its config copied:
     cherrytree)
       mkdir -p "${HOME}/.config/cherrytree"
       rm -fr "${HOME}/.config/cherrytree/config.cfg*" &> /dev/null
@@ -100,17 +100,29 @@ for i in *; do
       cd ..
     ;;
 
-    # The contents of this folder must be linked directly into the user's
-    # HOME and not in ~/config:
-    outside_config)
-      cd outside_config
-        for ii in *; do
-          env_link ${ii} "${HOME}/.${ii}"
-        done
-      cd ..
+    # This one is a little bit tricky: always copy it over, but attempt to set
+    # a grossly calculated DPI value:
+    Xresources)
+      rm "${HOME}/.${i}" &> /dev/null
+      cp ${i} "${HOME}/.${i}"
+
+      WIDTH=$(
+        xdpyinfo 2> /dev/null | grep dimensions | sed -e 's,x.*,,' | \
+          awk '{print $2}'
+      )
+      if [[ ! -z ${WIDTH} ]]; then
+        GROSS_DPI=$((WIDTH * 96 / 1920))
+        sed -i "s,dpi: .*,dpi: ${GROSS_DPI}," "${HOME}/.${i}"
+      fi
     ;;
 
-    # Everything else:
+    # These should be linked in HOME and not in ~/.config, but do not need any
+    # ad-hoc care themselves:
+    inputrc)
+      env_link ${i} "${HOME}/.${i}"
+    ;;
+
+    # Everything else can be safely linked in ~/.config:
     *)
       env_link ${i} "${HOME}/.config/${i}"
     ;;

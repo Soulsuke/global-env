@@ -177,9 +177,14 @@ bindsym XF86AudioLowerVolume exec --no-startup-id \
 bindsym XF86AudioRaiseVolume exec --no-startup-id \
   wpctl set-volume @DEFAULT_SINK@ 5%+
 #
-# Mute:
+# Mute audio:
 bindsym XF86AudioMute exec --no-startup-id \
   wpctl set-mute @DEFAULT_SINK@ toggle
+#
+# Mute microphone:
+bindsym XF86AudioMicMute exec --no-startup-id \
+  pactl list short sources | \
+    awk '/input.*RUNNING/ {system("wpctl set-mute " $1 " toggle")}'
 #
 # Brightness down:
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
@@ -205,10 +210,12 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 ###############################################################################
 #
 # Menu using .desktop files:
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun \
+  -dpi $(xrdb -query | grep Xft.dpi | awk '{print $2}')
 #
 # Menu using executables within path:
-bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run \
+  -dpi $(xrdb -query | grep Xft.dpi | awk '{print $2}')
 #
 # Session manager (rofi-script menu):
 bindsym $mod+Shift+e exec \

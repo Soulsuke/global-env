@@ -9,7 +9,7 @@ window
   anchor: center;
   background-color: {foreground};
   children: [ mainbox ];
-  padding: 1px;
+  padding: 0.1em;
   text-color: {foreground};
   width: 20%;
 }}
