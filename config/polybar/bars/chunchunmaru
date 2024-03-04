@@ -20,6 +20,10 @@ hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
 inherit = battery-common
 battery = BAT0
 
+[module/chunchunmaru_backlight]
+inherit = _backlight
+card = nvidia_wmi_ec_backlight
+
 
 
 ; vim:ft=dosini
