@@ -136,8 +136,8 @@ assign [ title="^Uplay.*" ] $ws10
 ###############################################################################
 #
 # Focus stealing prevention:
-no_focus [all]
-focus_on_window_activation urgent
+#no_focus [all]
+#focus_on_window_activation urgent
 #
 # Gaps:
 smart_gaps on
