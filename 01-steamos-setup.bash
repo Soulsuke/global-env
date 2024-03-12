@@ -15,8 +15,6 @@ TO_INSTALL=(
   openssh
   rsync
   vim
-  vivaldi
-  vivaldi-ffmpeg-codecs
   zsh
 )
 
@@ -67,7 +65,7 @@ function execho()
   echo -e "${P}${SEP}"
   echo -e "${P}=====>\e[0m ${1}"
 
-  # Only eval on SteamOS, otherwise just echo: 
+  # Only eval on SteamOS, otherwise just echo:
   if [[ 0 == ${NOT_STEAMOS} ]]; then
     eval "${2}"
   else
@@ -80,8 +78,6 @@ function execho()
 execho "Removing readonly flag..." "steamos-readonly disable"
 
 execho "Setting up keyring..." "pacman-key --init"
-
-execho "Populating keyring..." "pacman-key --populate archlinux"
 
 execho "Populating keyring 'archlinux'..." "pacman-key --populate archlinux"
 
