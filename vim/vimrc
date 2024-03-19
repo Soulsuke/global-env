@@ -34,7 +34,6 @@ nmap <F2> :set invnumber<CR>
 " Toggle tab paste
 set pastetoggle=<F3>
 " Toggle folding
-set foldmethod=syntax
 set foldlevel=99
 inoremap <F4> <C-O>za
 nnoremap <F4> za
@@ -94,6 +93,7 @@ autocmd BufWritePre *\(.md\)\@<! %s/\s\+$//e
 " -----------------------------------------------------------------------------
 
 " --- FastFold
+"
 let g:baan_fold=1
 let g:clojure_fold = 1
 let g:fortran_fold=1
@@ -111,6 +111,9 @@ let g:tex_fold_enabled = 1
 let g:vimsyn_folding = 'af'
 let g:xml_syntax_folding = 1
 let g:zsh_fold_enable = 1
+autocmd FileType c,cpp setlocal foldmethod=syntax
+autocmd FileType python setlocal foldmethod=indent
+
 
 
 " --- NERDTree
