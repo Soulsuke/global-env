@@ -32,10 +32,11 @@ for m in $MONITORS; do
     print "DISPLAY: ${NAME} => ${RES} => ${WAL}"
   # Else, set the wallpaper
   else
-    xwinwrap -ov -g "${RES}" -- mpv -wid WID "${WAL}" --no-osc --no-osd-bar \
-      --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 \
-      --no-keepaspect --no-input-default-bindings --hwdec \
-      --stop-screensaver=no &>/dev/null &
+    xwinwrap -d -st -sp -nf -ni -ov -g "${RES}" -- \
+      mpv -wid WID "${WAL}" --no-osc --no-osd-bar --no-keepaspect \
+      --no-input-default-bindings --no-audio --stop-screensaver=no \
+      --loop-file --player-operation-mode=cplayer --panscan=1.0 \
+      &>/dev/null
   fi
 done
 
