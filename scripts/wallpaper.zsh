@@ -35,7 +35,7 @@ for m in $MONITORS; do
     xwinwrap -d -st -sp -nf -ni -ov -g "${RES}" -- \
       mpv -wid WID "${WAL}" --no-osc --no-osd-bar --no-keepaspect \
       --no-input-default-bindings --no-audio --stop-screensaver=no \
-      --loop-file --player-operation-mode=cplayer --panscan=1.0 \
+      --loop-file --player-operation-mode=cplayer --panscan=1.0 -vo xv \
       &>/dev/null
   fi
 done
