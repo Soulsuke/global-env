@@ -10,7 +10,7 @@ fi
 MONITORS=( "${(@f)$(xrandr --listactivemonitors | grep -v "Monitor")}" )
 
 # Iterate over all of them:
-for m in $MONITORS; do
+for m in ${MONITORS}; do
   # Extract the monitor's name:
   NAME=`print $m | awk -F' ' '{print $2}' | sed -r 's,[+*],,g'`
 
@@ -32,10 +32,12 @@ for m in $MONITORS; do
     print "DISPLAY: ${NAME} => ${RES} => ${WAL}"
   # Else, set the wallpaper
   else
-    xwinwrap -d -st -sp -nf -ni -ov -g "${RES}" -- \
-      mpv -wid WID "${WAL}" --no-osc --no-osd-bar --no-keepaspect \
-      --no-input-default-bindings --no-audio --stop-screensaver=no \
-      --loop-file --player-operation-mode=cplayer --panscan=1.0 -vo xv \
+    command -v prime-run &> /dev/null && PR="prime-run"
+
+    xwinwrap -d -st -sp -nf -ni -g "800x600" -- \
+      ${PR} mpv -wid WID "${WAL}" --no-osc --no-osd-bar --no-keepaspect \
+      --no-audio --stop-screensaver=no \
+      --loop-file --player-operation-mode=cplayer --panscan=1.0 \
       &>/dev/null
   fi
 done
