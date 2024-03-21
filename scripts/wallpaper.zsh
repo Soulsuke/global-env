@@ -34,9 +34,9 @@ for m in ${MONITORS}; do
   else
     command -v prime-run &> /dev/null && PR="prime-run"
 
-    xwinwrap -d -st -sp -nf -ni -g "800x600" -- \
+    xwinwrap -d -st -sp -nf -ni -ov -g "${RES}" -- \
       ${PR} mpv -wid WID "${WAL}" --no-osc --no-osd-bar --no-keepaspect \
-      --no-audio --stop-screensaver=no \
+      --no-audio --stop-screensaver=no --hwdec \
       --loop-file --player-operation-mode=cplayer --panscan=1.0 \
       &>/dev/null
   fi
