@@ -14,7 +14,7 @@ format-connected-underline = ${colors.notification-1}
 
 [module/chunchunmaru_cpu_temp]
 inherit = temperature-common
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
 
 [module/chunchunmaru_battery]
 inherit = battery-common
