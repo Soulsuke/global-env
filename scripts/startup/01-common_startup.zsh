@@ -2,25 +2,26 @@
 
 case ${HOST} in
   chunchunmaru)
-    # Screen 1:
+    # Workspace 1:
     cherrytree /home/nanashi/.config/cherrytree/nanashi.ctx &
     vivaldi-stable &
     evolution &
-    # Screen 2:
+    # Workspace 2:
     rambox &
     telegram-desktop &
     discord-canary &
-    ~/.nativefier/DotSwitch-linux-x64/DotSwitch &
   ;;
 
   unmei)
+    # Workspace 1:
     cherrytree &
-    claws-mail &
-    rambox &
-    signal-desktop &
-    steam-native &
-    telegram-desktop &
     vivaldi-stable &
+    claws-mail &
+    # Workspace 2:
+    rambox &
+    telegram-desktop &
+    # Workspace 10:
+    steam-native &
   ;;
 
   *)
