@@ -5,7 +5,7 @@
 ### Common stuff ##############################################################
 
 ## One-time password prompt for all ssh keys (if there are any):
-if [[ $(find ${HOME}/.ssh -iname *.pub) ]]; then
+if [[ $(find -L ${HOME}/.ssh -iname *.pub) ]]; then
   export SSH_AUTH_SOCK="/tmp/ssh-agent.${USER}.${HOST}.sock"
   eval ssh-agent -a "${SSH_AUTH_SOCK}" 2>/dev/null >/dev/null
   ssh-add -L | grep "$(awk -F' ' '{print $2}' ${HOME}/.ssh/*.pub)"  &> \
