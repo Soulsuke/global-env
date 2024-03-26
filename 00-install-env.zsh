@@ -36,8 +36,8 @@ if [[ 0 != ${UID} ]]; then
   git submodule update --remote --merge
 fi
 
-# System-wide config, only if run as root:
-if [[ 0 == ${UID} ]]; then
+# System-wide config, only if run as root (skip on Steam Deck):
+if [[ 0 == ${UID} ]] && [[ -z "$(lsb_release -a | grep SteamOS)" ]]; then
   cd ${_GLOBAL_ENV_PATH_}/root
 
   ### X11
