@@ -7,7 +7,7 @@ case ${HOST} in
     vivaldi-stable &
     evolution &
     # Workspace 2:
-    whatsie &
+    whatsapp-for-linux &
     telegram-desktop &
     discord-canary &
   ;;
@@ -18,7 +18,7 @@ case ${HOST} in
     vivaldi-stable &
     claws-mail &
     # Workspace 2:
-    whatsie &
+    whatsapp-for-linux &
     telegram-desktop &
     # Workspace 10:
     steam-native &
