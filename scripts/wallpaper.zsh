@@ -17,7 +17,13 @@ done
 command -v prime-run &> /dev/null && PR="prime-run" || PR=""
 
 # Iterate over all of the available monitors:
-for MONITOR in `xrandr | grep "\sconnected" | awk '{print $1}'`; do
+for MONITOR in "${(@f)$(xrandr | grep "\sconnected")}"; do
+  # Geometry:
+  GEO=`print ${MONITOR} | awk '{print $4}'`
+
+  # Actual monitor name:
+  MONITOR=`print ${MONITOR} | awk '{print $1}'`
+
   # Default wallpaper:
   WAL="${HOME}/.config/wallpaper"
 
@@ -27,7 +33,10 @@ for MONITOR in `xrandr | grep "\sconnected" | awk '{print $1}'`; do
   fi
 
   # If the test flag has been given, just print out this info:
-  (( 1 == TEST )) && print "Monitor '${MONITOR}' => ${WAL}" && continue
+  if (( 1 == TEST )); then
+    print "${MONITOR} ${GEO} ${WAL}"
+    continue
+  fi
 
   # Start mpv via xwinwrap using options:
   #   -d  => Daemonize
@@ -35,7 +44,9 @@ for MONITOR in `xrandr | grep "\sconnected" | awk '{print $1}'`; do
   #   -sp => Skip Pager
   #   -nf => No Focus
   #   -ni => Ignore Input
-  xwinwrap -d -st -sp -nf -ni -- \
+  #   -ov => Set override_redirect flag
+  #   -g  => Specify Geometry (eg. 640x480+100+100)
+  xwinwrap -d -st -sp -nf -ni -ov -g ${GEO} -- \
     ${PR} mpv -wid WID "${WAL}" \
       --fs \
       --hwdec \
@@ -49,7 +60,4 @@ for MONITOR in `xrandr | grep "\sconnected" | awk '{print $1}'`; do
       --really-quiet \
       --stop-screensaver=no
 done
-
-# Unset these, just in case:
-unset PR MONITOR WAL
 
