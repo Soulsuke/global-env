@@ -1,44 +1,55 @@
 #! /usr/bin/env zsh
 
-# Kill all previous wallpapers if the user didn't ask for info:
-if [[ ! ${1} == "--test" ]]; then
-  killall xwinwrap
-  sleep 0.3
-fi
+# Do nothing if any of these are unavailable:
+for PR in xwinwrap mpv; do
+  command -v ${PR} &> /dev/null && continue
+  print "Executable missing: ${PR}"
+  exit 1
+done
 
-# Get a list of active monitors and their display settings:
-MONITORS=( "${(@f)$(xrandr --listactivemonitors | grep -v "Monitor")}" )
+# Check if this is a test scenario:
+[[ "--test" == ${1} ]] && TEST=1 || TEST=0
 
-# Iterate over all of them:
-for m in ${MONITORS}; do
-  # Extract the monitor's name:
-  NAME=`print $m | awk -F' ' '{print $2}' | sed -r 's,[+*],,g'`
+# Kill all previous wallpapers only in a non-test scenario:
+(( 0 == TEST )) && killall xwinwrap && sleep 0.3
 
-  # Extract the monitor's resolution and position:
-  RES=`print $m | awk -F' ' '{print $3}' | sed -r 's,/[0-9]+,,g'`
+# Check if we should use prime-run:
+command -v prime-run &> /dev/null && PR="prime-run" || PR=""
 
+# Iterate over all of the available monitors:
+for MONITOR in `xrandr | grep "\sconnected" | awk '{print $1}'`; do
   # Default wallpaper:
   WAL="${HOME}/.config/wallpaper"
 
-  # If there's a personalized wallpaper for this monitor, use it:
-  if [[ -d "${HOME}/.config/wallpaper.d" &&
-        -f "${HOME}/.config/wallpaper.d/${NAME}"
-     ]]; then
-    WAL="${HOME}/.config/wallpaper.d/${NAME}"
+  # If there's per-monitor wallpaper, use it:
+  if [[ -f "${HOME}/.config/wallpaper.d/${MONITOR}" ]]; then
+    WAL="${HOME}/.config/wallpaper.d/${MONITOR}"
   fi
 
-  # If the test flag has been given, simply print print out this info:
-  if [[ ${1} == "--test" ]]; then
-    print "DISPLAY: ${NAME} => ${RES} => ${WAL}"
-  # Else, set the wallpaper
-  else
-    command -v prime-run &> /dev/null && PR="prime-run"
+  # If the test flag has been given, just print out this info:
+  (( 1 == TEST )) && print "Monitor '${MONITOR}' => ${WAL}" && continue
 
-    xwinwrap -d -st -sp -nf -ni -ov -g "${RES}" -- \
-      ${PR} mpv -wid WID "${WAL}" --no-osc --no-osd-bar --no-keepaspect \
-      --no-audio --stop-screensaver=no --hwdec \
-      --loop-file --player-operation-mode=cplayer --panscan=1.0 \
-      &>/dev/null
-  fi
+  # Start mpv via xwinwrap using options:
+  #   -d  => Daemonize
+  #   -st => Skip Taskbar
+  #   -sp => Skip Pager
+  #   -nf => No Focus
+  #   -ni => Ignore Input
+  xwinwrap -d -st -sp -nf -ni -- \
+    ${PR} mpv -wid WID "${WAL}" \
+      --fs \
+      --hwdec \
+      --loop-file \
+      --no-audio \
+      --no-keepaspect \
+      --no-osc \
+      --no-osd-bar \
+      --panscan=1.0 \
+      --player-operation-mode=cplayer \
+      --really-quiet \
+      --stop-screensaver=no
 done
+
+# Unset these, just in case:
+unset PR MONITOR WAL
 
