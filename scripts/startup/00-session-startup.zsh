@@ -91,4 +91,6 @@ pasystray &
 redshift-gtk &
 tilda &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
+pactl list short sources | awk '/input.*/ {system("wpctl set-mute " $1 " 0")}'
+wpctl set-mute @DEFAULT_SINK@ 0
 

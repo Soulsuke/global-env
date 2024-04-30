@@ -188,7 +188,7 @@ bindsym XF86AudioMute exec --no-startup-id \
 # Mute all input sources:
 bindsym XF86AudioMicMute exec --no-startup-id \
   pactl list short sources | \
-    awk '/input.*/ {system("pactl set-source-mute " $1 " toggle")}'
+    awk '/input.*/ {system("wpctl set-mute " $1 " toggle")}'
 #
 # Brightness down:
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
