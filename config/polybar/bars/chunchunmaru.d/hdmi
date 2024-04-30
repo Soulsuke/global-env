@@ -2,7 +2,7 @@
 inherit = bar-default
 
 ; Monitor:
-monitor = HDMI1
+monitor = HDMI-1-0
 
 ; Modules:
 modules-center = date

@@ -19,10 +19,10 @@ command -v prime-run &> /dev/null && PR="prime-run" || PR=""
 # Iterate over all of the available monitors:
 for MONITOR in "${(@f)$(xrandr | grep "\sconnected")}"; do
   # Geometry:
-  GEO=`print ${MONITOR} | awk '{print $4}'`
+  GEO=`grep -oE '[0-9]+x[0-9]+\+[0-9]+\+[0-9]+' <<< ${MONITOR}`
 
   # Actual monitor name:
-  MONITOR=`print ${MONITOR} | awk '{print $1}'`
+  MONITOR=`awk '{print $1}' <<< ${MONITOR}`
 
   # Default wallpaper:
   WAL="${HOME}/.config/wallpaper"
