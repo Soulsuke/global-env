@@ -5,5 +5,7 @@ interval = 1
 label-connected = %upspeed%⬆⬇%downspeed%
 type = internal/network
 
+
+
 ; vim:ft=dosini
 

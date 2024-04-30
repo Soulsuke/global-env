@@ -28,13 +28,7 @@ inherit = bar-default
 ; Modules:
 modules-center = date
 modules-left = i3
-modules-right = ronin_wifi ronin_eth my-ip cpu ronin_cpu_temp memory dunst pulse xbacklight battery
-
-; Systray:
-tray-maxsize = ${vars.height}
-tray-padding = 1
-tray-position = right
-tray-scale = 1.0
+modules-right = ronin_wifi ronin_eth my-ip cpu ronin_cpu_temp memory dunst pulse xbacklight battery tray
 
 
 

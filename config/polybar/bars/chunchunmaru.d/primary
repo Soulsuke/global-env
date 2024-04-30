@@ -1,16 +1,13 @@
 [bar/chunchunmaru_primary]
 inherit = bar-default
 
+; Monitor:
+monitor = eDP-2
+
 ; Modules:
 modules-center = date
 modules-left = i3
-modules-right = chunchunmaru_wifi chunchunmaru_eth nordvpn my-ip cpu chunchunmaru_cpu_temp memory nvidia dunst pulse chunchunmaru_backlight chunchunmaru_battery
-
-; Systray:
-tray-maxsize = ${vars.height}
-tray-padding = 1
-tray-position = right
-tray-scale = 1.0
+modules-right = chunchunmaru_wifi chunchunmaru_eth nordvpn my-ip cpu chunchunmaru_cpu_temp memory nvidia dunst pulse chunchunmaru_backlight chunchunmaru_battery tray
 
 
 

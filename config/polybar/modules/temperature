@@ -14,5 +14,7 @@ thermal-zone = 0
 type = internal/temperature
 warn-temperature = 70
 
+
+
 ; vim:ft=dosini
 

@@ -4,5 +4,7 @@ exec = ~/.config/polybar/scripts/dunst.zsh  0F0 FF0 F00
 tail = true
 type = custom/script
 
+
+
 ; vim:ft=dosini
 

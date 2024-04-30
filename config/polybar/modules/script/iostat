@@ -3,5 +3,7 @@ exec = ruby ~/.config/polybar/scripts/iostat.rb disk sda
 tail = true
 type = custom/script
 
+
+
 ; vim:ft=dosini
 

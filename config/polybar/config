@@ -22,6 +22,7 @@ include-file = ~/.config/polybar/modules/script/my-ip
 include-file = ~/.config/polybar/modules/script/nordvpn
 include-file = ~/.config/polybar/modules/script/nvidia
 include-file = ~/.config/polybar/modules/temperature
+include-file = ~/.config/polybar/modules/tray
 
 
 
@@ -45,8 +46,6 @@ height = 28
 [settings]
 pseudo-transparency = false
 screenchange-reload = true
-throttle-output = 5
-throttle-output-for = 10
 
 
 
@@ -65,7 +64,6 @@ height = ${vars.height}
 locale = en_GB.UTF-8
 padding = 0
 width = 100%
-
 
 ; Avoid i3lock showing systray:
 override-redirect = false

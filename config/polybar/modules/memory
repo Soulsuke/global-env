@@ -4,5 +4,7 @@ interval = 0.5
 format-prefix = " "
 label = %gb_used%/%gb_total% (%percentage_used%%)
 
+
+
 ; vim:ft=dosini
 

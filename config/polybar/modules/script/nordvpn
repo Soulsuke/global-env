@@ -6,5 +6,7 @@ exec = ruby ~/.config/polybar/scripts/nordvpn.rb "" "#F00" "#FFB52A" "#00F"
 tail = true
 type = custom/script
 
+
+
 ; vim:ft=dosini
 

@@ -10,7 +10,7 @@ wrapping-scroll = true
 label-focused = %name%
 label-focused-foreground = ${colors.bg}
 label-focused-background = ${colors.fg}
-label-focused-underline = 
+label-focused-underline =
 label-focused-padding = 1
 ; Unfocused workspace:
 label-unfocused = %name%
@@ -25,6 +25,8 @@ label-urgent = %name%
 label-urgent-background = ${colors.bg-urgent}
 label-urgent-foreground = ${colors.fg-urgent}
 label-urgent-padding = 1
+
+
 
 ; vim:ft=dosini
 

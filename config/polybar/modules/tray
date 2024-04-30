@@ -1,0 +1,10 @@
+[module/tray]
+type = internal/tray
+tray-size = 80%
+tray-spacing = 4px
+tray-padding = 0px
+
+
+
+; vim:ft=dosini
+
