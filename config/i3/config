@@ -193,8 +193,7 @@ bindsym XF86AudioMute exec --no-startup-id \
 #
 # Mute all input sources:
 bindsym XF86AudioMicMute exec --no-startup-id \
-  pactl list short sources | \
-    awk '/input.*/ {system("wpctl set-mute " $1 " toggle")}'
+  ~/.scripts/7shi/wpctl_all_microphones_set_mute.zsh toggle
 #
 # Brightness down:
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
