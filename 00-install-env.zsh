@@ -29,6 +29,10 @@ function env_link()
 # Global env's directory:
 local _GLOBAL_ENV_PATH_=${0:A:h}
 
+# Steam deck check:
+local DECK=1
+[[ -z "$(lsb_release -a | grep SteamOS)" ]] && DECK=0
+
 # Init/update git submodules, but only when this isn't run as root:
 if [[ 0 != ${UID} ]]; then
   cd ${_GLOBAL_ENV_PATH_}
@@ -37,7 +41,7 @@ if [[ 0 != ${UID} ]]; then
 fi
 
 # System-wide config, only if run as root (skip on Steam Deck):
-if [[ 0 == ${UID} ]] && [[ -z "$(lsb_release -a | grep SteamOS)" ]]; then
+if [[ 0 == ${UID} ]] && [[ 0 == ${DECK} ]]; then
   cd ${_GLOBAL_ENV_PATH_}/root
 
   ### X11
@@ -105,6 +109,9 @@ for i in *; do
     Xresources)
       rm "${HOME}/.${i}" &> /dev/null
       cp ${i} "${HOME}/.${i}"
+
+      # Keep 96 DPI on deck:
+      [[ 1 == ${DECK} ]] && continue
 
       WIDTH=$(
         xdpyinfo 2> /dev/null | grep dimensions | sed -e 's,x.*,,' | \
