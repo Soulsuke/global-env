@@ -52,12 +52,6 @@ mode "resize"
 #
 # Polybar:
 exec_always --no-startup-id "~/.scripts/7shi/polybar.zsh"
-#
-# Screensaver:
-exec_always --no-startup-id "~/.scripts/7shi/lockscreen/xautolock.zsh i3lock"
-#
-# Wallpaper:
-exec_always --no-startup-id "~/.scripts/7shi/wallpaper.zsh"
 
 
 

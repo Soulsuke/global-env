@@ -67,6 +67,8 @@ case ${GDMSESSION:l} in
 
   i3)
     picom --config ~/.config/i3/picom --daemon
+    ~/.scripts/7shi/wallpaper.zsh &
+    ~/.scripts/7shi/lockscreen/xautolock.zsh i3lock &
     dunst &
     blueman-applet &
     nm-applet &
