@@ -7,7 +7,7 @@ AllCops:
   DefaultFormatter: progress
   DisplayStyleGuide: true
   DisplayCopNames: true
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3
   NewCops: enable
 
 
@@ -73,6 +73,9 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/NumericLiterals:
+  Enabled: false
+
+Style/NumericPredicate:
   Enabled: false
 
 Style/Lambda:
