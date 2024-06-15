@@ -26,7 +26,7 @@ SUDO_7SHI=sudo
 [[ $(command -v doas) ]] && SUDO_7SHI=doas
 
 # LANG/LC should not be set on Termux and SteamOS:
-if [[ -z ${TERMUX_APP_PID} ]]; then
+if [[ 1 == ${ON_TERMUX} ]]; then
   export LANG="en_GB.UTF-8"
   export LC_ALL="en_GB.UTF-8"
 fi

@@ -8,7 +8,10 @@
 export GLOBAL_ENV="$(dirname $(readlink ~/.zshrc))"
 
 # Apparently Termux won't set USER, so let's fix it:
-[[ -z ${TERMUX_APP_PID} ]] || export USER=$(whoami)
+if [[ -z ${USER} ]]; then
+  export USER=$(whoami)
+  export ON_TERMUX=1
+fi
 
 
 
@@ -22,7 +25,7 @@ source ${HOME}/.z${USER}       # loads user aliases
 
 
 ### Modules ###################################################################
-zmodload zsh/mathfunc 
+zmodload zsh/mathfunc
 zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
@@ -123,7 +126,7 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 zstyle '*' single-ignored show
 zstyle -e ':completion:*:approximate:*' max-errors \
     'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
-zstyle -e ':completion:*:sudo:*' command-path 'reply=($path)' 
+zstyle -e ':completion:*:sudo:*' command-path 'reply=($path)'
 
 
 
