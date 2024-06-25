@@ -135,9 +135,11 @@ map <Leader>adn :EasyCompleteNextDiagnostic<CR>
 map <Leader>al :EasyCompleteLint<CR>
 map <Leader>arn :EasyCompleteRename<CR>
 map <Leader>ab :BackToOriginalBuffer<CR>
-let g:easycomplete_scheme = "rider"
 let g:easycomplete_diagnostics_next = "<C-J>"
 let g:easycomplete_diagnostics_prev = "<C-k>"
+let g:easycomplete_nerd_font = 1
+let g:easycomplete_scheme = "rider"
+let g:easycomplete_tabnine_enable = 0
 
 
 
