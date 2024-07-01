@@ -6,11 +6,9 @@
 ### Environment variables                                                   ###
 ###############################################################################
 
-# Locale should not be set on Termux:
-if [[ -z ${TERMUX_APP_PID} ]]; then
-  export LANG=en_GB.UTF-8
-  export LC_ALL=en_GB.UTF-8
-fi
+# Locale:
+export LANG=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
 
 # GTK dialogues in telegram-desktop:
 export QT_QPA_PLATFORMTHEME=gtk3
