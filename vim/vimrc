@@ -69,7 +69,7 @@ syntax on
 set grepprg=grep\ -nH\ $*
 
 " JSON beautifier (jq):
-nnoremap <Leader>j :%!jq '.'<CR>
+nnoremap <leader>j :%!jq '.'<CR>
 
 if has("autocmd")
  " Enabled file type detection
@@ -91,6 +91,14 @@ autocmd BufWritePre *\(.md\)\@<! %s/\s\+$//e
 " -----------------------------------------------------------------------------
 " --- Plugins                                                               ---
 " -----------------------------------------------------------------------------
+
+" --- asyncomplete.vim
+"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+
 
 " --- FastFold
 "
@@ -123,43 +131,6 @@ map <leader>n :NERDTreeToggle<CR>
 
 
 
-" --- vim-easycomplete
-"
-map <Leader>aon :EasyCompleteEnable<CR>
-map <Leader>aoff :EasyCompleteDisable<CR>
-map <Leader>ar :EasyCompleteReference<CR>
-map <Leader>ac :EasyCompleteCheck<CR>
-map <Leader>ad :EasyCompleteGotoDefinition<CR>
-map <Leader>adp :EasyCompletePreviousDiagnostic<CR>
-map <Leader>adn :EasyCompleteNextDiagnostic<CR>
-map <Leader>al :EasyCompleteLint<CR>
-map <Leader>arn :EasyCompleteRename<CR>
-map <Leader>ab :BackToOriginalBuffer<CR>
-let g:easycomplete_diagnostics_next = "<C-J>"
-let g:easycomplete_diagnostics_prev = "<C-k>"
-let g:easycomplete_nerd_font = 0
-let g:easycomplete_scheme = "rider"
-let g:easycomplete_tabnine_enable = 0
-let g:easycomplete_tabnine_suggestion = 0
-
-
-
-" --- vim-rubocop
-"
-" Set config file:
-let g:vimrubocop_config = "~/.vim/resources/rubocop.yml"
-"
-" Check for violations:
-map <Leader>r :RuboCop<CR>
-"
-" Autofix violations:
-map <leader>ra :RuboCop -a<CR>
-"
-" Formatter:
-map <leader>rx :RuboCop -x<CR>
-
-
-
 " --- vim-prettier
 "
 " Settings:
@@ -175,4 +146,20 @@ let g:prettier#config#end_of_line = "lf"
 "
 " Prettify:
 map <leader>p :Prettier<CR>
+
+
+
+" --- vim-rubocop
+"
+" Set config file:
+let g:vimrubocop_config = "~/.vim/resources/rubocop.yml"
+"
+" Check for violations:
+map <leader>r :RuboCop<CR>
+"
+" Autofix violations:
+map <leader>ra :RuboCop -a<CR>
+"
+" Formatter:
+map <leader>rx :RuboCop -x<CR>
 
