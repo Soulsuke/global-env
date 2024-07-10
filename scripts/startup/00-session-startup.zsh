@@ -10,8 +10,8 @@
 export LANG=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 
-# GTK dialogues in telegram-desktop:
-export QT_QPA_PLATFORMTHEME=gtk3
+# GTK theme in qt apps:
+export QT_QPA_PLATFORMTHEME=gnome
 
 
 
