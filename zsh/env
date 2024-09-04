@@ -49,8 +49,9 @@ fi
 
 
 ### Development evals #########################################################
-[[ $(command -v rbenv) ]] && eval "$(rbenv init -)"
-[[ $(command -v nodenv) ]] && eval "$(nodenv init -)"
+for e in rbenv nodenv pyenv; do
+  [[ $(command -v ${e}) ]] && eval "$(${e} init -)"
+done
 
 
 
