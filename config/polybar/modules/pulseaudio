@@ -9,6 +9,7 @@ ramp-volume-1 = 🔉
 ramp-volume-2 = 🔊
 type = internal/pulseaudio
 use-ui-max = true
+click-right = pavucontrol
 
 
 

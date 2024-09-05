@@ -61,6 +61,7 @@ case ${GDMSESSION:l} in
   enlightenment)
     blueman-applet &
     gkrellm &
+    pasystray &
   ;;
 
   i3)
@@ -78,6 +79,7 @@ case ${GDMSESSION:l} in
 
   *)
     gkrellm &
+    pasystray &
   ;;
 esac
 
@@ -85,7 +87,6 @@ esac
 
 # Common for Every DE, after the compositor is in place:
 gnome-keyring-daemon --start
-pasystray &
 redshift-gtk &
 tilda &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
