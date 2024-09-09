@@ -1,5 +1,8 @@
 #! /usr/bin/env zsh
 
+# Usage:
+#   ${0} <Sources|Sinks> <0|1|toggle>
+
 # First argument is either "Sources" or "Sinks":
 TYPE_START=${1}
 TYPE_END=""
