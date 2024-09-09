@@ -90,6 +90,6 @@ gnome-keyring-daemon --start
 redshift-gtk &
 tilda &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
-${HOME}/.scripts/7shi/wpctl_all_microphones_set_mute.zsh 0
-wpctl set-mute @DEFAULT_SINK@ 0
+${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sources 0
+${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sinks 0
 
