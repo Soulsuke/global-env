@@ -20,7 +20,7 @@ DEVICES=$(
        /^Audio/ { is_audio = 1; }
        /${TYPE_START}/ { is_type = 1; }
        /${TYPE_END}/ { is_type = 0; }
-       /Video/ { is_audio = 0; }
+       /^Video/ { is_audio = 0; }
        {
          if( 1 == is_audio && 1 == is_type && / [[:digit:]]*\./ )
          { print; }
