@@ -79,7 +79,7 @@ Style/NumericPredicate:
   Enabled: false
 
 Style/Lambda:
-  EnforcedStyle: literal
+  EnforcedStyle: lambda
 
 Style/MultilineIfThen:
   Enabled: false
