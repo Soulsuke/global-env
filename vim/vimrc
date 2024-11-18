@@ -149,6 +149,19 @@ map <leader>p :Prettier<CR>
 
 
 
+" --- vim-signify
+"
+" Show diff:
+map <leader>d :SignifyDiff<CR>
+"
+" Show hunk diff:
+map <leader>dh :SignifyHunkDiff<CR>
+"
+" Undo hunk diff:
+map <leader>du :SignifyHunkUndo<CR>
+
+
+
 " --- vim-rubocop
 "
 " Set config file:

@@ -19,3 +19,6 @@
 [submodule "vim/vim/bundle/VimCompletesMe"]
 	path = vim/vim/bundle/VimCompletesMe
 	url = https://github.com/vim-scripts/VimCompletesMe.git
+[submodule "vim/vim/bundle/vim-signify"]
+	path = vim/vim/bundle/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
