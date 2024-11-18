@@ -1,5 +1,6 @@
 *~
 *.sw[op]
+*[1:!]
 *.zwc
 *.old
 vim/vim/.netrwhist

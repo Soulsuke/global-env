@@ -5,6 +5,11 @@ execute pathogen#infect()
 
 " Make everything readable:
 set background=dark
+highlight Pmenu ctermfg=Grey ctermbg=DarkGrey
+highlight PmenuSel ctermfg=Green ctermbg=DarkGrey
+
+" Make the sign column blend with the rest:
+highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
 " To be extra sure.
 set colorcolumn=80
@@ -151,14 +156,24 @@ map <leader>p :Prettier<CR>
 
 " --- vim-signify
 "
-" Show diff:
-map <leader>d :SignifyDiff<CR>
+" Settings:
+let g:signify_line_highlight = 0
+let g:signify_number_highlight = 1
+"
+" Show whole file diff:
+map <c-d> :SignifyDiff!<CR>
 "
 " Show hunk diff:
-map <leader>dh :SignifyHunkDiff<CR>
+map <leader>d :SignifyHunkDiff<CR>
 "
 " Undo hunk diff:
 map <leader>du :SignifyHunkUndo<CR>
+"
+" Jump to next hunk:
+nmap <c-n> <plug>(signify-next-hunk)
+"
+" Jump to previous hunk:
+nmap <c-p> <plug>(signify-prev-hunk)
 
 
 
