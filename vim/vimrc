@@ -5,8 +5,12 @@ execute pathogen#infect()
 
 " Make everything readable:
 set background=dark
-highlight Pmenu ctermfg=Grey ctermbg=DarkGrey
-highlight PmenuSel ctermfg=Green ctermbg=DarkGrey
+
+" Popup menu:
+highlight Pmenu ctermfg=Green ctermbg=Black
+highlight PmenuSel ctermfg=Black ctermbg=Green
+highlight PmenuSbar ctermbg=Black
+highlight PmenuThumb ctermbg=Green
 
 " Make the sign column blend with the rest:
 highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
