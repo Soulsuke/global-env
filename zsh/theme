@@ -7,7 +7,7 @@
 function prompt_nns_setup()
 {
   # Local variables:
-  # NOTE: the following are used elsewhere: 
+  # NOTE: the following are used elsewhere:
   #  - prompt_nns_hyphen -> prompt_nns_compose_top_prompt_line
   #  - prompt_l_paren -> prompt_nns_compose_top_prompt_line
   #  - prompt_r_paren -> prompt_nns_compose_top_prompt_line
@@ -51,21 +51,22 @@ function prompt_nns_setup()
   prompt_r_quadr="%B%F{cyan}]%b"
 
   # Hackish, but it works (I won't dare to multiline it):
-  prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_nanashi_color1}${prompt_gfx_mlc}%b%F{$prompt_nanashi_color1}${prompt_gfx_hyphen}%{"$'\e[B%}'
+  prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{${prompt_nanashi_color1}}${prompt_gfx_mlc}%b%F{${prompt_nanashi_color1}}${prompt_gfx_hyphen}%{"$'\e[B%}'
 
   # Shortcut for the very start of the top prompt line::
   prompt_nns_tbox="%b%F{cyan}${prompt_nns_tlc}"
 
   # Left part of the top prompt line (USER@HOST:PWD):
-  prompt_line_1a="$prompt_nns_tbox$prompt_nns_hyphen$prompt_l_quadr"
+  prompt_line_1a="${prompt_nns_tbox}${prompt_nns_hyphen}${prompt_l_quadr}"
   prompt_line_1a+="%n%B@%b%m%f%B:%F{green}%~"
 
   # Middle part of the top prompt line (DATE, TIME $?):
-  prompt_line_1b="$prompt_l_quadr%D{%Y-%m-%d, %H:%M:%S}"
+  prompt_line_1b="${prompt_l_quadr}%D{%Y-%m-%d, %H:%M:%S}"
 
   # Right part of the top prompt line (end):
   prompt_line_1c=" %(?.%B%F{green}●.%B%F{red}▲)"
-  prompt_line_1c+="%b%f$prompt_r_quadr${prompt_nns_hyphen}${prompt_nns_hyphen}"
+  prompt_line_1c+="%b%f${prompt_r_quadr}${prompt_nns_hyphen}"
+  prompt_line_1c+="${prompt_nns_hyphen}"
 
   # Bottom prompt line:
   prompt_line_2="%b%F{cyan}${prompt_nns_blc}${prompt_nns_hyphen}%b%F{cyan}"
@@ -113,7 +114,7 @@ function prompt_nns_git_data()
         [untracked]="^??"
         [uncommitted]="^[MR]"
       )
-  
+
       # Iterate over the data to show:
       for name reg in ${(kv)porcelain_legend}; do
         cnt="$(grep $reg <<< $porcelain | wc -l)"
@@ -121,20 +122,20 @@ function prompt_nns_git_data()
           prompt_git+=" %F{yellow}$name:$cnt"
         fi
       done
-  
+
       # Check for stashed data:
       if [[ "" != "$(git stash list)" ]]; then
         prompt_git+=" %F{yellow}stashed"
       fi
-  
+
       # If there are no remote repositories set, show a notice:
       if [[ "" == "${NNS_GIT_REMOTE}" ]]; then
         prompt_git+=" %F{blue}no_remotes"
-  
+
       # Otherwise:
       else
         local shorthand="${NNS_GIT_REMOTE}/${NNS_GIT_BRANCH}"
-  
+
         # Check for unpushed commits:
         if [[
           "" != "$(git log ${shorthand}..HEAD 2&> /dev/null)" || 0 != $?
@@ -159,7 +160,7 @@ function prompt_nns_git_data()
 # Composes the top prompt line for the current terminal width.
 function prompt_nns_compose_top_prompt_line()
 {
-  # Local variables: 
+  # Local variables:
   local prompt_git prompt_line_1a_git prompt_line_1a_w \
     prompt_line_1b_w prompt_line_1c_w \
     prompt_line_1_timer prompt_line_1_timer_w \
@@ -167,7 +168,8 @@ function prompt_nns_compose_top_prompt_line()
 
   # Add eventual git data::
   prompt_nns_git_data
-  prompt_line_1a_git="$prompt_line_1a$prompt_git$prompt_r_quadr$prompt_nns_hyphen"
+  prompt_line_1a_git="${prompt_line_1a}${prompt_git}${prompt_r_quadr}"
+  prompt_line_1a_git+="${prompt_nns_hyphen}"
   prompt_line_1_timer=""
   if [[ 1 == ${NNS_TIMER_CONTROL} ]]; then
     prompt_line_1_timer=" %b%F{green}${NNS_TIMER_ELAPSED}ms"
@@ -178,7 +180,7 @@ function prompt_nns_compose_top_prompt_line()
   prompt_line_1b_w=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   prompt_line_1c_w=${#${(S%%)prompt_line_1c//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   prompt_line_1_timer_w=${#${(S%%)prompt_line_1_timer//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  
+
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_w -
                           prompt_line_1b_w - prompt_line_1c_w -
                           prompt_line_1_timer_w
@@ -189,9 +191,9 @@ function prompt_nns_compose_top_prompt_line()
     local prompt_padding
     prompt_padding="prompt_padding=\${(l:${prompt_padding_size}::"
     prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
-    eval "$prompt_padding"
-    prompt_line_1="$prompt_line_1a_git$prompt_padding$prompt_line_1b"
-    prompt_line_1+="$prompt_line_1_timer$prompt_line_1c"
+    eval "${prompt_padding}"
+    prompt_line_1="${prompt_line_1a_git}${prompt_padding}${prompt_line_1b}"
+    prompt_line_1+="${prompt_line_1_timer}${prompt_line_1c}"
     return
   fi
 
@@ -202,15 +204,16 @@ function prompt_nns_compose_top_prompt_line()
     local prompt_padding
     prompt_padding="prompt_padding=\${(l:${prompt_padding_size}::"
     prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
-    eval "$prompt_padding"
-    prompt_line_1="$prompt_line_1a_git$prompt_padding"
+    eval "${prompt_padding}"
+    prompt_line_1="${prompt_line_1a_git}${prompt_padding}"
     return
   fi
 
   # If we got here we are out of options and gotta truncate the prompt:
   local prompt_pwd_size=$(( COLUMNS - 5 ))
-  prompt_line_1="$prompt_nns_tbox$prompt_l_paren%B%F{green}%$prompt_pwd_size"
-  prompt_line_1+="<...<%~%<<$prompt_r_paren%b%F{cyan}$prompt_nns_hyphen"
+  prompt_line_1="${prompt_nns_tbox}${prompt_l_paren}%B%F{green}%"
+  prompt_line_1+="{$prompt_pwd_size}<...<%~%<<${prompt_r_paren}%b%F{cyan}"
+  prompt_line_1+="${prompt_nns_hyphen}"
 }
 
 
@@ -218,13 +221,13 @@ function prompt_nns_compose_top_prompt_line()
 # Needed for a working timer.
 prompt_nns_preexec()
 {
-  NNS_TIMER_CONTROL=1 
+  NNS_TIMER_CONTROL=1
   NNS_TIMER_START=$(($(date +%s%0N)/1000000))
 }
 
 
 
-# Composes the prompt putting everything together. 
+# Composes the prompt putting everything together.
 prompt_nns_precmd()
 {
   # Timer only if needed:
@@ -248,18 +251,25 @@ prompt_nns_precmd()
   # Set the tab's title:
   print -Pn "\e]0;${USER}@${HOST}:%~\a"
 
-  # PS1, default prompt:
-  PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{white}"
-  PS1+="$prompt_char %b%f%k"
+  # PS1, default prompt start:
+  PS1="${prompt_line_1}${prompt_newline}${prompt_line_2}%B"
+
+  # Add in venv info if needed:
+  if [[ ! -z ${VIRTUAL_ENV} ]]; then
+    PS1+="%F{yellow}[venv: ${VIRTUAL_ENV}]"
+  fi
+
+  # PS1 default end:
+  PS1+="%F{white}${prompt_char} %b%f%k"
 
   # PS2, continuation interactive prompt:
-  PS2="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}%_> %b%f%k"
+  PS2="${prompt_line_2}${prompt_gfx_bbox_to_mbox}%B%F{white}%_> %b%f%k"
 
   # PS3, select:
-  PS3="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}?# %b%f%k"
+  PS3="${prompt_line_2}${prompt_gfx_bbox_to_mbox}%B%F{white}?# %b%f%k"
 
   # PS4, tracing:
-  PS4="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white} %N.%i >"
+  PS4="${prompt_line_2}${prompt_gfx_bbox_to_mbox}%B%F{white} %N.%i >"
 
   # Reset this:
   NNS_TIMER_CONTROL=0
