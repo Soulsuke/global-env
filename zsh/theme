@@ -256,7 +256,7 @@ prompt_nns_precmd()
 
   # Add in venv info if needed:
   if [[ ! -z ${VIRTUAL_ENV} ]]; then
-    PS1+="%F{yellow}[venv: ${VIRTUAL_ENV}]"
+    PS1+="(%F{yellow}venv: ${VIRTUAL_ENV}%F{cyan})"
   fi
 
   # PS1 default end:
