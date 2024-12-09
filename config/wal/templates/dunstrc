@@ -13,8 +13,8 @@
   # NOTE: 300 is fixed, (0, 300) is dynamic.
   width = 300
 
-  # Maxmum height for a single notification (excluding frame):
-  height = 300
+  # Single notification's height, excluding frame (min, max):
+  height = (10, 300)
 
   # Offset (right below polybar):
   offset = 0x28
