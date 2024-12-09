@@ -103,50 +103,58 @@ function prompt_nns_git_data()
 
     # Otherwise get the repo's data:
     else
-      # Add in some data from git porcelain:
-      porcelain="$(git status --porcelain)"
+      # Fetch data via git porcelain:
+      porcelain="$(git status --porcelain 2>/dev/null)"
 
-      # Porcelain data to show:
-      typeset -A porcelain_legend=(
-        [modified]="^.M"
-        [deleted]="^.D"
-        [added]="^A."
-        [untracked]="^??"
-        [uncommitted]="^[MR]"
-      )
+      # And only add it in if the command exited successfully:
+      if (( 0 == ? )); then
+        # Porcelain data to show:
+        typeset -A porcelain_legend=(
+          [modified]="^.M"
+          [deleted]="^.D"
+          [added]="^A."
+          [untracked]="^??"
+          [uncommitted]="^[MR]"
+        )
 
-      # Iterate over the data to show:
-      for name reg in ${(kv)porcelain_legend}; do
-        cnt="$(grep $reg <<< $porcelain | wc -l)"
-        if [[ 0 < $cnt ]]; then
-          prompt_git+=" %F{yellow}$name:$cnt"
+        # Iterate over the data to show:
+        for name reg in ${(kv)porcelain_legend}; do
+          cnt="$(grep $reg <<< $porcelain | wc -l)"
+          if [[ 0 < $cnt ]]; then
+            prompt_git+=" %F{yellow}$name:$cnt"
+          fi
+        done
+
+        # Check for stashed data:
+        if [[ "" != "$(git stash list)" ]]; then
+          prompt_git+=" %F{yellow}stashed"
         fi
-      done
 
-      # Check for stashed data:
-      if [[ "" != "$(git stash list)" ]]; then
-        prompt_git+=" %F{yellow}stashed"
-      fi
+        # If there are no remote repositories set, show a notice:
+        if [[ "" == "${NNS_GIT_REMOTE}" ]]; then
+          prompt_git+=" %F{blue}no_remotes"
 
-      # If there are no remote repositories set, show a notice:
-      if [[ "" == "${NNS_GIT_REMOTE}" ]]; then
-        prompt_git+=" %F{blue}no_remotes"
+        # Otherwise:
+        else
+          local shorthand="${NNS_GIT_REMOTE}/${NNS_GIT_BRANCH}"
 
-      # Otherwise:
-      else
-        local shorthand="${NNS_GIT_REMOTE}/${NNS_GIT_BRANCH}"
+          # Check for unpushed commits:
+          if [[
+            "" != "$(git log ${shorthand}..HEAD 2&> /dev/null)" || 0 != $?
+          ]]
+          then
+            prompt_git+=" %F{blue}to_push"
 
-        # Check for unpushed commits:
-        if [[
-          "" != "$(git log ${shorthand}..HEAD 2&> /dev/null)" || 0 != $?
-        ]];
-        then
-          prompt_git+=" %F{blue}to_push"
-
-        # Otherwise check if we are ahead:
-        elif [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
-          prompt_git+=" %F{blue}ahead"
+          # Otherwise check if we are ahead:
+          elif [[ "" != $(git status | grep "Your branch is ahead of") ]]; then
+            prompt_git+=" %F{blue}ahead"
+          fi
         fi
+
+       # Otherwise, show an indicator we can't show the info (most likely we're
+       # inside the .git folder):
+       else
+         prompt_git+=" %F{yellow}<.git>"
       fi
     fi
 
