@@ -1,2 +1,4 @@
+#! /usr/bin/env zsh
+
 source ${HOME}/.scripts/7shi/startup/00-session-startup.zsh
 

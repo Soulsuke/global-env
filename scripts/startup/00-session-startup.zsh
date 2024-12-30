@@ -47,6 +47,16 @@ xrdb -merge ${HOME}/.Xresources
 
 
 
+# Let's take the current session name from the right variable:
+local NNS_SESSION
+for NNS_SESSION in \
+  "${XDG_SESSION_DESKTOP}" "${GDMSESSION}" "${XDG_CURRENT_DESKTOP}"
+do
+  [[ -z ${NNS_SESSION} ]] || break
+done
+
+
+
 # DE specific. Possible values:
 # cinnamon
 # cinnamon2d
@@ -57,7 +67,7 @@ xrdb -merge ${HOME}/.Xresources
 # plasma
 # plasmawayland
 # xfce
-case ${GDMSESSION:l} in
+case ${NNS_SESSION:l} in
   enlightenment)
     blueman-applet &
     gkrellm &

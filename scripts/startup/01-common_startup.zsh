@@ -7,7 +7,7 @@ case ${HOST} in
     vivaldi-stable &
     evolution &
     # Workspace 2:
-    whatsapp-for-linux &
+    wasistlos &
     telegram-desktop &
     discord-canary &
   ;;
