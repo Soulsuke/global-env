@@ -108,7 +108,7 @@ assign [ class="Cherrytree" ] $ws01
 assign [ class="Claws-mail" ] $ws01
 assign [ class="Evolution" ] $ws01
 # 02
-assign [ class="Whatsapp-for-linux" ] $ws02
+assign [ class="Wasistlos" ] $ws02
 assign [ class="TelegramDesktop" ] $ws02
 assign [ class="Signal" ] $ws02
 assign [ class="discord" ] $ws02
