@@ -7,7 +7,7 @@ AllCops:
   DefaultFormatter: progress
   DisplayStyleGuide: true
   DisplayCopNames: true
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.4.1
   NewCops: enable
 
 
@@ -72,10 +72,10 @@ Style/DocumentationMethod:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/NumericLiterals:
+Style/NumericPredicate:
   Enabled: false
 
-Style/NumericPredicate:
+Style/NumericLiterals:
   Enabled: false
 
 Style/Lambda:
@@ -215,6 +215,10 @@ Layout/TrailingEmptyLines:
 ### Lint                                                                    ###
 ### Reference: https://docs.rubocop.org/rubocop/cops_lint.html              ###
 ###############################################################################
+
+# Fuck parenthesis.
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
 
 # Because sometimes it's necessary:
 Lint/SuppressedException:
