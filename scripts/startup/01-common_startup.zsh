@@ -9,7 +9,7 @@ case ${HOST} in
     # Workspace 2:
     wasistlos &
     telegram-desktop &
-    discord-canary &
+    discord &
   ;;
 
   unmei)
@@ -21,7 +21,7 @@ case ${HOST} in
     whatsapp-for-linux &
     telegram-desktop &
     # Workspace 10:
-    steam-native &
+    steam &
   ;;
 
   *)
