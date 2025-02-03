@@ -1,40 +1,7 @@
 #! /usr/bin/env zsh
 
-
-
-###############################################################################
-### Environment variables                                                   ###
-###############################################################################
-
-# Locale:
-export LANG=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8
-
-# GTK theme in qt apps:
-export QT_QPA_PLATFORMTHEME=gtk3
-
-
-
-###############################################################################
-### ibus                                                                    ###
-###############################################################################
-
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-ibus-daemon -drx
-
-
-
-###############################################################################
-### DPI settings                                                            ###
-###############################################################################
-
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-export QT_ENABLE_HIGHDPI_SCALING=1
-export GDK_SCALE=1
-export GDK_DPI_SCALE=1.0
-xrdb -merge ${HOME}/.Xresources
+# Let's be extra sure to source this:
+[[ -f ${HOME}/.profile ]] && source ${HOME}/.profile
 
 
 
@@ -44,16 +11,12 @@ xrdb -merge ${HOME}/.Xresources
 
 # Common for every DE, before an eventual compositor is started:
 [[ $(command -v nvidia-settings) ]] && nvidia-settings -l
+ibus-daemon -drx
 
-
-
-# Let's take the current session name from the right variable:
-local NNS_SESSION
-for NNS_SESSION in \
-  "${XDG_SESSION_DESKTOP}" "${GDMSESSION}" "${XDG_CURRENT_DESKTOP}"
-do
-  [[ -z ${NNS_SESSION} ]] || break
-done
+# This should only happen for X11 sessions:
+if [[ ${XDG_SESSION_TYPE:l} == "x11" ]]; then
+  [[ -f ${HOME}/.Xresources ]] && xrdb -merge ${HOME}/.Xresources
+fi
 
 
 
@@ -63,11 +26,12 @@ done
 # enlightenment
 # gnome
 # gnome-cassic
+# hyprland
 # i3
 # plasma
 # plasmawayland
 # xfce
-case ${NNS_SESSION:l} in
+case ${XDG_SESSION_DESKTOP:l} in
   enlightenment)
     blueman-applet &
     gkrellm &
@@ -85,6 +49,10 @@ case ${NNS_SESSION:l} in
 
   plasmawayland)
     yakuake &
+  ;;
+
+  hyprland)
+    # TODO
   ;;
 
   *)

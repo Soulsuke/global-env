@@ -1,4 +1,4 @@
 #! /usr/bin/env zsh
 
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+[[ -f ${HOME}/.Xresources ]] && xrdb -merge ${HOME}/.Xresources
 

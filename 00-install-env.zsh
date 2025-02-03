@@ -143,6 +143,7 @@ env_link scripts "${HOME}/.scripts/7shi"
 
 # Session startup config:
 cd ${_GLOBAL_ENV_PATH_}/session_startup
+env_link profile "${HOME}/.profile"
 env_link xinitrc "${HOME}/.xinitrc"
 env_link xprofile "${HOME}/.xprofile"
 mkdir -p "${HOME}/.local/share/applications"

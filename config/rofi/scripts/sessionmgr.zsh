@@ -2,7 +2,7 @@
 
 # Logout command depending on the current de:
 LOGOUT_CMD=""
-case ${GDMSESSION:l} in
+case ${XDG_SESSION_DESKTOP:l} in
   i3) LOGOUT_CMD='i3-msg exit' ;;
 esac
 

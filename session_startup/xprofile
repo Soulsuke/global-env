@@ -1,4 +1,7 @@
 #! /usr/bin/env zsh
 
-source ${HOME}/.scripts/7shi/startup/00-session-startup.zsh
+for i in ${HOME}/.profile ${HOME}/.scripts/7shi/startup/00-session-startup.zsh
+do
+  [[ -f ${i} ]] && source ${i}
+done
 
