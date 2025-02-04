@@ -17,7 +17,7 @@
   height = (10, 300)
 
   # Offset (right below polybar):
-  offset = 0x28
+  offset = 0x0
 
   # Max number of shown notifications:
   notification_limit = 10

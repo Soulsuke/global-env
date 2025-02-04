@@ -1,0 +1,95 @@
+/* Import from pywal */
+@import url("../../.cache/wal/waybar.css");
+
+
+
+/*
+ * General
+ */
+*
+{
+  border: none;
+  border-radius: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  min-height: 0;
+}
+
+
+
+/*
+ * Main bar
+ */
+window#waybar {
+  background: @background;
+  color: @foreground;
+}
+
+
+
+/*
+ * Tooltip area
+ */
+tooltip {
+  background: @backgroundAlpha;
+  border: 1px solid @foreground;
+}
+
+tooltip label {
+  color: @foreground;
+}
+
+
+
+/*
+ * General modules
+ */
+.module
+{
+  padding: 0;
+  margin: 0 0.7em;
+}
+
+
+
+/*
+ * Workspaces
+ */
+#workspaces
+{
+  margin-left: 0;
+}
+
+#workspaces button
+{
+  padding: 0 0.5em;
+  background: @background;
+  color: @foreground;
+}
+
+#workspaces button.active
+{
+  background: @foreground;
+  color: @background;
+}
+
+
+
+/*
+ * Clock
+ */
+#clock
+{
+  font-weight: bold;
+}
+
+
+
+/*
+ * Tray
+ */
+#tray
+{
+  margin-right: 0;
+}
+

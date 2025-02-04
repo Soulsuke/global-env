@@ -1,21 +1,14 @@
 #! /usr/bin/env zsh
 
-# Let's be extra sure to source this:
-[[ -f ${HOME}/.profile ]] && source ${HOME}/.profile
-
-
-
 ###############################################################################
 ### Startup programs                                                        ###
 ###############################################################################
 
-# Common for every DE, before an eventual compositor is started:
-[[ $(command -v nvidia-settings) ]] && nvidia-settings -l
-ibus-daemon -drx
-
-# This should only happen for X11 sessions:
+# Common startup commands for X11 sessions (before any compositor):
 if [[ ${XDG_SESSION_TYPE:l} == "x11" ]]; then
   [[ -f ${HOME}/.Xresources ]] && xrdb -merge ${HOME}/.Xresources
+  [[ $(command -v nvidia-settings) ]] && nvidia-settings -l
+  ibus-daemon -drx
 fi
 
 
@@ -36,15 +29,17 @@ case ${XDG_SESSION_DESKTOP:l} in
     blueman-applet &
     gkrellm &
     pasystray &
+    tilda &
   ;;
 
   i3)
     picom --config ~/.config/i3/picom --daemon
     ~/.scripts/7shi/wallpaper.zsh &
     ~/.scripts/7shi/lockscreen/xautolock.zsh i3lock &
-    dunst &
+    dunst -config ~/.config/dunst/dunstrc_x11 &
     blueman-applet &
     nm-applet &
+    tilda &
   ;;
 
   plasmawayland)
@@ -52,12 +47,17 @@ case ${XDG_SESSION_DESKTOP:l} in
   ;;
 
   hyprland)
-    # TODO
+    ~/.scripts/7shi/wallpaper.zsh &
+    dunst -config ~/.config/dunst/dunstrc_wayland &
+    blueman-applet &
+    nm-applet &
+    tilda --dbus &
   ;;
 
   *)
     gkrellm &
     pasystray &
+    tilda &
   ;;
 esac
 
@@ -66,7 +66,6 @@ esac
 # Common for Every DE, after the compositor is in place:
 gnome-keyring-daemon --start
 redshift-gtk &
-tilda &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
 ${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sources 0
 ${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sinks 0

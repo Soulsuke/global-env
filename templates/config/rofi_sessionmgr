@@ -1,6 +1,7 @@
 # Screen locker command to use.
 # Examples:
-#  locker=~/.scripts/7shi/lockscreen/lockers/i3lock.zsh
-#  locker=i3lock
-locker=~/.scripts/7shi/lockscreen/lockers/i3lock.zsh
+#  locker_i3=~/.scripts/7shi/lockscreen/lockers/i3lock.zsh
+#  locker_i3=i3lock
+locker_i3=~/.scripts/7shi/lockscreen/lockers/i3lock.zsh
+locker_hyprland=loginctl lock-session
 

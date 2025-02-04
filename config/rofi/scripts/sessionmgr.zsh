@@ -1,18 +1,32 @@
 #!/usr/bin/env zsh
 
-# Logout command depending on the current de:
-LOGOUT_CMD=""
-case ${XDG_SESSION_DESKTOP:l} in
-  i3) LOGOUT_CMD='i3-msg exit' ;;
-esac
-
 # Config reader:
 source ~/.scripts/7shi/lib/load_conf.zsh
 
-# Commands to execute in an ordered array which will be used as a sort of hash:
-roficmds=(
-  'Lock screen'    "$(7shi_load_conf ~/.config/7shi/rofi_sessionmgr locker)"
-  'Logout'         "${LOGOUT_CMD}"
+# Rofi options container:
+roficmds=()
+
+# Current DE container:
+local DE="${XDG_SESSION_DESKTOP:l}"
+
+# Fetch the lockscreen command for the current de:
+LOCK_COMMAND="$(7shi_load_conf ~/.config/7shi/rofi_sessionmgr "locker_${DE}")"
+
+# Add it in only if present:
+[[ -z "${LOCK_COMMAND}" ]] || roficmds+=( 'Lock screen' "${LOCK_COMMAND}" )
+
+# The logout command depends on the current DE:
+LOGOUT_CMD=""
+case "${DE}" in
+  i3) LOGOUT_CMD='i3-msg exit' ;;
+  hyprland) LOGOUT_CMD='hyprctl dispatch exit' ;;
+esac
+
+# Add it in only if present:
+[[ -z "${LOGOUT_CMD}" ]] || roficmds+=( 'Logout' "${LOGOUT_CMD}" )
+
+# These should always be present:
+roficmds+=(
   'Reboot'         'reboot'
   'Shutdown'       'shutdown -h now'
   'Suspend to ram' 'systemctl suspend'

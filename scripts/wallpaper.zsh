@@ -1,63 +1,103 @@
 #! /usr/bin/env zsh
 
+### Utility functions
+###############################################################################
+
+# $1 => screen name
+get_wallpaper_for()
+{
+  # Default wallpaper:
+  local RET="${HOME}/.config/wallpaper"
+
+  # If there's per-monitor wallpaper, use it:
+  if [[ -f "${HOME}/.config/wallpaper.d/${1}" ]]; then
+    RET="${HOME}/.config/wallpaper.d/${1}"
+  fi
+
+  # Finally, print out ret:
+  print "${RET}"
+}
+
+
+
+### Entry point
+###############################################################################
+
+# Current environment:
+ENVIRONMENT="${XDG_SESSION_TYPE:l}"
+
+# Per-environment dependencies:
+DEPS=(mpv)
+MAIN_LAUNCHER=""
+if [[ "${ENVIRONMENT}" == "x11" ]]; then
+  MAIN_LAUNCHER="xwinwrap"
+  DEPS+=(xrandr)
+elif [[ "${ENVIRONMENT}" == "wayland" ]]; then
+  MAIN_LAUNCHER="mpvpaper"
+  DEPS+=(wlr-randr)
+fi
+DEPS+=(${MAIN_LAUNCHER})
+
 # Do nothing if any of these are unavailable:
-for PR in xwinwrap mpv; do
+for PR in ${DEPS}; do
   command -v ${PR} &> /dev/null && continue
   print "Executable missing: ${PR}"
   exit 1
 done
 
-# Check if this is a test scenario:
-[[ "--test" == ${1} ]] && TEST=1 || TEST=0
-
-# Kill all previous wallpapers only in a non-test scenario:
-(( 0 == TEST )) && killall xwinwrap && sleep 0.3
-
 # Check if we should use prime-run:
 command -v prime-run &> /dev/null && PR="prime-run" || PR=""
 
-# Iterate over all of the available monitors:
-for MONITOR in "${(@f)$(xrandr | grep "\sconnected")}"; do
-  # Geometry:
-  GEO=`grep -oE '[0-9]+x[0-9]+\+[0-9]+\+[0-9]+' <<< ${MONITOR}`
+# X11 logic:
+if [[ "${ENVIRONMENT}" == "x11" ]]; then
+  # Iterate over all of the available monitors:
+  for MONITOR in "${(@f)$(xrandr | grep "\sconnected")}"; do
+    # Geometry:
+    GEO=`grep -oE '[0-9]+x[0-9]+\+[0-9]+\+[0-9]+' <<< ${MONITOR}`
 
-  # Actual monitor name:
-  MONITOR=`awk '{print $1}' <<< ${MONITOR}`
+    # Actual monitor name:
+    MONITOR=`awk '{print $1}' <<< ${MONITOR}`
 
-  # Default wallpaper:
-  WAL="${HOME}/.config/wallpaper"
+    # Wallpaper to use:
+    WAL=$(get_wallpaper_for "${MONITOR}")
 
-  # If there's per-monitor wallpaper, use it:
-  if [[ -f "${HOME}/.config/wallpaper.d/${MONITOR}" ]]; then
-    WAL="${HOME}/.config/wallpaper.d/${MONITOR}"
-  fi
+    # Start mpv via xwinwrap using options:
+    #   -d  => Daemonize
+    #   -st => Skip Taskbar
+    #   -sp => Skip Pager
+    #   -nf => No Focus
+    #   -ni => Ignore Input
+    #   -ov => Set override_redirect flag
+    #   -g  => Specify Geometry (eg. 640x480+100+100)
+    xwinwrap -d -st -sp -nf -ni -ov -g ${GEO} -- \
+      ${PR} mpv -wid WID "${WAL}" \
+        --fs \
+        --hwdec \
+        --loop-file \
+        --no-audio \
+        --no-keepaspect \
+        --no-osc \
+        --no-osd-bar \
+        --panscan=1.0 \
+        --player-operation-mode=cplayer \
+        --really-quiet \
+        --stop-screensaver=no
+  done
 
-  # If the test flag has been given, just print out this info:
-  if (( 1 == TEST )); then
-    print "${MONITOR} ${GEO} ${WAL}"
-    continue
-  fi
+# Wayland logic:
+elif [[ "${ENVIRONMENT}" == "wayland" ]]; then
+  # Iterate over all of the available monitors
+  for MONITOR in "$(wlr-randr | grep -vE "^ " | sed -e "s, .*,,")"; do
+    # Wallpaper to use:
+    WAL=$(get_wallpaper_for "${MONITOR}")
 
-  # Start mpv via xwinwrap using options:
-  #   -d  => Daemonize
-  #   -st => Skip Taskbar
-  #   -sp => Skip Pager
-  #   -nf => No Focus
-  #   -ni => Ignore Input
-  #   -ov => Set override_redirect flag
-  #   -g  => Specify Geometry (eg. 640x480+100+100)
-  xwinwrap -d -st -sp -nf -ni -ov -g ${GEO} -- \
-    ${PR} mpv -wid WID "${WAL}" \
-      --fs \
-      --hwdec \
-      --loop-file \
-      --no-audio \
-      --no-keepaspect \
-      --no-osc \
-      --no-osd-bar \
-      --panscan=1.0 \
-      --player-operation-mode=cplayer \
-      --really-quiet \
-      --stop-screensaver=no
-done
+    # Set the wallpaper:
+    mpvpaper \
+      "${MONITOR}" \
+      "${WAL}" \
+      -f \
+      -o "fs --hwdec --loop-file --no-audio --no-keepaspect --no-osc --no-osd-bar --panscan=1.0 --player-operation-mode=cplayer --really-quiet --stop-screensaver=no"
+  done
+
+fi
 

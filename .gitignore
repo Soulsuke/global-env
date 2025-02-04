@@ -3,6 +3,11 @@
 *[1:!]
 *.zwc
 *.old
-vim/vim/.netrwhist
-config/tilda/*.tmp
+
+# Excluded files from config:
+/config/hypr/00-per_host/per_host.conf
+/config/tilda/*.tmp
+
+# Excluded files from vim:
+/vim/vim/.netrwhist
 

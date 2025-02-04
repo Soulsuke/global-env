@@ -115,7 +115,6 @@ assign [ class="discord" ] $ws02
 assign [ class="Skype" ] $ws02
 assign [ class="Slack" ] $ws02
 # 03
-assign [ class="Insomnia Designer" ] $ws03
 assign [ class="Apache NetBeans.*" ] $ws03
 assign [ class="jetbrains-studio" ] $ws03
 assign [ class="Eclipse" ] $ws03
