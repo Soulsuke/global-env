@@ -25,6 +25,7 @@
     "cpu",
     "memory",
     "custom/nvidia",
+    "custom/dunst",
     "idle_inhibitor",
     "pulseaudio",
     "backlight",
@@ -65,16 +66,16 @@
     "format": "{:%H:%M:%S %Y-%m-%d, %A}",
     "format-alt": "{:%H:%M %m-%d}",
     "calendar": {
-      "mode"          : "year",
-      "mode-mon-col"  : 3,
-      "weeks-pos"     : "right",
-      "on-scroll"     : 1,
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
       "format": {
-        "months":     "<span color='#ffead3'><b>{}</b></span>",
-        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+        "months":   "<span color='#ffead3'><b>{}</b></span>",
+        "days":     "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks":    "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today":    "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
     }
   },
@@ -106,14 +107,21 @@
 
   // Memory:
   "memory": {
-    "format": "{}% "
+    "format": "{avail}/{total}GiB "
   },
 
-  // Nvidia
+  // Nvidia:
   "custom/nvidia": {
     "interval": 1,
     "exec": "nvidia-smi --query-gpu=memory.used,temperature.gpu --format=csv,noheader | awk '{ print \"\"$1\"\"$2\" \"$3\"°C\" }'",
     "format": "{}  "
+  },
+
+  // Dunst:
+  "custom/dunst": {
+    "exec": "~/.config/waybar/scripts/dunst.zsh",
+    "on-click": "dunstctl set-paused toggle",
+    "restart-interval": 1
   },
 
   // Idle inhibitor:
@@ -170,7 +178,7 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon}",
+    "format": "{capacity}% {time} {icon}",
     "format-full": "",
     "format-charging": "{capacity}% ",
     "format-plugged": "{capacity}% ",

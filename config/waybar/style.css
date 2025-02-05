@@ -86,6 +86,31 @@ tooltip label {
 
 
 /*
+ * Battery
+ */
+#battery.discharging
+{
+   color: @color11;
+}
+
+#battery.discharging.warning
+{
+  color: @color9;
+}
+
+#battery.charging
+{
+  color: @color14;
+}
+
+#battery.charging.warning
+{
+  color: @color13;
+}
+
+
+
+/*
  * Tray
  */
 #tray

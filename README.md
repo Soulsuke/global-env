@@ -66,3 +66,11 @@ Section "Screen"
 EndSection
 ```
 
+##### Prevent suspension on lid closure on hyprland  
+
+This has to be set in `/etc/systemd/logind.conf`:  
+```
+[Login]
+HandleLidSwitch=ignor
+```
+
