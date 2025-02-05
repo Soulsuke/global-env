@@ -96,7 +96,7 @@ elif [[ "${ENVIRONMENT}" == "wayland" ]]; then
       "${MONITOR}" \
       "${WAL}" \
       -f \
-      -o "fs --hwdec --loop-file --no-audio --no-keepaspect --no-osc --no-osd-bar --panscan=1.0 --player-operation-mode=cplayer --really-quiet --stop-screensaver=no"
+      -o "fs hwdec loop-file no-audio no-keepaspect no-osc no-osd-bar panscan=1.0 player-operation-mode=cplayer really-quiet stop-screensaver=no scale=bilinear"
   done
 
 fi
