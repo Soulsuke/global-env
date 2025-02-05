@@ -117,11 +117,17 @@ for i in *; do
       # Remove any potential odd symlinks:
       rm "${HOME}/.config/${i}/hyprland.conf.d/hostname.conf" &> /dev/null
 
-      local TMP="${HOME}/.config/${i}/00-per_host/$(hostname).conf"
+      # Temporary shorthands:
+      local TMP_FROM="${HOME}/.config/${i}/00-per_host/$(hostname).conf"
+      local TMP_TO="${HOME}/.config/${i}/hyprland.conf.d/hostname.conf"
 
       # Then, check if we have a config for the current host:
-      if [[ -f "${TMP}" ]]; then
-        ln -s "${TMP}" "${HOME}/.config/${i}/hyprland.conf.d/hostname.conf"
+      if [[ -f "${TMP_FROM}" ]]; then
+        ln -s "${TMP_FROM}" "${TMP_TO}"
+
+      # Otherwise, create an empty file so nothing will break:
+      else
+        print "# Empty\n" >| "${TMP_TO}"
       fi
     ;;
 
