@@ -109,6 +109,28 @@ for i in *; do
       cd ..
     ;;
 
+    # Hyprland wants an extra symlink:
+    hypr)
+      # Link the whole folder:
+      env_link ${i} "${HOME}/.config/${i}"
+
+      # Remove any potential odd symlinks:
+      rm "${HOME}/.config/${i}/hyprland.conf.d/hostname.conf" &> /dev/null
+
+      local TMP="${HOME}/.config/${i}/00-per_host/$(hostname).conf"
+
+      # Then, check if we have a config for the current host:
+      if [[ -f "${TMP}" ]]; then
+        ln -s "${TMP}" "${HOME}/.config/${i}/hyprland.conf.d/hostname.conf"
+      fi
+    ;;
+
+    # These should be linked in HOME and not in ~/.config, but do not need any
+    # ad-hoc care themselves:
+    inputrc)
+      env_link ${i} "${HOME}/.${i}"
+    ;;
+
     # This one is a little bit tricky: always copy it over, but attempt to set
     # a grossly calculated DPI value:
     Xresources)
@@ -126,12 +148,6 @@ for i in *; do
         GROSS_DPI=$((WIDTH * 96 / 1920))
         sed -i "s,dpi: .*,dpi: ${GROSS_DPI}," "${HOME}/.${i}"
       fi
-    ;;
-
-    # These should be linked in HOME and not in ~/.config, but do not need any
-    # ad-hoc care themselves:
-    inputrc)
-      env_link ${i} "${HOME}/.${i}"
     ;;
 
     # Everything else can be safely linked in ~/.config:
