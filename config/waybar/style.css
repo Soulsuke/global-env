@@ -86,6 +86,27 @@ tooltip label {
 
 
 /*
+ * Network
+ */
+##network.disabled,
+#network.disconnected
+{
+  color: @color11;
+}
+
+
+
+/*
+ * Temperature
+ */
+#temperature.critical
+{
+  color: @color11;
+}
+
+
+
+/*
  * Battery
  */
 #battery.discharging
