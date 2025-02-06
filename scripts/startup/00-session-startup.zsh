@@ -6,12 +6,14 @@
 
 # Common startup commands for X11 sessions (before any compositor):
 if [[ ${XDG_SESSION_TYPE:l} == "x11" ]]; then
-  [[ -f ${HOME}/.Xresources ]] && xrdb -merge ${HOME}/.Xresources
   [[ $(command -v nvidia-settings) ]] && nvidia-settings -l
   ibus-daemon -drx
 fi
 
-
+# This should be done under wayland too, so xwayland apps look right:
+if [[ $(command -v xrdb) ]] && [[ -f ${HOME}/.Xresources ]]; then
+  xrdb -merge ${HOME}/.Xresources
+fi
 
 # DE specific. Possible values:
 # cinnamon
