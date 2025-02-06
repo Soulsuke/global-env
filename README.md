@@ -74,3 +74,14 @@ This has to be set in `/etc/systemd/logind.conf`:
 HandleLidSwitch=ignore
 ```
 
+##### Screen sharing on Hyprland
+
+Source: `https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580`  
+Packages installed via AUR:  
+
+- xdg-desktop-portal-hyprland-git (only target)  
+- hyprland-protocols-git  
+- hyprwayland-scanner-git  
+- hyprutils-git  
+- hyprlang-git  
+
