@@ -125,7 +125,7 @@ for i in *; do
         TMP_HOST="$(hostnamectl hostname)"
       else
         TMP_HOST="FAKE_AND_MISSING"
-      end
+      fi
 
       # Temporary shorthands:
       local TMP_FROM="${HOME}/.config/${i}/00-per_host/${TMP_HOST}.conf"
