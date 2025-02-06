@@ -117,8 +117,18 @@ for i in *; do
       # Remove any potential odd symlinks:
       rm "${HOME}/.config/${i}/hyprland.conf.d/hostname.conf" &> /dev/null
 
+      # Different way to pick hostname.. Thanks systemd!
+      local TMP_HOST=""
+      if [[ $(command -v hostname) ]]; then
+        TMP_HOST="$(hostname)"
+      elif [[ $(command -v hostnamectl) ]]; then
+        TMP_HOST="$(hostnamectl hostname)"
+      else
+        TMP_HOST="FAKE_AND_MISSING"
+      end
+
       # Temporary shorthands:
-      local TMP_FROM="${HOME}/.config/${i}/00-per_host/$(hostname).conf"
+      local TMP_FROM="${HOME}/.config/${i}/00-per_host/${TMP_HOST}.conf"
       local TMP_TO="${HOME}/.config/${i}/hyprland.conf.d/hostname.conf"
 
       # Then, check if we have a config for the current host:
