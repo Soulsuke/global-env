@@ -49,6 +49,10 @@ case ${XDG_SESSION_DESKTOP:l} in
   ;;
 
   hyprland)
+    dbus-update-activation-environment \
+      --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    hypridle &
+    waybar &
     ~/.scripts/7shi/wallpaper.zsh &
     dunst -config ~/.config/dunst/dunstrc_wayland &
     blueman-applet &
