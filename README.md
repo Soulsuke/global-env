@@ -71,6 +71,6 @@ EndSection
 This has to be set in `/etc/systemd/logind.conf`:  
 ```
 [Login]
-HandleLidSwitch=ignor
+HandleLidSwitch=ignore
 ```
 
