@@ -5,6 +5,9 @@
 # Variables:
 local CONFIG="${HOME}/.cache/wal/dunstrc"
 
+# Do nothing if the file isn't there:
+[[ -f ${CONFIG} ]] || exit
+
 # Sed data depending on the environment:
 if [[ ${XDG_SESSION_TYPE:l} == "wayland" ]]; then
   sed -i "s;offset =.*;offset = (0, 0);" "${CONFIG}"
