@@ -35,10 +35,10 @@ case ${XDG_SESSION_DESKTOP:l} in
   ;;
 
   i3)
-    picom --config ~/.config/i3/picom --daemon
-    ~/.scripts/7shi/wallpaper.zsh &
-    ~/.scripts/7shi/lockscreen/xautolock.zsh i3lock &
-    dunst -config ~/.config/dunst/dunstrc_x11 &
+    picom --config ${HOME}/.config/i3/picom --daemon
+    ${HOME}/.scripts/7shi/wallpaper.zsh &
+    ${HOME}/.scripts/7shi/lockscreen/xautolock.zsh i3lock &
+    dunst -config ${HOME}/.config/dunst/dunstrc_x11 &
     blueman-applet &
     nm-applet &
     tilda &
@@ -52,13 +52,9 @@ case ${XDG_SESSION_DESKTOP:l} in
     dbus-update-activation-environment \
       --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     hypridle &
-    if [[ -f "${HOME}/.config/waybar/00-per_host/${HOST}.jsonc" ]]; then
-      waybar -c "${HOME}/.config/waybar/00-per_host/${HOST}.jsonc" &
-    else
-      waybar &
-    fi
-    ~/.scripts/7shi/wallpaper.zsh &
-    dunst -config ~/.config/dunst/dunstrc_wayland &
+    ${HOME}/.scripts/7shi/waybar.zsh &
+    ${HOME}/.scripts/7shi/wallpaper.zsh &
+    dunst -config ${HOME}/.config/dunst/dunstrc_wayland &
     blueman-applet &
     nm-applet &
     tilda --dbus &
