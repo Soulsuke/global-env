@@ -16,5 +16,5 @@ fi
 killall dunst
 
 # Then start it:
-dunst
+[[ $(command -v dunst) ]] && dunst
 
