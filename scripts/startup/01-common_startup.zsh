@@ -9,7 +9,7 @@ case ${HOST} in
     # Workspace 2:
     wasistlos &
     telegram-desktop &
-    XDG_SESSION_TYPE=x11 discord &
+    discord &
   ;;
 
   unmei)

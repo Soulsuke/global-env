@@ -12,7 +12,7 @@ To set the wal theme from an image: `wal -i /path/to/image`
 
 
 
-### Disclaimer  
+## Disclaimer  
 
 Some of these files date back to 2006ish when I got introduced to Gentoo/kBSD,
 and they've followed me on FreeBSD 6, OpenSolaris, OpenIndiana, Debian, and
@@ -30,9 +30,9 @@ soon.
 
 
 
-### Notes
+## Notes
 
-##### Gnome keyring
+### Gnome keyring
 
 Just areminder that PAM should be configured to unlock gnome-keyring-daemon 
 keyrings on login:  
@@ -44,7 +44,9 @@ auth       optional     pam_gnome_keyring.so
 session    optional     pam_gnome_keyring.so auto_start
 ```
 
-##### Xorg nvidia config
+
+
+### Xorg nvidia config
 
 Configuration to avoid a couple of tearing issues with picom when using a
 nvidia card:  
@@ -66,22 +68,32 @@ Section "Screen"
 EndSection
 ```
 
-##### Prevent suspension on lid closure on hyprland  
 
-This has to be set in `/etc/systemd/logind.conf`:  
+
+### Hyprland
+
+A few notes regarding what's needed to make Hyprland work.
+
+#### Packages to install
+
+The following packages are required to have a Hyprland setup:
+hyprland hypridle hyprlock hyprpicker hyprsunset xdg-desktop-portal-hyprland
+mpvpaper grim slurp  
+
+However, the following needs to be installed via AUR or screen capture won't 
+work (until a new release): `xdg-desktop-portal-hyprland-git`  
+
+#### Prevent lid closure from suspending to ram
+
+This has to be done via systemd editing `/etc/systemd/logind.conf`:  
 ```
 [Login]
 HandleLidSwitch=ignore
 ```
 
-##### Screen sharing on Hyprland
+#### Issues with screen sharing
 
-Source: `https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580`  
-Packages installed via AUR:  
-
-- xdg-desktop-portal-hyprland-git (only target)  
-- hyprland-protocols-git  
-- hyprwayland-scanner-git  
-- hyprutils-git  
-- hyprlang-git  
+Ideally everything should work with the portal, but the following gist contains
+a lot of useful info:
+https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580  
 

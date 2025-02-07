@@ -52,7 +52,11 @@ case ${XDG_SESSION_DESKTOP:l} in
     dbus-update-activation-environment \
       --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     hypridle &
-    waybar &
+    if [[ -f "${HOME}/.config/waybar/00-per_host/${HOST}.jsonc" ]]; then
+      waybar -c "${HOME}/.config/waybar/00-per_host/${HOST}.jsonc" &
+    else
+      waybar &
+    fi
     ~/.scripts/7shi/wallpaper.zsh &
     dunst -config ~/.config/dunst/dunstrc_wayland &
     blueman-applet &
