@@ -13,7 +13,7 @@ else
 fi
 
 # Kill all running instances:
-killall dunst
+killall dunst &> /dev/null
 
 # Then start it:
 [[ $(command -v dunst) ]] && dunst

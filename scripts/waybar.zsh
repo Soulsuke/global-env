@@ -9,7 +9,7 @@ local PER_HOST="${PER_HOST_BASE}/${HOST}.jsonc"
 local DEFAULT="${PER_HOST_BASE}/00-default.jsonc"
 
 # Kill any active instance of waybar:
-killall waybar
+killall waybar &> /dev/null
 
 # Remove the default config file:
 rm "${CONFIG}" &> /dev/null
