@@ -91,17 +91,12 @@ for i in *; do
     # Special care for dunst:
     dunst)
       mkdir -p "${HOME}/.config/dunst"
-
-      for d in x11 wayland; do
-        if [[ -L "${HOME}/.config/dunst/dunstrc_${d}" ]]; then
-          rm "${HOME}/.config/dunst/dunstrc_${d}"
-        elif [[ -e "${HOME}/.config/dunst/dunstrc_${d}" ]]; then
-          mv "${HOME}/.config/dunst/dunstrc_${d}" \
-            "${HOME}/.config/dunst/dunstrc_${d}.old"
-        fi
-        ln -s "${HOME}/.cache/wal/dunstrc_${d}" \
-          "${HOME}/.config/dunst/dunstrc_${d}"
-      done
+      if [[ -L "${HOME}/.config/dunst/dunstrc" ]]; then
+        rm "${HOME}/.config/dunst/dunstrc"
+      elif [[ -e "${HOME}/.config/dunst/dunstrc" ]]; then
+        mv "${HOME}/.config/dunst/dunstrc" "${HOME}/.config/dunst/dunstrc.old"
+      fi
+      ln -s "${HOME}/.cache/wal/dunstrc" "${HOME}/.config/dunst/dunstrc"
       cd dunst
       for ii in *; do
         env_link ${ii} "${HOME}/.config/dunst/${ii}"
@@ -191,6 +186,5 @@ done
 [[ $(command -v wal) ]] && wal --theme green-on-black
 
 # Restart dunst:
-killall dunst &> /dev/null
-dunst -config ~/.cache/wal/dunstrc_${XDG_SESSION_TYPE:l} &> /dev/null &
+${HOME}/.scripts/7shi/dunst.zsh &
 

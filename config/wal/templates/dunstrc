@@ -16,8 +16,11 @@
   # Single notification's height, excluding frame (min, max):
   height = (10, 300)
 
-  # Offset (right below polybar):
-  offset = 0x0
+  # Offset, this is tricky:
+  #  - on X11 should be 0x28 (below polybar)
+  #  - on wayland it has to be 0x0 (exclusive areas are a pain)
+  # We'll let dunst.zsh do its magic here.
+  offset = (0, 28)
 
   # Max number of shown notifications:
   notification_limit = 10
@@ -141,12 +144,6 @@
   class = Dunst
   title = Dunst
 
-  # Startup notification:
-  startup_notification = false
-
-  # Verbosity (crit, warn, mesg, info, debug):
-  verbosity = mesg
-
 
 
   ### Mouse behaviour
@@ -165,19 +162,19 @@
 [urgency_low]
   background = "{background}"
   foreground = "{color2}"
-  frame-color = "{foreground}"
+  frame_color = "{foreground}"
   timeout = 10
 
 [urgency_normal]
   background = "{background}"
   foreground = "{foreground}"
-  frame-color = "{foreground}"
+  frame_color = "{foreground}"
   timeout = 10
 
 [urgency_critical]
   background = "{foreground}"
   foreground = "{background}"
-  frame-color = "{background}"
+  frame_color = "{background}"
   timeout = 0
 
 
