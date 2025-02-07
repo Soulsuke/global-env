@@ -77,11 +77,34 @@ A few notes regarding what's needed to make Hyprland work.
 #### Packages to install
 
 The following packages are required to have a Hyprland setup:  
-hyprland hypridle hyprlock hyprpicker hyprsunset xdg-desktop-portal-hyprland
-mpvpaper grim slurp  
+```
+grim
+hypridle
+hyprland
+hyprlock
+hyprpicker
+hyprsunset
+mpvpaper
+rofi-wayland
+slurp
+wayland-protocols
+wlr-randr
+xdg-desktop-portal-hyprland
+xorg-xwayland
+```
 
-However, the following needs to be installed via AUR or screen capture won't 
-work (until a new release): `xdg-desktop-portal-hyprland-git`  
+On nvidia cards these are also needed:  
+```
+libva-nvidia-driver
+egl-wayland nvidia-utils
+```
+
+As of this writing (2025-02-07) `xdg-desktop-portal-hyprland` doesn't quite
+support screensharing, so the AUR package is needed (which will also pull other
+-git packages):  
+```
+xdg-desktop-portal-hyprland-git
+```
 
 #### Prevent lid closure from suspending to ram
 
