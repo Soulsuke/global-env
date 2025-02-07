@@ -76,7 +76,7 @@ A few notes regarding what's needed to make Hyprland work.
 
 #### Packages to install
 
-The following packages are required to have a Hyprland setup:
+The following packages are required to have a Hyprland setup:  
 hyprland hypridle hyprlock hyprpicker hyprsunset xdg-desktop-portal-hyprland
 mpvpaper grim slurp  
 
