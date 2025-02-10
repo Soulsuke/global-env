@@ -57,7 +57,6 @@ case ${XDG_SESSION_DESKTOP:l} in
     ${HOME}/.scripts/7shi/dunst.zsh &
     blueman-applet &
     nm-applet &
-    tilda --dbus &
   ;;
 
   *)
