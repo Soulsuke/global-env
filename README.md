@@ -120,3 +120,7 @@ Ideally everything should work with the portal, but the following gist contains
 a lot of useful info:
 https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580  
 
+#### Have chrome-based browsers run on wayland instead of xwayland  
+
+chrome://flags -> Search for `ozone` -> set to `Auto`  
+
