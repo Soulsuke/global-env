@@ -9,7 +9,14 @@ case ${HOST} in
     # Workspace 2:
     wasistlos &
     telegram-desktop &
-    discord &
+    if [[ ${XDG_SESSION_TYPE:l} == "wayland" ]]; then
+      discord \
+        --enable-features=UseOzonePlatform \
+        --ozone-platform=wayland \
+        --disable-gpu
+    else
+      discord &
+    fi
   ;;
 
   unmei)
@@ -25,7 +32,7 @@ case ${HOST} in
   ;;
 
   *)
-    notify-send 'No common startup applications set.'
+    notify-send "No common startup applications set."
   ;;
 esac
 
