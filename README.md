@@ -106,6 +106,22 @@ support screensharing, so the AUR package is needed (which will also pull other
 xdg-desktop-portal-hyprland-git
 ```
 
+#### Issues with Lightdm (connected input devices not working)
+
+Due to a race condition, this has to be added in `/etc/lightdm/Xsession`:  
+```
+[...]
+
+echo "X session wrapper complete, running session $@"
+
+# Wayland hotfix:
+if [[ ${XDG_SESSION_TYPE} == "wayland" ]]; then
+  sleep 1
+fi
+
+exec $@
+```
+
 #### Prevent lid closure from suspending to ram
 
 This has to be done via systemd editing `/etc/systemd/logind.conf`:  
