@@ -2,21 +2,21 @@
 {{
   background-color: transparent;
   font: "DejaVu Sans Mono 9";
+  text-color: {foreground};
 }}
 
 window
 {{
   anchor: center;
-  background-color: {foreground};
+  border-color: {foreground};
+  border: 1px;
   children: [ mainbox ];
-  padding: 0.1em;
-  text-color: {foreground};
   width: 20%;
 }}
 
 mainbox
 {{
-  background-color: {background};
+  background-color: rgba( {background.rgb}, 60% );
   children: [ prompt, entry, listview ];
   orientation: vertical;
   padding: 0.3em;
@@ -25,7 +25,6 @@ mainbox
 prompt
 {{
   font: "DejaVu Sans Mono Bold 10";
-  text-color: {foreground};
 }}
 
 listview
@@ -37,7 +36,6 @@ listview
 entry
 {{
   expand: false;
-  text-color: {foreground};
   width: 10em;
 }}
 
@@ -49,18 +47,10 @@ element
 element.selected
 {{
   background-color: {foreground};
-  text-color: {background};
-}}
-
-element-text
-{{
-  background-color: {background};
-  text-color: {foreground};
 }}
 
 element-text.selected
 {{
-  background-color: {foreground};
   text-color: {background};
 }}
 
