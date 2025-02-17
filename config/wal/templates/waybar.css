@@ -1,6 +1,6 @@
 @define-color foreground rgb({foreground.rgb});
 @define-color background rgb({background.rgb});
-@define-color backgroundAlpha rgba({background.rgb},0.7);
+@define-color backgroundAlpha rgba({background.rgb},0.6);
 
 @define-color color0 rgb({color0.rgb});
 @define-color color1 rgb({color1.rgb});
