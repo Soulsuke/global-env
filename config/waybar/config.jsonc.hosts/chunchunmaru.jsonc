@@ -1,0 +1,24 @@
+/*\
+|* HOST: chunchunmaru
+\*****************************************************************************/
+{
+
+  /*\
+  |* Temperature zone
+  \***************************************************************************/
+
+  "temperature": {
+    "hwmon-path-abs": "/sys/devices/platform/PNP0C14:08/wmi_bus/wmi_bus-PNP0C14:08/8A42EA14-4F2A-FD45-6422-0087F7A7E608/hwmon",
+    "input-filename": "temp1_input"
+  },
+
+
+
+  /*\
+  |* Include defaults
+  \***************************************************************************/
+
+  "include": [ "~/.config/waybar/config.jsonc" ]
+
+}
+

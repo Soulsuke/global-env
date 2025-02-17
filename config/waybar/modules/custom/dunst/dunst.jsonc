@@ -1,0 +1,14 @@
+{
+
+  /*\
+  |* Dunst
+  \***************************************************************************/
+
+  "custom/dunst": {
+    "exec": "~/.config/waybar/modules/custom/dunst/dunst.zsh",
+    "on-click": "dunstctl set-paused toggle",
+    "restart-interval": 1
+  }
+
+}
+

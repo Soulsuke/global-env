@@ -73,6 +73,12 @@ tooltip label {
   color: @background;
 }
 
+#workspaces button.urgent
+{
+  background: @color1;
+  color: @background;
+}
+
 
 
 /*

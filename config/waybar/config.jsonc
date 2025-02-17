@@ -1,0 +1,77 @@
+{
+
+  /*\
+  |* General configuration
+  \***************************************************************************/
+
+  // Exclusive area:
+  "exclusive": true,
+
+  // Positioning:
+  "layer": "top",
+  "position": "top",
+
+  // Relative center to available space:
+  "fixed-center": false,
+
+  // Bar's height:
+  "height": 28,
+
+  // Space between modules:
+  "spacing": 4,
+
+  // Reload style on change (works well with pywal):
+  "reload_style_on_change": true,
+
+
+
+  /*\
+  |* Module areas
+  \***************************************************************************/
+
+  "modules-left": [
+    "hyprland/workspaces",
+    "clock"
+  ],
+
+  "modules-center": [
+  ],
+
+  "modules-right": [
+    "network",
+    "temperature",
+    "cpu",
+    "memory",
+    "custom/nvidia",
+    "custom/dunst",
+    "idle_inhibitor",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "tray"
+  ],
+
+
+
+  /*\
+  |* Includes
+  \***************************************************************************/
+
+  "include": [
+    "~/.config/waybar/modules/backlight.jsonc",
+    "~/.config/waybar/modules/battery.jsonc",
+    "~/.config/waybar/modules/clock.jsonc",
+    "~/.config/waybar/modules/cpu.jsonc",
+    "~/.config/waybar/modules/custom/dunst/dunst.jsonc",
+    "~/.config/waybar/modules/custom/nvidia/nvidia.jsonc",
+    "~/.config/waybar/modules/hyprland.jsonc",
+    "~/.config/waybar/modules/idle_inhibitor.jsonc",
+    "~/.config/waybar/modules/memory.jsonc",
+    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/pulseaudio.jsonc",
+    "~/.config/waybar/modules/temperature.jsonc",
+    "~/.config/waybar/modules/tray.jsonc"
+  ]
+
+}
+

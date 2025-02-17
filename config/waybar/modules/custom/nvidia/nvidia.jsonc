@@ -1,0 +1,14 @@
+{
+
+  /*\
+  |* Nvidia
+  \***************************************************************************/
+
+  "custom/nvidia": {
+    "interval": 1,
+    "exec": "nvidia-smi --query-gpu=memory.used,temperature.gpu --format=csv,noheader | awk '{ print \"\"$1\"\"$2\" \"$3\"°C\" }'",
+    "format": "{}  "
+  }
+
+}
+

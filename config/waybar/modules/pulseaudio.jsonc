@@ -1,0 +1,35 @@
+{
+  /*\
+  |* Pulseaudio
+  \***************************************************************************/
+
+  "pulseaudio": {
+    "scroll-step": 5,
+
+    // Microphone:
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+
+    // Bluetooth:
+    "format-bluetooth": "{icon}  {volume}%  {format_source}",
+    "format-bluetooth-muted": "   {format_source}",
+
+    // Other sinks:
+    "format": "{icon}  {volume}% {format_source}",
+    "format-muted": "  {format_source}",
+
+    // Other sink icons:
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [ "", "", "" ]
+    },
+    "on-click-right": "pavucontrol"
+  }
+
+}
+

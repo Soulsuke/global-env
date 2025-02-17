@@ -1,0 +1,17 @@
+{
+  /*\
+  |* Network
+  \***************************************************************************/
+
+  "network": {
+    "interval": 1,
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{bandwidthUpBytes}⬆⬇{bandwidthDownBytes}",
+    "format-wifi": "{bandwidthUpBytes}⬆⬇{bandwidthDownBytes} {essid} ({signalStrength}%)  ",
+    "format-ethernet": "{bandwidthUpBytes}⬆⬇{bandwidthDownBytes} {ipaddr}/{cidr} "
+  }
+
+}
+

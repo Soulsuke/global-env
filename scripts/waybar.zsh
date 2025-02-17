@@ -1,28 +1,17 @@
 #! /usr/bin/env zsh
 
-# This is a workaround until waybar will support imports.
-
 # Variables:
-local CONFIG="${HOME}/.config/waybar/config.jsonc"
-local PER_HOST_BASE="${HOME}/.config/waybar/00-per_host"
-local PER_HOST="${PER_HOST_BASE}/${HOST}.jsonc"
-local DEFAULT="${PER_HOST_BASE}/00-default.jsonc"
+local HOST_CONFIG="${HOME}/.config/waybar/config.jsonc.hosts/${HOST}.jsonc"
 
 # Kill any active instance of waybar:
 killall waybar &> /dev/null
 
-# Remove the default config file:
-rm "${CONFIG}" &> /dev/null
+# If we have a per-host configuration, use it:
+if [[ -f "${HOST_CONFIG}" ]]; then
+  waybar --config "${HOST_CONFIG}"
 
-# If we have a per host file, link it:
-if [[ -f "${PER_HOST}" ]]; then
-  ln -s "${PER_HOST}" "${CONFIG}"
-
-# Otherwise, link the default:
+# Otherwise, use the default one:
 else
-  ln -s "${DEFAULT}" "${CONFIG}"
+  waybar
 fi
-
-# Finally, start waybar:
-waybar
 
