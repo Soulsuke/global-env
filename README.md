@@ -44,7 +44,12 @@ auth       optional     pam_gnome_keyring.so
 session    optional     pam_gnome_keyring.so auto_start
 ```
 
+### Input methods  
 
+Ditched ibus for fcitx5, as it isn't giving any headaches with hyprland.  
+```
+pacman -S fcitx5-im fcitx5-mozc
+```
 
 ### Xorg nvidia config
 

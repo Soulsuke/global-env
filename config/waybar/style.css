@@ -57,6 +57,7 @@ tooltip label {
  */
 #workspaces
 {
+  font-weight: bold;
   margin-left: 0;
 }
 
@@ -76,7 +77,16 @@ tooltip label {
 #workspaces button.urgent
 {
   background: @color1;
-  color: @background;
+  color: @coloe7;
+}
+
+#workspaces button.special
+{
+  background: @background;
+  border: 1px solid @foreground;
+  color: @foreground;
+  margin: 0.3em 0.3em;
+  padding: 0.2em;
 }
 
 

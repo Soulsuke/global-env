@@ -7,8 +7,10 @@
 # Common startup commands for X11 sessions (before any compositor):
 if [[ ${XDG_SESSION_TYPE:l} == "x11" ]]; then
   [[ $(command -v nvidia-settings) ]] && nvidia-settings -l
-  ibus-daemon -drx
 fi
+
+# This works much better than ibus:
+[[ $(command -v fcitx5) ]] && fcitx5 -d --replace
 
 # This should be done under wayland too, so xwayland apps look right:
 if [[ $(command -v xrdb) ]] && [[ -f ${HOME}/.Xresources ]]; then
