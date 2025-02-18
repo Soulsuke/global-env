@@ -1,4 +1,6 @@
-/* Import from pywal */
+/*
+ * Import colors from pywal
+ */
 @import url( "../../.cache/wal/waybar.css" );
 
 

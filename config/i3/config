@@ -241,7 +241,7 @@ bindsym $mod+Shift+Return exec --no-startup-id \
 ###############################################################################
 #
 # Start the terminal:
-bindsym $mod+Return exec kitty
+bindsym $mod+q exec kitty
 #
 # Close focused window:
 bindsym $mod+Shift+q kill
