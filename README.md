@@ -101,7 +101,8 @@ xorg-xwayland
 On nvidia cards these are also needed:  
 ```
 libva-nvidia-driver
-egl-wayland nvidia-utils
+egl-wayland
+nvidia-utils
 ```
 
 As of this writing (2025-02-07) `xdg-desktop-portal-hyprland` doesn't quite
