@@ -122,7 +122,9 @@ echo "X session wrapper complete, running session $@"
 
 # Wayland hotfix:
 if [[ ${XDG_SESSION_TYPE} == "wayland" ]]; then
+  echo "Sleeping for wayland"
   sleep 1
+  echo "Woke up"
 fi
 
 exec $@
