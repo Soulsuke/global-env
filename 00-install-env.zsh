@@ -109,21 +109,15 @@ for i in *; do
       # Link the whole folder:
       env_link ${i} "${HOME}/.config/${i}"
 
-      # Remove any potential odd symlinks:
-      rm "${HOME}/.config/${i}/hyprland.conf.d/hostname.conf" &> /dev/null
-
       # Temporary shorthands:
-      local TMP_FROM="${HOME}/.config/${i}/00-per_host/${HOST}.conf"
+      local TMP_FROM="${HOME}/.config/${i}/hyprland.conf.hosts/${HOST}.conf"
       local TMP_TO="${HOME}/.config/${i}/hyprland.conf.d/hostname.conf"
 
-      # Then, check if we have a config for the current host:
-      if [[ -f "${TMP_FROM}" ]]; then
-        ln -s "${TMP_FROM}" "${TMP_TO}"
+      # Remove any potential odd symlinks:
+      rm "${TMP_TO}" &> /dev/null
 
-      # Otherwise, create an empty file so nothing will break:
-      else
-        print "# Empty\n" >| "${TMP_TO}"
-      fi
+      # Then, link the config file if there's one:
+      [[ -f "${TMP_FROM}" ]] && ln -s "${TMP_FROM}" "${TMP_TO}"
     ;;
 
     # These should be linked in HOME and not in ~/.config, but do not need any
@@ -186,5 +180,5 @@ done
 [[ $(command -v wal) ]] && wal --theme green-on-black
 
 # Restart dunst:
-${HOME}/.scripts/7shi/dunst.zsh &
+killall dunst
 
