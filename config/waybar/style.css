@@ -12,7 +12,11 @@
 {
   border: none;
   border-radius: 0;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Roboto Mono",
+               "DejaVu Sans",
+               "Symbola",
+               "Font Awesome 6 Free",
+               "Font Awesome 6 Brands";
   font-size: 13px;
   min-height: 0;
 }
