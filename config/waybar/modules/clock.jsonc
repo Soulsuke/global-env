@@ -6,7 +6,7 @@
   "clock": {
     "interval": 1,
     "timezone": "Europe/Rome",
-    "tooltip-format": "<big>{:%Y-%m-%d}</big>\n\n<tt>{calendar}</tt>",
+    "tooltip-format": "<tt>{calendar}</tt>",
     "format": "{:%H:%M:%S %Y-%m-%d, %A}",
     "format-alt": "{:%H:%M %m-%d}",
     "calendar": {
