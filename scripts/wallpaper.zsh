@@ -48,6 +48,9 @@ done
 # Check if we should use prime-run:
 command -v prime-run &> /dev/null && PR="prime-run" || PR=""
 
+# Kill all previous instances:
+killall "${MAIN_LAUNCHER}" &> /dev/null
+
 # X11 logic:
 if [[ "${ENVIRONMENT}" == "x11" ]]; then
   # Iterate over all of the available monitors:
@@ -71,17 +74,17 @@ if [[ "${ENVIRONMENT}" == "x11" ]]; then
     #   -g  => Specify Geometry (eg. 640x480+100+100)
     xwinwrap -d -st -sp -nf -ni -ov -g ${GEO} -- \
       ${PR} mpv -wid WID "${WAL}" \
-        --fs \
-        --hwdec \
-        --loop-file \
+        --config=no \
         --no-audio \
         --no-keepaspect \
         --no-osc \
         --no-osd-bar \
-        --panscan=1.0 \
-        --player-operation-mode=cplayer \
+        --stop-screensaver=no \
         --really-quiet \
-        --stop-screensaver=no
+        --loop-file \
+        --fs \
+        --panscan=1.0 \
+        --scale=bilinear
   done
 
 # Wayland logic:
@@ -96,7 +99,7 @@ elif [[ "${ENVIRONMENT}" == "wayland" ]]; then
       "${MONITOR}" \
       "${WAL}" \
       -f \
-      -o "fs hwdec loop-file no-audio no-keepaspect no-osc no-osd-bar panscan=1.0 player-operation-mode=cplayer really-quiet stop-screensaver=no scale=bilinear"
+      -o "config=no no-audio no-keepaspect no-osc no-osd-bar stop-screensaver=no really-quiet loop-file fs panscan=1.0 scale=bilinear"
   done
 
 fi
