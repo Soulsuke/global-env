@@ -55,6 +55,7 @@ alias g='noglob gvim -geometry 80x39 -fg white -bg black'
 alias grep="grep --color"
 alias myip="curl ifconfig.co"
 alias pss="ps aux | head -n1 && ps aux | grep"
+alias steam-shader-status="tail -f ${HOME}/.steam/root/logs/shader_log.txt"
 alias v='vim'
 
 
