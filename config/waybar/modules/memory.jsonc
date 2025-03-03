@@ -4,7 +4,8 @@
   \***************************************************************************/
 
   "memory": {
-    "format": "{avail}/{total}GiB "
+    "format": "{used:0.2f}/{total:0.2f}GiB ",
+    "tooltip-format": "{swapUsed:0.2f}/{swapTotal:0.2f}GiB "
   }
 
 }
