@@ -13,7 +13,7 @@ case ${HOST} in
       discord \
         --enable-features=UseOzonePlatform \
         --ozone-platform=wayland \
-        --disable-gpu
+        --disable-gpu &
     else
       discord &
     fi
