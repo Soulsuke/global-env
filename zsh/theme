@@ -17,7 +17,7 @@ function prompt_nns_setup()
   #  - prompt_line_1b -> prompt_nns_compose_top_prompt_line
   #  - prompt_line_1c -> prompt_nns_compose_top_prompt_line
   #  - prompt_line_2 -> prompt_nns_precmd
-  local prompt_nns_tlc prompt_nns_mlc prompt_nns_blc prompt_l_quadr
+  local prompt_nns_tlc prompt_nns_mlc prompt_nns_blc
   NNS_TIMER_CONTROL=0
   NNS_TIMER_START=0
   NNS_TIMER_END=0
@@ -53,7 +53,7 @@ function prompt_nns_setup()
   # Hackish, but it works (I won't dare to multiline it):
   prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{${prompt_nanashi_color1}}${prompt_gfx_mlc}%b%F{${prompt_nanashi_color1}}${prompt_gfx_hyphen}%{"$'\e[B%}'
 
-  # Shortcut for the very start of the top prompt line::
+  # Shortcut for the very start of the top prompt line:
   prompt_nns_tbox="%b%F{cyan}${prompt_nns_tlc}"
 
   # Left part of the top prompt line (USER@HOST:PWD):
@@ -165,6 +165,23 @@ function prompt_nns_git_data()
 
 
 
+# Dynamic padding composer.
+# $1 = padding length.
+function prompt_nns_padding()
+{
+  eval "print \${(l:${1}::${prompt_nns_hyphen}:)_empty_zz}"
+}
+
+
+
+# Returns the length of a string, without the color codes.
+function prompt_nns_length_of()
+{
+  print ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+}
+
+
+
 # Composes the top prompt line for the current terminal width.
 function prompt_nns_compose_top_prompt_line()
 {
@@ -172,7 +189,7 @@ function prompt_nns_compose_top_prompt_line()
   local prompt_git prompt_line_1a_git prompt_line_1a_w \
     prompt_line_1b_w prompt_line_1c_w \
     prompt_line_1_timer prompt_line_1_timer_w \
-    prompt_padding_size
+    prompt_padding_size prompt_padding
 
   # Add eventual git data::
   prompt_nns_git_data
@@ -184,50 +201,81 @@ function prompt_nns_compose_top_prompt_line()
   fi
 
   # Calculate some widths and padding size:
-  prompt_line_1a_w=${#${(S%%)prompt_line_1a_git//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  prompt_line_1b_w=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  prompt_line_1c_w=${#${(S%%)prompt_line_1c//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  prompt_line_1_timer_w=${#${(S%%)prompt_line_1_timer//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  prompt_line_1a_w=$(prompt_nns_length_of $prompt_line_1a)
+  prompt_line_1a_git_w=$(prompt_nns_length_of $prompt_line_1a_git)
+  prompt_line_1b_w=$(prompt_nns_length_of $prompt_line_1b)
+  prompt_line_1c_w=$(prompt_nns_length_of $prompt_line_1c)
+  prompt_line_1_timer_w=$(prompt_nns_length_of $prompt_line_1_timer)
 
-  prompt_padding_size=$(( COLUMNS - prompt_line_1a_w -
+  # Everything can fit and there's some extra space to fill with padding:
+  prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w -
                           prompt_line_1b_w - prompt_line_1c_w -
                           prompt_line_1_timer_w
                       ))
-
-  # Everything can fit and there's some extra space to fill with padding:
-  if [[ $prompt_padding_size > 0 ]]; then
-    local prompt_padding
-    prompt_padding="prompt_padding=\${(l:${prompt_padding_size}::"
-    prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
-    eval "${prompt_padding}"
-    prompt_line_1="${prompt_line_1a_git}${prompt_padding}${prompt_line_1b}"
-    prompt_line_1+="${prompt_line_1_timer}${prompt_line_1c}"
+  if [[ $prompt_padding_size -ge 0 ]]; then
+    prompt_line_1="${prompt_line_1a_git}"
+    prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
+    prompt_line_1+="${prompt_line_1b}${prompt_line_1_timer}${prompt_line_1c}"
     return
   fi
 
-  # If it won't fit however, let's try taking out the right part of the prompt,
-  # giving priority to the long USER@HOST:PWD part:
-  prompt_padding_size=$(( COLUMNS - prompt_line_1a_w ))
-  if [[ $prompt_padding_size > 0 ]]; then
-    local prompt_padding
-    prompt_padding="prompt_padding=\${(l:${prompt_padding_size}::"
-    prompt_padding+="${prompt_nns_hyphen}:)_empty_zz}"
-    eval "${prompt_padding}"
-    prompt_line_1="${prompt_line_1a_git}${prompt_padding}"
+  # If it won't fit let's try taking out the right part of the prompt,
+  # giving priority to the long USER@HOST:PWD GIT part:
+  prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w ))
+  if [[ $prompt_padding_size -ge 0 ]]; then
+    prompt_line_1="${prompt_line_1a_git}"
+    prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
     return
   fi
 
-  # If we got here we are out of options and gotta truncate the prompt:
-  local prompt_pwd_size=$(( COLUMNS - 5 ))
-  prompt_line_1="${prompt_nns_tbox}${prompt_l_paren}%B%F{green}%"
-  prompt_line_1+="{$prompt_pwd_size}<...<%~%<<${prompt_r_paren}%b%F{cyan}"
+  # If we're still here, also take out the GIT part:
+  prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w ))
+  if [[ $prompt_padding_size > 0 ]]; then
+    eval "${prompt_padding}"
+    prompt_line_1="${prompt_line_1a}"
+    prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
+    return
+  fi
+
+  # If we're still in trouble, let's go for only USER:PWD:
+  local prompt_info_max_size=$(( COLUMNS - 5 ))
+  local prompt_info_separator="%b%f%B:%F{green}%B"
+  local prompt_info_line="${USER}${prompt_info_separator}${PWD}"
+  local prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+
+  # If the line is too long, attempt to shorten PWD:
+  if [[ $prompt_info_line_w -gt $prompt_info_max_size ]] &&
+     [[ "${PWD}" != "/" ]]
+  then
+    prompt_info_line="${USER}${prompt_info_separator}${PWD/*\//.../}"
+    prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+  fi
+
+  # If it's still too long, remove the user:
+  if [[ $prompt_info_line_w -gt $prompt_info_max_size ]]; then
+    prompt_info_line="${prompt_info_line/${USER}:/}"
+    prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+  fi
+
+  # If it's still too long:
+  if [[ $#prompt_info_line -gt $prompt_info_max_size ]]; then
+    prompt_info_line="%F{green}%B..."
+    prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+  fi
+
+  # Recalculate the padding:
+  prompt_padding_size=$((prompt_info_max_size - prompt_info_line_w))
+  prompt_line_1="${prompt_nns_tbox}${prompt_nns_hyphen}${prompt_l_quadr}"
+  prompt_line_1+="%F{cyan}${prompt_info_line}"
+  prompt_line_1+="%b%f${prompt_r_quadr}"
+  prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
   prompt_line_1+="${prompt_nns_hyphen}"
 }
 
 
 
 # Needed for a working timer.
-prompt_nns_preexec()
+function prompt_nns_preexec()
 {
   NNS_TIMER_CONTROL=1
   NNS_TIMER_START=$(($(date +%s%0N)/1000000))
@@ -236,7 +284,7 @@ prompt_nns_preexec()
 
 
 # Composes the prompt putting everything together.
-prompt_nns_precmd()
+function prompt_nns_precmd()
 {
   # Timer only if needed:
   if [[ 1 == ${NNS_TIMER_CONTROL} ]]; then
@@ -263,9 +311,7 @@ prompt_nns_precmd()
   PS1="${prompt_line_1}${prompt_newline}${prompt_line_2}%B"
 
   # Add in venv info if needed:
-  if [[ ! -z ${VIRTUAL_ENV} ]]; then
-    PS1+="(%F{yellow}venv: ${VIRTUAL_ENV}%F{cyan})"
-  fi
+  [[ -z ${VIRTUAL_ENV} ]] || PS1+="(%F{yellow}venv: ${VIRTUAL_ENV}%F{cyan})"
 
   # PS1 default end:
   PS1+="%F{white}${prompt_char} %b%f%k"
