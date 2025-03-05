@@ -11,6 +11,7 @@ function prompt_nns_setup()
   #  - prompt_nns_hyphen -> prompt_nns_compose_top_prompt_line
   #  - prompt_l_paren -> prompt_nns_compose_top_prompt_line
   #  - prompt_r_paren -> prompt_nns_compose_top_prompt_line
+  #  - prompt_l_quadr -> prompt_nns_compose_top_prompt_line
   #  - prompt_r_quadr -> prompt_nns_compose_top_prompt_line
   #  - prompt_gfx_bbox_to_mbox -> prompt_nns_precmd
   #  - prompt_line_1a -> prompt_nns_compose_top_prompt_line
@@ -50,15 +51,19 @@ function prompt_nns_setup()
   prompt_l_quadr="%B%F{cyan}[%b"
   prompt_r_quadr="%B%F{cyan}]%b"
 
-  # Hackish, but it works (I won't dare to multiline it):
-  prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{${prompt_nanashi_color1}}${prompt_gfx_mlc}%b%F{${prompt_nanashi_color1}}${prompt_gfx_hyphen}%{"$'\e[B%}'
+  # Stile for continuation/select/tracing:
+  prompt_gfx_bbox_to_mbox=$'%{\e[A\r%}%B'
+  prompt_gfx_bbox_to_mbox+="%F{${prompt_nanashi_color1}}${prompt_gfx_mlc}"
+  prompt_gfx_bbox_to_mbox+="%b%F{${prompt_nanashi_color1}}${prompt_gfx_hyphen}"
+  prompt_gfx_bbox_to_mbox+=$'%{\e[B%}'
 
   # Shortcut for the very start of the top prompt line:
   prompt_nns_tbox="%b%F{cyan}${prompt_nns_tlc}"
 
   # Left part of the top prompt line (USER@HOST:PWD):
+  # NOTE: %~ instead of PWD to keep the actual ~
   prompt_line_1a="${prompt_nns_tbox}${prompt_nns_hyphen}${prompt_l_quadr}"
-  prompt_line_1a+="%n%B@%b%m%f%B:%F{green}%~"
+  prompt_line_1a+="${USER}%B@%b${HOST}%f%B:%F{green}%~"
 
   # Middle part of the top prompt line (DATE, TIME $?):
   prompt_line_1b="${prompt_l_quadr}%D{%Y-%m-%d, %H:%M:%S}"
@@ -200,17 +205,15 @@ function prompt_nns_compose_top_prompt_line()
     prompt_line_1_timer=" %b%F{green}${NNS_TIMER_ELAPSED}ms"
   fi
 
-  # Calculate some widths and padding size:
-  prompt_line_1a_w=$(prompt_nns_length_of $prompt_line_1a)
+  # Calculate some widths:
   prompt_line_1a_git_w=$(prompt_nns_length_of $prompt_line_1a_git)
-  prompt_line_1b_w=$(prompt_nns_length_of $prompt_line_1b)
-  prompt_line_1c_w=$(prompt_nns_length_of $prompt_line_1c)
-  prompt_line_1_timer_w=$(prompt_nns_length_of $prompt_line_1_timer)
+  prompt_line_1a_w=$(prompt_nns_length_of $prompt_line_1a)
 
   # Everything can fit and there's some extra space to fill with padding:
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w -
-                          prompt_line_1b_w - prompt_line_1c_w -
-                          prompt_line_1_timer_w
+                          $(prompt_nns_length_of $prompt_line_1b) -
+                          $(prompt_nns_length_of $prompt_line_1c) -
+                          $(prompt_nns_length_of $prompt_line_1_timer)
                       ))
   if [[ $prompt_padding_size -ge 0 ]]; then
     prompt_line_1="${prompt_line_1a_git}"
@@ -229,10 +232,10 @@ function prompt_nns_compose_top_prompt_line()
   fi
 
   # If we're still here, also take out the GIT part:
-  prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w ))
-  if [[ $prompt_padding_size > 0 ]]; then
+  prompt_padding_size=$(( COLUMNS - prompt_line_1a_w - 2 ))
+  if [[ $prompt_padding_size -ge 0 ]]; then
     eval "${prompt_padding}"
-    prompt_line_1="${prompt_line_1a}"
+    prompt_line_1="${prompt_line_1a}${prompt_r_quadr}${prompt_nns_hyphen}"
     prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
     return
   fi
@@ -310,8 +313,10 @@ function prompt_nns_precmd()
   # PS1, default prompt start:
   PS1="${prompt_line_1}${prompt_newline}${prompt_line_2}%B"
 
-  # Add in venv info if needed:
-  [[ -z ${VIRTUAL_ENV} ]] || PS1+="(%F{yellow}venv: ${VIRTUAL_ENV}%F{cyan})"
+  # Add in venv info if available AND the console is large enough:
+  if [[ ! -z ${VIRTUAL_ENV} ]] && [[ ${COLUMNS} -gt 20 ]]; then
+    PS1+="(%F{yellow}venv: ${VIRTUAL_ENV}%F{cyan})"
+  fi
 
   # PS1 default end:
   PS1+="%F{white}${prompt_char} %b%f%k"
