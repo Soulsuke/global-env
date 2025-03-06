@@ -77,9 +77,6 @@ syntax on
 " Grep command
 set grepprg=grep\ -nH\ $*
 
-" JSON beautifier (jq):
-nnoremap <leader>j :%!jq '.'<CR>
-
 if has("autocmd")
  " Enabled file type detection
  " Use the default filetype settings. If you also want to load indent files
@@ -94,6 +91,12 @@ set incsearch
 
 " Remove trailing spaces from all files EXCEPT md:
 autocmd BufWritePre *\(.md\)\@<! %s/\s\+$//e
+
+" JSON beautifier (jq):
+nnoremap <leader>j :%!jq '.'<CR>
+
+" Quick git blame:
+map <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(split(system("git log -n 1 -L " . line(".") . ",+1:" . expand("%:p")), "\n"), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
 
 
 
