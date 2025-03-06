@@ -28,15 +28,12 @@
   # Show the number of hidden messages:.
   indicate_hidden = yes
 
-  # Transparency:
-  transparency = 0
-
   # Notification padding:
   padding = 5
   horizontal_padding = 5
 
   # Notification area border:
-  frame_width = 1
+  frame_width = 2
   frame_color = "{foreground}"
 
   # Separator between notifications:
@@ -160,13 +157,13 @@
 ###############################################################################
 
 [urgency_low]
-  background = "{background}"
-  foreground = "{color2}"
+  background = "{background}87"
+  foreground = "{color6}"
   frame_color = "{foreground}"
   timeout = 10
 
 [urgency_normal]
-  background = "{background}"
+  background = "{background}87"
   foreground = "{foreground}"
   frame_color = "{foreground}"
   timeout = 10
@@ -174,7 +171,7 @@
 [urgency_critical]
   background = "{foreground}"
   foreground = "{background}"
-  frame_color = "{background}"
+  frame_color = "{foreground}"
   timeout = 0
 
 
