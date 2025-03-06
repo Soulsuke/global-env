@@ -18,11 +18,20 @@ function prompt_nns_setup()
   #  - prompt_line_1b -> prompt_nns_compose_top_prompt_line
   #  - prompt_line_1c -> prompt_nns_compose_top_prompt_line
   #  - prompt_line_2 -> prompt_nns_precmd
+  #  - prompt_nns_precmd -> prompt_nns_precmd
+  #                         prompt_nns_compose_top_prompt_line
+  #                         prompt_nns_preexec
+  #                         prompt_nns_precmd
+  #  - prompt_nss_timer_start -> prompt_nns_preexec
+  #                              prompt_nns_precmd
+  #  - prompt_nss_timer_elapsed -> prompt_nns_precmd
+  #                                prompt_nns_compose_top_prompt_line
   local prompt_nns_tlc prompt_nns_mlc prompt_nns_blc
-  NNS_TIMER_CONTROL=0
-  NNS_TIMER_START=0
-  NNS_TIMER_END=0
-  NNS_TIMER_ELAPSED=0
+
+  # These must start at 0 or the timer will break:
+  prompt_nss_timer_ctrl=0
+  prompt_nss_timer_start=0
+  prompt_nss_timer_elapsed=0
 
   # Check for 8bit support:
   if [[ $1 == '8bit' ]]; then
@@ -93,8 +102,8 @@ function prompt_nns_git_data()
   local porcelain porcelain_legend name reg cnt git_branch git_origin
 
   # Git checks:
-  NNS_GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-  NNS_GIT_REMOTE=""
+  local NNS_GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+  local NNS_GIT_REMOTE=""
   if [[ "" != ${NNS_GIT_BRANCH} ]]; then
     # Mark down the current remote:
     NNS_GIT_REMOTE="$(git remote 2> /dev/null)"
@@ -124,9 +133,9 @@ function prompt_nns_git_data()
 
         # Iterate over the data to show:
         for name reg in ${(kv)porcelain_legend}; do
-          cnt="$(grep $reg <<< $porcelain | wc -l)"
-          if [[ 0 < $cnt ]]; then
-            prompt_git+=" %F{yellow}$name:$cnt"
+          cnt="$(grep ${reg} <<< ${porcelain} | wc -l)"
+          if [[ 0 < ${cnt} ]]; then
+            prompt_git+=" %F{yellow}${name}:${cnt}"
           fi
         done
 
@@ -201,21 +210,21 @@ function prompt_nns_compose_top_prompt_line()
   prompt_line_1a_git="${prompt_line_1a}${prompt_git}${prompt_r_quadr}"
   prompt_line_1a_git+="${prompt_nns_hyphen}"
   prompt_line_1_timer=""
-  if [[ 1 == ${NNS_TIMER_CONTROL} ]]; then
-    prompt_line_1_timer=" %b%F{green}${NNS_TIMER_ELAPSED}ms"
+  if [[ 1 == ${prompt_nss_timer_ctrl} ]]; then
+    prompt_line_1_timer=" %b%F{green}${prompt_nss_timer_elapsed}ms"
   fi
 
   # Calculate some widths:
-  prompt_line_1a_git_w=$(prompt_nns_length_of $prompt_line_1a_git)
-  prompt_line_1a_w=$(prompt_nns_length_of $prompt_line_1a)
+  prompt_line_1a_git_w=$(prompt_nns_length_of ${prompt_line_1a_git})
+  prompt_line_1a_w=$(prompt_nns_length_of ${prompt_line_1a})
 
   # Everything can fit and there's some extra space to fill with padding:
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w -
-                          $(prompt_nns_length_of $prompt_line_1b) -
-                          $(prompt_nns_length_of $prompt_line_1c) -
-                          $(prompt_nns_length_of $prompt_line_1_timer)
+                          $(prompt_nns_length_of ${prompt_line_1b}) -
+                          $(prompt_nns_length_of ${prompt_line_1c}) -
+                          $(prompt_nns_length_of ${prompt_line_1_timer})
                       ))
-  if [[ $prompt_padding_size -ge 0 ]]; then
+  if [[ ${prompt_padding_size} -ge 0 ]]; then
     prompt_line_1="${prompt_line_1a_git}"
     prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
     prompt_line_1+="${prompt_line_1b}${prompt_line_1_timer}${prompt_line_1c}"
@@ -225,7 +234,7 @@ function prompt_nns_compose_top_prompt_line()
   # If it won't fit let's try taking out the right part of the prompt,
   # giving priority to the long USER@HOST:PWD GIT part:
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_git_w ))
-  if [[ $prompt_padding_size -ge 0 ]]; then
+  if [[ ${prompt_padding_size} -ge 0 ]]; then
     prompt_line_1="${prompt_line_1a_git}"
     prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
     return
@@ -233,7 +242,7 @@ function prompt_nns_compose_top_prompt_line()
 
   # If we're still here, also take out the GIT part:
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_w - 2 ))
-  if [[ $prompt_padding_size -ge 0 ]]; then
+  if [[ ${prompt_padding_size} -ge 0 ]]; then
     prompt_line_1="${prompt_line_1a}${prompt_r_quadr}${prompt_nns_hyphen}"
     prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
     return
@@ -243,30 +252,30 @@ function prompt_nns_compose_top_prompt_line()
   local prompt_info_max_size=$(( COLUMNS - 5 ))
   local prompt_info_separator="%b%f%B:%F{green}%B"
   local prompt_info_line="${USER}${prompt_info_separator}${PWD}"
-  local prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+  local prompt_info_line_w=$(prompt_nns_length_of ${prompt_info_line})
 
   # If the line is too long, attempt to shorten PWD:
-  if [[ $prompt_info_line_w -gt $prompt_info_max_size ]] &&
+  if [[ ${prompt_info_line_w} -gt ${prompt_info_max_size} ]] &&
      [[ "${PWD}" != "/" ]]
   then
     prompt_info_line="${USER}${prompt_info_separator}${PWD/*\//.../}"
-    prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+    prompt_info_line_w=$(prompt_nns_length_of ${prompt_info_line})
   fi
 
   # If it's still too long, remove the user:
-  if [[ $prompt_info_line_w -gt $prompt_info_max_size ]]; then
+  if [[ ${prompt_info_line_w} -gt ${prompt_info_max_size} ]]; then
     prompt_info_line="${prompt_info_line/${USER}:/}"
-    prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+    prompt_info_line_w=$(prompt_nns_length_of ${prompt_info_line})
   fi
 
   # If it's still too long:
-  if [[ $#prompt_info_line -gt $prompt_info_max_size ]]; then
+  if [[ ${prompt_info_line_w} -gt ${prompt_info_max_size} ]]; then
     prompt_info_line="%F{green}%B..."
-    prompt_info_line_w=$(prompt_nns_length_of $prompt_info_line)
+    prompt_info_line_w=$(prompt_nns_length_of ${prompt_info_line})
   fi
 
   # Recalculate the padding:
-  prompt_padding_size=$((prompt_info_max_size - prompt_info_line_w))
+  prompt_padding_size=$(( prompt_info_max_size - prompt_info_line_w ))
   prompt_line_1="${prompt_nns_tbox}${prompt_nns_hyphen}${prompt_l_quadr}"
   prompt_line_1+="%F{cyan}${prompt_info_line}"
   prompt_line_1+="%b%f${prompt_r_quadr}"
@@ -279,8 +288,8 @@ function prompt_nns_compose_top_prompt_line()
 # Needed for a working timer.
 function prompt_nns_preexec()
 {
-  NNS_TIMER_CONTROL=1
-  NNS_TIMER_START=$(($(date +%s%0N)/1000000))
+  prompt_nss_timer_ctrl=1
+  prompt_nss_timer_start=$(( $(date +%s%0N) / 1000000 ))
 }
 
 
@@ -289,9 +298,8 @@ function prompt_nns_preexec()
 function prompt_nns_precmd()
 {
   # Timer only if needed:
-  if [[ 1 == ${NNS_TIMER_CONTROL} ]]; then
-    NNS_TIMER_END=$(($(date +%s%0N)/1000000))
-    NNS_TIMER_ELAPSED=$(( ${NNS_TIMER_END} - ${NNS_TIMER_START} ))
+  if [[ 1 == ${prompt_nss_timer_ctrl} ]]; then
+    prompt_nss_timer_elapsed=$(( $(date +%s%0N) / 1000000 - ${prompt_nss_timer_start} ))
   fi
 
   # Local variables:
@@ -330,7 +338,7 @@ function prompt_nns_precmd()
   PS4="${prompt_line_2}${prompt_gfx_bbox_to_mbox}%B%F{white} %N.%i >"
 
   # Reset this:
-  NNS_TIMER_CONTROL=0
+  prompt_nss_timer_ctrl=0
 }
 
 
