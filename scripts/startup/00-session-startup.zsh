@@ -74,6 +74,6 @@ esac
 gnome-keyring-daemon --start
 redshift-gtk &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
-${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sources 0
+${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sources 1
 ${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sinks 0
 
