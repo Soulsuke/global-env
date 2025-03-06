@@ -174,7 +174,7 @@ function prompt_nns_git_data()
 # $1 = padding length.
 function prompt_nns_padding()
 {
-  eval "print \${(l:${1}::${prompt_nns_hyphen}:)_empty_zz}"
+  eval "printf \${(l:${1}::${prompt_nns_hyphen}:)_empty_zz}"
 }
 
 
@@ -182,7 +182,7 @@ function prompt_nns_padding()
 # Returns the length of a string, without the color codes.
 function prompt_nns_length_of()
 {
-  print ${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  print "${#${(S%%)1//(\%([KF1]|)\{*\}|\%[Bbkf])}}"
 }
 
 
@@ -234,7 +234,6 @@ function prompt_nns_compose_top_prompt_line()
   # If we're still here, also take out the GIT part:
   prompt_padding_size=$(( COLUMNS - prompt_line_1a_w - 2 ))
   if [[ $prompt_padding_size -ge 0 ]]; then
-    eval "${prompt_padding}"
     prompt_line_1="${prompt_line_1a}${prompt_r_quadr}${prompt_nns_hyphen}"
     prompt_line_1+="$(prompt_nns_padding ${prompt_padding_size})"
     return
