@@ -92,7 +92,9 @@ hyprsunset
 mpvpaper
 rofi-wayland
 slurp
+waybar
 wayland-protocols
+wf-recorder
 wlr-randr
 xdg-desktop-portal-hyprland
 xorg-xwayland

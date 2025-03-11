@@ -48,6 +48,7 @@
     "pulseaudio",
     "backlight",
     "battery",
+    "custom/wf-recorder",
     "tray"
   ],
 
@@ -63,6 +64,7 @@
     "~/.config/waybar/modules/clock.jsonc",
     "~/.config/waybar/modules/cpu.jsonc",
     "~/.config/waybar/modules/custom/dunst/dunst.jsonc",
+    "~/.config/waybar/modules/custom/wf-recorder/wf-recorder.jsonc",
     "~/.config/waybar/modules/custom/nvidia/nvidia.jsonc",
     "~/.config/waybar/modules/hyprland.jsonc",
     "~/.config/waybar/modules/idle_inhibitor.jsonc",
