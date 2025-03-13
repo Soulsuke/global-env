@@ -167,6 +167,9 @@ map <leader>p :Prettier<CR>
 let g:signify_line_highlight = 0
 let g:signify_number_highlight = 1
 "
+" Toggle signify:
+map <leader>s :SignifyToggle<CR>
+"
 " Show whole file diff:
 map <c-d> :SignifyDiff!<CR>
 "
