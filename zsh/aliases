@@ -47,6 +47,7 @@ fi
 
 
 ### Various ###################################################################
+alias asciirec='asciinema rec -I --tty-size 80x50 ~'
 alias df='df -h'
 alias du='du -h'
 alias eject='eject /dev/sr0'
