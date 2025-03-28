@@ -54,6 +54,7 @@ case ${XDG_SESSION_DESKTOP:l} in
     dbus-update-activation-environment \
       --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     hypridle &
+    hyprsunset &
     ${HOME}/.scripts/7shi/waybar.zsh &
     ${HOME}/.scripts/7shi/wallpaper.zsh &
     ${HOME}/.scripts/7shi/dunst.zsh &
