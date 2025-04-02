@@ -81,20 +81,29 @@ A few notes regarding what's needed to make Hyprland work.
 
 #### Packages to install
 
-The following packages are required to have a Hyprland setup:  
+The following packages are required for mmy Hyprland setup:  
 ```
 grim
+hyprcursor
+hyprgraphics
 hypridle
 hyprland
+hyprland-protocols
+hyprland-qt-support
+hyprland-qtutils
+hyprlang
 hyprlock
 hyprpicker
 hyprsunset
+hyprutils
+hyprwayland-scanner
 mpvpaper
 rofi-wayland
 slurp
 waybar
 wayland-protocols
 wf-recorder
+wl-clipboard
 wlr-randr
 xdg-desktop-portal-hyprland
 xorg-xwayland
@@ -105,13 +114,6 @@ On nvidia cards these are also needed:
 libva-nvidia-driver
 egl-wayland
 nvidia-utils
-```
-
-As of this writing (2025-02-07) `xdg-desktop-portal-hyprland` doesn't quite
-support screensharing, so the AUR package is needed (which will also pull other
--git packages):  
-```
-xdg-desktop-portal-hyprland-git
 ```
 
 #### Issues with Lightdm (connected input devices not working)
