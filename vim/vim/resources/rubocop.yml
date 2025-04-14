@@ -7,7 +7,7 @@ AllCops:
   DefaultFormatter: progress
   DisplayStyleGuide: true
   DisplayCopNames: true
-  TargetRubyVersion: 3.4.1
+  TargetRubyVersion: 3.4.2
   NewCops: enable
 
 
@@ -23,6 +23,9 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/BlockNesting:
+  Enabled: false
+
 Metrics/ClassLength:
   Enabled: false
 
@@ -30,6 +33,9 @@ Metrics/CyclomaticComplexity:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
   Enabled: false
 
 Metrics/PerceivedComplexity:
@@ -69,6 +75,10 @@ Style/Documentation:
 Style/DocumentationMethod:
   Enabled: true
 
+# The more explicit the better:
+Style/EmptyLiteral:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -79,9 +89,14 @@ Style/NumericLiterals:
   Enabled: false
 
 Style/Lambda:
-  EnforcedStyle: lambda
+  EnforcedStyle: line_count_dependent
 
 Style/MultilineIfThen:
+  Enabled: false
+
+# I like explicit begin/return blocks better: you must know when you're
+# rescuing.
+Style/RedundantBegin:
   Enabled: false
 
 # Your call if you want to keep using the `return` keyword or not.
@@ -98,6 +113,12 @@ Style/RedundantReturn:
 # Just to be sure they won't get removed:
 Style/RedundantSelf:
   Enabled: false
+
+# Slash regexps unless multiline:
+Style/RegexpLiteral:
+  Enabled: true
+  EnforcedStyle: mixed
+  AllowInnerSlashes: true
 
 # This is bloody mandatory when using certain external libraries (shame on you
 # Google Cloud API) which throw a StandardError when they fail.
@@ -148,7 +169,7 @@ Layout/AccessModifierIndentation:
 
 Layout/ArgumentAlignment:
   Enabled: true
-  EnforcedStyle: with_fixed_indentation
+  EnforcedStyle: with_first_argument
   IndentationWidth: 2
 
 Layout/CaseIndentation:
@@ -159,6 +180,9 @@ Layout/EmptyComment:
   Enabled: true
   AllowBorderComment: true
   AllowMarginComment: true
+
+Layout/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
 
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: empty_lines_except_namespace
@@ -182,16 +206,20 @@ Layout/LineLength:
   Max: 79
 
 Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
+  EnforcedStyle: indented_relative_to_receiver
   IndentationWidth: 2
 
 Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
+  EnforcedStyle: aligned
 
 # This breaks stuff if enabled, causing an endless loop. Wonder why, but I
 # guess it can stay disabled.
 Layout/SpaceAroundBlockParameters:
   Enabled: false
+
+Layout/SpaceInLambdaLiteral:
+  Enabled: true
+  EnforcedStyle: require_space
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: true
@@ -215,6 +243,10 @@ Layout/TrailingEmptyLines:
 ### Lint                                                                    ###
 ### Reference: https://docs.rubocop.org/rubocop/cops_lint.html              ###
 ###############################################################################
+
+# Fuck parenthesis.
+Lint/AmbiguousOperator:
+  Enabled: false
 
 # Fuck parenthesis.
 Lint/AmbiguousRegexpLiteral:
