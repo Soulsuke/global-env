@@ -13,7 +13,8 @@
     "format": "{capacity}% {time} {icon}",
     "format-icons": [ "", "", "", "", "" ],
     "format-charging": "{capacity}% ",
-    "format-plugged": ""
+    "format-plugged": "",
+    "format-full": ""
   }
 
 }

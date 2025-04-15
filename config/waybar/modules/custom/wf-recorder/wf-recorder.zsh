@@ -29,6 +29,12 @@ else
     # Get its pid:
     local LOOPBACK=$!
 
+    # Encopder to use, depending on the host.
+    local ENC="hevc_vaapi"
+    if [[ ${HOST} == "unmei" ]]; then
+      ENC="libx265"
+    fi
+
     # Start recording the screen:
     #   -a -> audio sink name
     #   -C -> audio codec
@@ -39,7 +45,7 @@ else
     wf-recorder \
       -a "${SINK}" \
       -C ac3_fixed \
-      -c hevc_vaapi \
+      -c "${ENC}" \
       -g "$(slurp)" \
       -y \
       -f "$(xdg-user-dir VIDEOS)/wf-recorder_$(date "+%Y-%m-%d_%H-%M-%S").mkv"
