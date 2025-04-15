@@ -11,11 +11,9 @@
       "critical": 15
     },
     "format": "{capacity}% {time} {icon}",
-    "format-full": "",
+    "format-icons": [ "", "", "", "", "" ],
     "format-charging": "{capacity}% ",
-    "format-plugged": "{capacity}% ",
-    "format-alt": "{time} {icon}",
-    "format-icons": [ "", "", "", "", "" ]
+    "format-plugged": ""
   }
 
 }

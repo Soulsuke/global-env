@@ -129,6 +129,26 @@ tooltip label {
 
 
 /*
+ * Custom: dunst
+ */
+#custom-dunst.disabled
+{
+  color: @color11;
+}
+
+
+
+/*
+ * Idle inhibitor
+ */
+#idle_inhibitor.activated
+{
+  color: @color11;
+}
+
+
+
+/*
  * Battery
  */
 #battery.discharging
@@ -136,19 +156,30 @@ tooltip label {
    color: @color11;
 }
 
-#battery.discharging.warning
-{
-  color: @color9;
-}
-
 #battery.charging
 {
   color: @color14;
 }
 
-#battery.charging.warning
+#battery.warning
 {
-  color: @color13;
+  color: @color9;
+}
+
+#battery.critical
+{
+  color: @color7;
+}
+
+
+
+/*
+ * Custom: wf-recorder
+ */
+#custom-wf-recorder.recording
+{
+  background: @color1;
+  color: @coloe7;
 }
 
 

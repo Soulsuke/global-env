@@ -6,6 +6,7 @@
 
   "custom/wf-recorder": {
     "exec": "~/.config/waybar/modules/custom/wf-recorder/wf-recorder.zsh",
+    "return-type": "json",
     "on-click": "~/.config/waybar/modules/custom/wf-recorder/wf-recorder.zsh toggle",
     "restart-interval": 1
   }

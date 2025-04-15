@@ -3,7 +3,7 @@
 # If it's running:
 if pidof wf-recorder &> /dev/null ; then
   # Set the "stop recording" icon:
-  print 
+  print '{ "text": "", "class": "recording" }'
 
   # And stop recording:
   if [[ ${1} == "toggle" ]]; then
@@ -13,7 +13,7 @@ if pidof wf-recorder &> /dev/null ; then
 # If it isn't running:
 else
   # Set the "start recording" icon:
-  print 
+  print '{ "text": "", "class": "idle" }'
 
   # And start recording:
   if [[ ${1} == "toggle" ]]; then

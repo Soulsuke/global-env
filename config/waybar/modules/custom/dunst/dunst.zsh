@@ -1,16 +1,18 @@
 #! /usr/bin/env zsh
 
-COUNT=$(dunstctl count waiting)
-ENABLED=
-DISABLED=
-
-if [ ${COUNT} != 0 ]; then
-  DISABLED=" ${COUNT}"
-fi
-
+# If it's enabled:
 if dunstctl is-paused | grep -q "false" ; then
-  print ${ENABLED}
+  print '{ "text": "", "class": "enabled" }'
+
+# If it's disabled, also show the number of pending notifications:
 else
-  print ${DISABLED}
+  local PENDING=$(dunstctl count waiting)
+  if [[ 0 == ${PENDING} ]]; then
+    PENDING=""
+  else
+    PENDING=" (${PENDING})"
+  fi
+
+  print "{ \"text\": \"${PENDING}\", \"class\": \"disabled\" }"
 fi
 

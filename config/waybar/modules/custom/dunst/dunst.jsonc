@@ -6,6 +6,7 @@
 
   "custom/dunst": {
     "exec": "~/.config/waybar/modules/custom/dunst/dunst.zsh",
+    "return-type": "json",
     "on-click": "dunstctl set-paused toggle",
     "restart-interval": 1
   }
