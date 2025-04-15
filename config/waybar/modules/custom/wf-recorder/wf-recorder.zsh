@@ -20,7 +20,7 @@ else
     # Let's use a unique sink name:
     local SINK="wf_recorder_$(date "+%s")"
 
-    # Create a compiste sink for wf-recorder:
+    # Create a composite sink for wf-recorder:
     pw-loopback \
       -m "[ FL FR FC LFE RL RR ]" \
       --capture-props="media.class=Audio/Sink node.name=${SINK}" \
@@ -29,12 +29,13 @@ else
     # Get its pid:
     local LOOPBACK=$!
 
-    # -a -> audio sink name
-    # -C -> audio codec
-    # -c -> video codec
-    # -g -> screen area to record
-    # -y -> force overwrite if file exists (should never happen, buuuuut...)
-    # -f -> output file name
+    # Start recording the screen:
+    #   -a -> audio sink name
+    #   -C -> audio codec
+    #   -c -> video codec
+    #   -g -> screen area to record
+    #   -y -> force overwrite if file exists (should never happen, buuuuut...)
+    #   -f -> output file name
     wf-recorder \
       -a "${SINK}" \
       -C ac3_fixed \
