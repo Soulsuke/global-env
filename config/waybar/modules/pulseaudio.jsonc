@@ -28,7 +28,8 @@
       "car": "",
       "default": [ "", "", "" ]
     },
-    "on-click-right": "pavucontrol"
+    "on-click-right": "pavucontrol",
+    "on-click-middle": "qpwgraph"
   }
 
 }
