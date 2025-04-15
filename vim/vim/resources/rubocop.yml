@@ -196,6 +196,11 @@ Layout/EmptyLineBetweenDefs:
 Layout/EmptyLines:
   Enabled: false
 
+Layout/FirstArgumentIndentation:
+  Enabled: true
+  EnforcedStyle: consistent_relative_to_receiver
+  IndentationWidth: 2
+
 # This one is useful if you ever need to touch your code on a server and there
 # is a weird ssh session going on which truncates characters after a certain
 # limit.
