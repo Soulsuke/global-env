@@ -103,6 +103,7 @@ slurp
 waybar
 wayland-protocols
 wf-recorder
+wf-recorder-gui
 wl-clipboard
 wlr-randr
 xdg-desktop-portal-hyprland
