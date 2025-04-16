@@ -12,6 +12,7 @@
     },
     "format": "{capacity}% {time} {icon}",
     "format-icons": [ "", "", "", "", "" ],
+    // Per status formats, see: `cat /sys/class/power_supply/BAT0/status`
     "format-charging": "{capacity}% ",
     "format-plugged": "",
     "format-full": ""
