@@ -6,6 +6,17 @@
 
 
 /*
+ * Handy blinker animation.
+ */
+@keyframes blinker {
+  from { opacity: 1.0; }
+  50% { opacity: 0.25; }
+  to { opacity: 1.0; }
+}
+
+
+
+/*
  * General
  */
 *
@@ -110,7 +121,7 @@ tooltip label {
 /*
  * Network
  */
-##network.disabled,
+#network.disabled,
 #network.disconnected
 {
   color: @color11;
@@ -178,8 +189,11 @@ tooltip label {
  */
 #custom-wf-recorder.recording
 {
+  animation: blinker 1.5s infinite;
   background: @color1;
+  border-radius: 25px;
   color: @coloe7;
+  padding: 0.5em;
 }
 
 
