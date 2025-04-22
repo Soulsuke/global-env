@@ -22,3 +22,6 @@
 [submodule "vim/vim/bundle/vim-signify"]
 	path = vim/vim/bundle/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule "vim/vim/bundle/vim-markdown-toc"]
+	path = vim/vim/bundle/vim-markdown-toc
+	url = https://github.com/mzlogin/vim-markdown-toc

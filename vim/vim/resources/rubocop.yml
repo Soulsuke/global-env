@@ -129,16 +129,20 @@ Style/RescueStandardError:
   EnforcedStyle: implicit
 
 # Because yes.
-Style/SymbolArray:
-  Enabled: true
-  EnforcedStyle: brackets
-  MinSize: 1
-
-# Because yes.
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
   ConsistentQuotesInMultiline: true
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+# Because yes.
+Style/SymbolArray:
+  Enabled: true
+  EnforcedStyle: brackets
+  MinSize: 1
 
 # This is just to be consistent: I'm fine with pushing for unless instead of
 # if !, but shouldn't this apply to cases with an else as well?
