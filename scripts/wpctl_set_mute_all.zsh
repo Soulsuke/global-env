@@ -4,20 +4,21 @@
 #   ${0} <Sources|Sinks> <0|1|toggle>
 
 # First argument is either "Sources" or "Sinks":
-TYPE_START=${1}
-TYPE_END=""
+local TYPE_START=${1}
+local TYPE_END=""
+local LED=""
 case ${TYPE_START} in
-  Sources) TYPE_END="Filters:" ;;
-  Sinks)   TYPE_END="Sources:" ;;
-  *)       TYPE_END=""         ;;
+  Sources) TYPE_END="Filters:"; LED="micmute" ;;
+  Sinks)   TYPE_END="Sources:"; LED="mute"    ;;
+  *)       TYPE_END=""; LED="*"               ;;
 esac
 
 # Command must be either 0, 1 or 'toggle'.
-CMD=${2}
+local CMD=${2}
 
 # Start off fetching all available devices and storing them in a handy
 # variable:
-DEVICES=$(
+local DEVICES=$(
   wpctl status | \
   awk "BEGIN { is_audio = 0; is_type = 0; }
        /^Audio/ { is_audio = 1; }
@@ -46,4 +47,9 @@ fi
 # Now, run the command on each device:
 awk "/│/ {gsub(\"[*.]\",\"\"); system(\"wpctl set-mute \" \$2 \" ${CMD}\")}" \
   <<< ${DEVICES}
+
+# Now, also manually set the leds (if present):
+for f in /sys/class/leds/platform::${~LED}/brightness; do
+  print ${CMD} >> ${f}
+done
 
