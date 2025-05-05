@@ -31,7 +31,7 @@ local _GLOBAL_ENV_PATH_=${0:A:h}
 
 # Steam deck check:
 local DECK=1
-[[ -z "$(lsb_release -a | grep SteamOS)" ]] && DECK=0
+[[ -z "$(lsb_release -a 2>/dev/null | grep SteamOS)" ]] && DECK=0
 
 # Init/update git submodules, but only when this isn't run as root:
 if [[ 0 != ${UID} ]]; then
@@ -179,6 +179,6 @@ done
 # If wal is present, run it once to ensure everything is there:
 [[ $(command -v wal) ]] && wal --theme green-on-black
 
-# Restart dunst:
-killall dunst
+# Force dunst to restart:
+killall dunst &> /dev/null
 
