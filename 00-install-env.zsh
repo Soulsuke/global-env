@@ -177,7 +177,7 @@ for i in $(find . -type f); do
 done
 
 # If wal is present, run it once to ensure everything is there:
-[[ $(command -v wal) ]] && wal --theme green-on-black
+[[ $(command -v wal) ]] && wal --theme green-on-black &> /dev/null
 
 # Force dunst to restart:
 killall dunst &> /dev/null
