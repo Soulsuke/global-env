@@ -97,8 +97,17 @@ function prompt_nns_setup()
 # Obtains git data to display.
 function prompt_nns_git_data()
 {
+  # Fetch git root:
+  local GIT_ROOT=$(git rev-parse --show-toplevel 2> /dev/null)
+
+  # Do nothing if this is empty (not a git repo or git isn't available):
+  [[ -z "${GIT_ROOT}" ]] && return
+
   # Local variables:
-  local PORCELAIN PORCELAIN_LEGEND NAME REG CNT GIT_BRANCH GIT_ORIGIN
+  local PORCELAIN PORCELAIN_LEGEND NAME REG CNT GIT_BRANCH GIT_ORIGIN GITATTR
+
+  # Set this variable:
+  GITATTR="${GIT_ROOT}/.gitattributes"
 
   # Git checks:
   local NNS_GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
@@ -113,6 +122,10 @@ function prompt_nns_git_data()
     # If we're on a bare repository notice the user:
     if [[ "true" == "$(git rev-parse --is-bare-repository)" ]]; then
       PROMPT_GIT+=" %F{yellow}bare"
+
+    # If this repository uses LFS, do not even think about using git status:
+    elif [[ ! -z "$(grep "=lfs\s" "${GITATTR}" 2> /dev/null)" ]]; then
+      PROMPT_GIT+=" %F{yellow}lfs"
 
     # Otherwise get the repo's data:
     else
