@@ -59,7 +59,7 @@ done
 setopt share_history
 setopt inc_append_history
 export HISTSIZE=2000
-HISTFILE="$HOME/.zhistory"
+HISTFILE="${HOME}/.zhistory"
 SAVEHIST=${HISTSIZE}
 # Ignore bg, fg, etc:
 export HISTIGNORE="[   ]*:&:bg:fg"
