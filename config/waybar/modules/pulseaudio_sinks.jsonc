@@ -1,22 +1,18 @@
 {
   /*\
-  |* Pulseaudio
+  |* Pulseaudio sinks
   \***************************************************************************/
 
-  "pulseaudio": {
+  "pulseaudio#sinks": {
     "scroll-step": 5,
 
-    // Microphone:
-    "format-source": "{volume}% ",
-    "format-source-muted": "",
-
     // Bluetooth:
-    "format-bluetooth": "{icon}  {volume}%  {format_source}",
-    "format-bluetooth-muted": "   {format_source}",
+    "format-bluetooth": "{volume}%  {icon}",
+    "format-bluetooth-muted": "  ",
 
     // Other sinks:
-    "format": "{icon}  {volume}% {format_source}",
-    "format-muted": "  {format_source}",
+    "format": "{volume}% {icon}",
+    "format-muted": " ",
 
     // Other sink icons:
     "format-icons": {
@@ -28,8 +24,9 @@
       "car": "",
       "default": [ "", "", "" ]
     },
+
+    // On click:
     "on-click": "~/.scripts/7shi/wpctl_set_mute_all.zsh Sinks toggle",
-    "on-click-middle": "~/.scripts/7shi/wpctl_set_mute_all.zsh Sources toggle",
     "on-click-right": "pavucontrol"
   }
 

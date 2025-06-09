@@ -1,0 +1,20 @@
+{
+  /*\
+  |* Pulseaudio sources
+  \***************************************************************************/
+
+  "pulseaudio#sources": {
+    // Microphone:
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+
+    // Only format to use:
+    "format": "{format_source}",
+
+    // On click:
+    "on-click": "~/.scripts/7shi/wpctl_set_mute_all.zsh Sources toggle",
+    "on-click-right": "pavucontrol"
+  }
+
+}
+

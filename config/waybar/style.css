@@ -160,20 +160,10 @@ tooltip label {
 
 
 /*
- * Pulseaudio
+ * Pulseaudio sinks
  */
 
-#pulseaudio
-{
-  color: @color11;
-}
-
-#pulseaudio.source-muted
-{
-  color: @foreground;
-}
-
-#pulseaudio.muted
+#pulseaudio.sinks.muted
 {
   color: @color9;
 }
@@ -181,8 +171,25 @@ tooltip label {
 
 
 /*
+ * Pulseaudio sources
+ */
+
+#pulseaudio.sources
+{
+  color: @color11;
+}
+
+#pulseaudio.sources.source-muted
+{
+  color: @foreground;
+}
+
+
+
+/*
  * Battery
  */
+
 #battery.discharging
 {
    color: @color11;
