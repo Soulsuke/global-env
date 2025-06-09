@@ -195,7 +195,11 @@ function prompt_nns_git_data()
 # $1 = padding length.
 function prompt_nns_padding()
 {
-  eval "printf \${(l:${1}::${PROMPT_NNS_HYPHEN}:)_empty_zz}"
+  if [[ "2" == "${1}" ]]; then
+    print -- "${PROMPT_NNS_HYPHEN}${PROMPT_NNS_HYPHEN}"
+  else
+    eval "printf \${(l:${1}::${PROMPT_NNS_HYPHEN}:)}"
+  fi
 }
 
 
