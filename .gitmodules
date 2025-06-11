@@ -25,3 +25,6 @@
 [submodule "vim/vim/bundle/vim-markdown-toc"]
 	path = vim/vim/bundle/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc
+[submodule "vim/vim/bundle/vim-markdown"]
+	path = vim/vim/bundle/vim-markdown
+	url = https://github.com/preservim/vim-markdown.git

@@ -28,6 +28,9 @@ silent !mkdir ${HOME}/.vimswap/ > /dev/null 2>&1
 " Disable visual mode on mouse click:
 set mouse-=a
 
+" Set conceal level:
+set conceallevel=2
+
 " Use Vim defaults instead of 100% vi compatibility
 set nocompatible
 " More powerful backspacing
@@ -154,6 +157,17 @@ let g:vmt_list_item_char = "-"
 "
 " Add index:
 map <leader>i :GenTocGFM<CR>
+
+
+
+" --- vim-markdown
+"
+" Settings:
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_anchorexpr = 'substitute(v:anchor, "-", " ", "g")'
+" Let's not remap ge and use gl instead:
+let g:vim_markdown_no_default_key_mappings = 1
+map <nowait> gl <Plug>Markdown_EditUrlUnderCursor
 
 
 
