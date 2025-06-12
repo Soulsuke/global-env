@@ -8,7 +8,7 @@ case ${HOST} in
     evolution &
     # Workspace 2:
     wasistlos &
-    telegram-desktop &
+    Telegram &
     if [[ ${XDG_SESSION_TYPE:l} == "wayland" ]]; then
       discord \
         --enable-features=UseOzonePlatform \
@@ -26,7 +26,7 @@ case ${HOST} in
     claws-mail &
     # Workspace 2:
     whatsapp-for-linux &
-    telegram-desktop &
+    Telegram &
     # Workspace 10:
     steam &
   ;;
