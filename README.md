@@ -98,6 +98,7 @@ hyprsunset
 hyprutils
 hyprwayland-scanner
 mpvpaper
+nerdshade
 rofi-wayland
 slurp
 waybar

@@ -55,6 +55,7 @@ case ${XDG_SESSION_DESKTOP:l} in
       --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     hypridle &
     hyprsunset &
+    nerdshade -latitude 44.4 -longitude 8.94 -loop &
     ${HOME}/.scripts/7shi/waybar.zsh &
     ${HOME}/.scripts/7shi/wallpaper.zsh &
     ${HOME}/.scripts/7shi/dunst.zsh &
