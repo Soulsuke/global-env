@@ -11,6 +11,7 @@ if [[ -w "${GLOBAL_ENV}/zshrc" ]]; then
     "${GLOBAL_ENV}/aliases" \
     "${GLOBAL_ENV}/hosts" \
     "${GLOBAL_ENV}/hosts_envs/$HOST" \
+    "${GLOBAL_ENV}/compdef" \
     "${HOME}/.z$(whoami)"
 # Otherwise it's just the user's config file:
 else

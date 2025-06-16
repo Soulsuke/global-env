@@ -1,0 +1,36 @@
+###############################################################################
+## Compdef functions.                                                        ##
+###############################################################################
+
+# Matches (hopefully) all image files.
+function _7shi_compdef_images()
+{
+  _files -g '*.(png|jpg|jpeg|gif|bmp|tiff|webp|svg|ico)' -i
+}
+
+
+
+# Matches running processes.
+function _7shi_compdef_processes()
+{
+  local -a p=(
+    $(
+      ps -eo pid,tty,s,time,comm | grep -v COMMAND | \
+        awk '{gsub(/[()]/, "", $5); sub(/.*\//, "", $5); print $5}'
+    )
+  )
+  _describe 'commands' p
+}
+
+
+
+
+
+###############################################################################
+## Compdef associations                                                      ##
+###############################################################################
+
+### Autocompletion
+compdef _7shi_compdef_images icat
+compdef _7shi_compdef_processes pskill pkill
+

@@ -35,11 +35,3 @@ function cols()
   done
 }
 
-# Needed by pskill
-function morons()
-{
-  reply=(`ps -eo pid,tty,s,time,comm | grep -v COMMAND | \
-  perl -nle '@a=split(" ",$_,9);$_=$a[4];s/[()]//g;s/.*\///g;print'`)
-}
-compctl -K morons pskill pkill
-

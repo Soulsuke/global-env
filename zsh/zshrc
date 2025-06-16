@@ -15,12 +15,14 @@ fi
 
 
 
-### Configuration files #######################################################
-source ${GLOBAL_ENV}/func      # loads zsh functions
-source ${GLOBAL_ENV}/env       # loads the enviroment
-source ${GLOBAL_ENV}/aliases   # loads the general aliases
-source ${GLOBAL_ENV}/hosts     # loads host aliases
-source ${HOME}/.z${USER}       # loads user aliases
+### Autoloads ################################################################
+autoload -U compinit
+compinit -u
+autoload -U promptinit
+promptinit
+autoload zrecompile
+autoload -U zmv
+autoload colors ; colors
 
 
 
@@ -34,12 +36,13 @@ zmodload zsh/complist
 
 
 
-### Autocomplete extras #######################################################
-compctl -k ping telnet ncftp host nslookup ssh
-compctl -g '*.(gz|z|Z|t[agp]z|tarZ|tz)' + -g '*(-/)' gunzip gzcat zcat
-compctl -g '*.(pdf|PDF)' + -g '*(-/)'  xpdf evince
-compctl -g '[^.]*(-/) *(*)' + -f strip ldd gdb
-compctl -j -P % -x 's[-] p[1]' -k signals -- kill
+### Configuration files #######################################################
+source ${GLOBAL_ENV}/func      # loads zsh functions
+source ${GLOBAL_ENV}/env       # loads the enviroment
+source ${GLOBAL_ENV}/aliases   # loads the general aliases
+source ${GLOBAL_ENV}/hosts     # loads host aliases
+source ${GLOBAL_ENV}/compdef   # loads and sets autocompletion functions
+source ${HOME}/.z${USER}       # loads user aliases
 
 
 
@@ -98,17 +101,6 @@ unsetopt bgnice autoparamslash
 setopt    nobeep ignoreeof histignorealldups histignorespace PUSHD_IGNORE_DUPS
 setopt   GlobComplete ListPacked ListTypes HistFindNoDups HistReduceBlanks
 setopt   SunKeyboardHack multios list_packed
-
-
-
-### Autoloads ################################################################
-autoload -U compinit
-compinit -u
-autoload -U promptinit
-promptinit
-autoload zrecompile
-autoload -U zmv
-autoload colors ; colors
 
 
 

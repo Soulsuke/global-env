@@ -46,6 +46,11 @@ fi
 
 
 
+### kittens ###################################################################
+alias icat="kitten icat"
+
+
+
 ### Various ###################################################################
 alias asciirec='asciinema rec -I --tty-size 80x50 ~'
 alias df='df -h'

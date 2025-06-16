@@ -1,6 +1,6 @@
-##############################################################################
-## Ricompila i file della zsh.                                               ##
-## Se non esiste il file ~/.zsh/nomeutente, lo crea.                         ##
+###############################################################################
+## Recompiles zsh files.                                                     ##
+## Creates ~/.z$USER if it does not exist.                                   ##
 ###############################################################################
 
 ## Help reference
@@ -49,7 +49,8 @@ Z_FILES=(
   ${GLOBAL_ENV}/theme
   ${GLOBAL_ENV}/hosts
   ${GLOBAL_ENV}/hosts_envs/${HOST}
-  ~/.z$(whoami)
+  ${GLOBAL_ENV}/compdef
+  ~/.z${USER}
 )
 for i in $Z_FILES; do
   if [ -f $i ]; then
