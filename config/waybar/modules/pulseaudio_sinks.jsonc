@@ -27,7 +27,11 @@
 
     // On click:
     "on-click": "~/.scripts/7shi/wpctl_set_mute_all.zsh Sinks toggle",
-    "on-click-right": "pavucontrol"
+    "on-click-right": "pavucontrol",
+
+    // On scroll:
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
   }
 
 }
