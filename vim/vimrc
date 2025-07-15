@@ -22,7 +22,7 @@ set colorcolumn=80
 set re=2
 
 " Swap files folder:
-set directory=$HOME/.vimswap/
+set directory=${HOME}/.vimswap/
 silent !mkdir ${HOME}/.vimswap/ > /dev/null 2>&1
 
 " Disable visual mode on mouse click:
@@ -42,15 +42,10 @@ set tabpagemax=100
 
 " Toggle line numbers
 set number
-nmap <F2> :set invnumber<CR>
 " Toggle tab paste
 set pastetoggle=<F3>
-" Toggle folding
+" Fold level
 set foldlevel=99
-inoremap <F4> <C-O>za
-nnoremap <F4> za
-onoremap <F4> <C-C>za
-vnoremap <F4> zf
 
 " Autoindenting on:
 set autoindent
@@ -68,19 +63,17 @@ set ruler
 set vb t_vb=".
 " Indent with tab
 set tabstop=2
-" Make p in Visual mode replace the selected text with the "" register.
-vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 " Keep 10 lines around the cursor, context is always helpful:
 set scrolloff=10
 
-let fortran_free_source=1
+let fortran_free_source = 1
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 syntax on
 
 " Grep command
 set grepprg=grep\ -nH\ $*
 
-if has("autocmd")
+if has( "autocmd" )
  " Enabled file type detection
  " Use the default filetype settings. If you also want to load indent files
  " to automatically do language-dependent indenting add 'indent' as well.
@@ -95,137 +88,13 @@ set incsearch
 " Remove trailing spaces from all files EXCEPT md:
 autocmd BufWritePre *\(.md\)\@<! %s/\s\+$//e
 
-" JSON beautifier (jq):
-nnoremap <leader>j :%!jq '.'<CR>
+" Source all .vim files in ~/.vim/config/
+for file in glob( "~/.vim/config/*.vim", 0, 1 )
+  execute "source" file
+endfor
 
-" Quick git blame:
-map <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(split(system("git log -n 1 -L " . line(".") . ",+1:" . expand("%:p")), "\n"), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
-
-" Copy yanked into wayland clipboard:
-nnoremap <leader>y :call system( "wl-copy", @" )<CR>
-
-
-
-" -----------------------------------------------------------------------------
-" --- Plugins                                                               ---
-" -----------------------------------------------------------------------------
-
-" --- asyncomplete.vim
-"
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-
-
-
-" --- FastFold
-"
-let g:baan_fold=1
-let g:clojure_fold = 1
-let g:fortran_fold=1
-let g:javaScript_fold = 1
-let g:markdown_folding = 1
-let g:perl_fold = 1
-let g:perl_fold_blocks = 1
-let g:php_folding = 1
-let g:r_syntax_folding = 1
-let g:rst_fold_enabled = 1
-let g:ruby_fold = 1
-let g:rust_fold = 1
-let g:sh_fold_enabled= 7
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:zsh_fold_enable = 1
-autocmd FileType c,cpp setlocal foldmethod=syntax
-autocmd FileType python setlocal foldmethod=indent
-
-
-
-" --- NERDTree
-"
-" Toggle:
-map <leader>n :NERDTreeToggle<CR>
-
-
-
-" --- vim-markdown-toc
-"
-" Settings:
-let g:vmt_cycle_list_item_markers = 0
-let g:vmt_list_item_char = "-"
-"
-" Add index:
-map <leader>i :GenTocGFM<CR>
-
-
-
-" --- vim-markdown
-"
-" Settings:
-let g:vim_markdown_follow_anchor = 1
-let g:vim_markdown_anchorexpr = 'substitute(v:anchor, "-", " ", "g")'
-" Let's not remap ge and use gl instead:
-let g:vim_markdown_no_default_key_mappings = 1
-map <nowait> gl <Plug>Markdown_EditUrlUnderCursor
-
-
-
-" --- vim-prettier
-"
-" Settings:
-let g:prettier#config#print_width = 80
-let g:prettier#config#tab_width = 2
-let g:prettier#config#use_tabs = "false"
-let g:prettier#config#parser = ""
-let g:prettier#config#config_precedence = "file-override"
-let g:prettier#config#prose_wrap = "preserve"
-let g:prettier#config#html_whitespace_sensitivity = "css"
-let g:prettier#config#require_pragma = "false"
-let g:prettier#config#end_of_line = "lf"
-"
-" Prettify:
-map <leader>p :Prettier<CR>
-
-
-
-" --- vim-signify
-"
-" Settings:
-let g:signify_line_highlight = 0
-let g:signify_number_highlight = 1
-"
-" Toggle signify:
-map <leader>s :SignifyToggle<CR>
-"
-" Show whole file diff:
-map <c-d> :SignifyDiff!<CR>
-"
-" Show hunk diff:
-map <leader>d :SignifyHunkDiff<CR>
-"
-" Undo hunk diff:
-map <leader>du :SignifyHunkUndo<CR>
-"
-" Jump to next hunk:
-nmap <c-n> <plug>(signify-next-hunk)
-"
-" Jump to previous hunk:
-nmap <c-p> <plug>(signify-prev-hunk)
-
-
-
-" --- vim-rubocop
-"
-" Set config file:
-let g:vimrubocop_config = "~/.vim/resources/rubocop.yml"
-"
-" Check for violations:
-map <leader>r :RuboCop<CR>
-"
-" Autofix violations:
-map <leader>ra :RuboCop -a<CR>
-"
-" Formatter:
-map <leader>rx :RuboCop -x<CR>
+" Source all .vim files in ~/.vim/config/plugins/
+for file in glob( "~/.vim/config/*/*.vim", 0, 1 )
+  execute "source" file
+endfor
 
