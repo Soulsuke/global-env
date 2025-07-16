@@ -1,36 +1,39 @@
-[submodule "vim/vim/bundle/nerdtree"]
-	path = vim/vim/bundle/nerdtree
+[submodule "vim/vim/pack/plugins/start/nerdtree"]
+	path = vim/vim/pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "vim/vim/bundle/vim-prettier"]
-	path = vim/vim/bundle/vim-prettier
+[submodule "vim/vim/pack/plugins/start/vim-prettier"]
+	path = vim/vim/pack/plugins/start/vim-prettier
 	url = https://github.com/prettier/vim-prettier.git
-[submodule "vim/vim/bundle/vim-rubocop"]
-	path = vim/vim/bundle/vim-rubocop
+[submodule "vim/vim/pack/plugins/start/vim-rubocop"]
+	path = vim/vim/pack/plugins/start/vim-rubocop
 	url = https://github.com/ngmy/vim-rubocop.git
-[submodule "vim/vim/bundle/FastFold"]
-	path = vim/vim/bundle/FastFold
+[submodule "vim/vim/pack/plugins/start/FastFold"]
+	path = vim/vim/pack/plugins/start/FastFold
 	url = https://github.com/Konfekt/FastFold.git
-[submodule "vim/vim/bundle/vim-lsp"]
-	path = vim/vim/bundle/vim-lsp
+[submodule "vim/vim/pack/plugins/start/vim-lsp"]
+	path = vim/vim/pack/plugins/start/vim-lsp
 	url = https://github.com/prabirshrestha/vim-lsp.git
-[submodule "vim/vim/bundle/asyncomplete.vim"]
-	path = vim/vim/bundle/asyncomplete.vim
+[submodule "vim/vim/pack/plugins/start/asyncomplete.vim"]
+	path = vim/vim/pack/plugins/start/asyncomplete.vim
 	url = https://github.com/prabirshrestha/asyncomplete.vim.git
-[submodule "vim/vim/bundle/VimCompletesMe"]
-	path = vim/vim/bundle/VimCompletesMe
+[submodule "vim/vim/pack/plugins/start/VimCompletesMe"]
+	path = vim/vim/pack/plugins/start/VimCompletesMe
 	url = https://github.com/vim-scripts/VimCompletesMe.git
-[submodule "vim/vim/bundle/vim-signify"]
-	path = vim/vim/bundle/vim-signify
+[submodule "vim/vim/pack/plugins/start/vim-signify"]
+	path = vim/vim/pack/plugins/start/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
-[submodule "vim/vim/bundle/vim-markdown-toc"]
-	path = vim/vim/bundle/vim-markdown-toc
+[submodule "vim/vim/pack/plugins/start/vim-markdown-toc"]
+	path = vim/vim/pack/plugins/start/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc
-[submodule "vim/vim/bundle/vim-markdown"]
-	path = vim/vim/bundle/vim-markdown
+[submodule "vim/vim/pack/plugins/start/vim-markdown"]
+	path = vim/vim/pack/plugins/start/vim-markdown
 	url = https://github.com/preservim/vim-markdown.git
-[submodule "vim/vim/bundle/vim-lsp-settings"]
-	path = vim/vim/bundle/vim-lsp-settings
+[submodule "vim/vim/pack/plugins/start/vim-lsp-settings"]
+	path = vim/vim/pack/plugins/start/vim-lsp-settings
 	url = https://github.com/mattn/vim-lsp-settings.git
-[submodule "vim/vim/bundle/asyncomplete-lsp.vim"]
-	path = vim/vim/bundle/asyncomplete-lsp.vim
+[submodule "vim/vim/pack/plugins/start/asyncomplete-lsp.vim"]
+	path = vim/vim/pack/plugins/start/asyncomplete-lsp.vim
 	url = https://github.com/prabirshrestha/asyncomplete-lsp.vim.git
+[submodule "vim/vim/pack/plugins/start/async.vim"]
+	path = vim/vim/pack/plugins/start/async.vim
+	url = https://github.com/prabirshrestha/async.vim.git

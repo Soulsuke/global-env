@@ -1,8 +1,5 @@
 " Work in (not so active) progress
 
-" Pathogen stuff:
-execute pathogen#infect()
-
 " Make everything readable:
 set background=dark
 
