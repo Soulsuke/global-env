@@ -69,6 +69,22 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 
 
+"-- fzf.vim
+"------------------------------------------------------------------------------
+
+" File search:
+map F :Files<CR>
+
+
+
+"-- NERDTree
+"------------------------------------------------------------------------------
+
+" Toggle:
+map <leader>n :NERDTreeToggle<CR>
+
+
+
 "-- vim-lsp
 "------------------------------------------------------------------------------
 
@@ -82,14 +98,6 @@ function! s:on_lsp_buffer_enabled_keybindings() abort
   nmap <buffer> ]d <plug>(lsp-next-diagnostic)
 endfunction
 autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled_keybindings()
-
-
-
-"-- NERDTree
-"------------------------------------------------------------------------------
-
-" Toggle:
-map <leader>n :NERDTreeToggle<CR>
 
 
 
