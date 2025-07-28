@@ -71,7 +71,7 @@ esac
 
 # Common for Every DE, after the compositor is in place:
 gnome-keyring-daemon --start
-redshift-gtk &
+[[ ${XDG_SESSION_TYPE:l} == "x11" ]] && redshift-gtk &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
 ${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sources 1
 ${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sinks 0
