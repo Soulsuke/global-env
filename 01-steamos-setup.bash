@@ -10,6 +10,7 @@ fi
 
 # Packages to install via pacman:
 TO_INSTALL=(
+  fzf
   git
   glibc
   openssh
