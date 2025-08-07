@@ -12,6 +12,9 @@ highlight PmenuThumb ctermbg=Green
 " Make the sign column blend with the rest:
 highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
+" Make the status line a little more user friendly:
+highlight StatusLine ctermfg=Cyan ctermbg=Black
+
 " To be extra sure.
 set colorcolumn=80
 
