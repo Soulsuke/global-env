@@ -148,7 +148,9 @@ setopt ignoreeof
 
 
 ### Pywall support ############################################################
-[[ -f ${HOME}/.cache/wal/sequences ]] && (cat ${HOME}/.cache/wal/sequences &)
+if [[ -f ${HOME}/.cache/wal/sequences ]]; then
+  /usr/bin/cat ${HOME}/.cache/wal/sequences
+fi
 
 
 
