@@ -59,6 +59,11 @@ if [[ 0 == ${UID} ]] && [[ 0 == ${DECK} ]]; then
       env_link "${f}" "/etc/X11/xorg.conf.d/$(basename ${f})"
     done
   fi
+
+  ### ufw
+  #############################################################################
+  mkdir -p /etc/ufw/applications.d
+  env_link  "ufw/7shi" "/etc/ufw/applications.d/7shi"
 fi
 
 # Vim:

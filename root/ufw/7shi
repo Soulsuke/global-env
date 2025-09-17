@@ -1,0 +1,30 @@
+[7shi Deluge]
+title = 7shi Deluge
+description = Deluge
+ports = 63737
+
+[7shi KDE Connect]
+title = 7shi KDE Connect
+description = KDE connect
+ports = 1714:1764/tcp|1714:1764/udp
+
+[7shi nginx]
+title = 7shi nginx
+description = Nginx ports 80 and 443
+ports = 80,443/tcp
+
+[7shi Plex]
+title = 7shi Plex
+description = Plex Media Server streaming + GDM
+ports = 32400/tcp|32410,32412,32413,32414/udp
+
+[7shi ssh]
+title = 7shi ssh
+description = ssh
+ports = 3737/tcp
+
+[7shi Steam Remote Play]
+title = 7shi Steam Remote Play
+description = Steam Remote Play
+ports = 27015,27036:27037/tcp|27015:27050/udp
+
