@@ -65,6 +65,8 @@ alias pss="ps aux | head -n1 && ps aux | grep"
 alias steam-shader-status="tail -f ${HOME}/.steam/root/logs/shader_log.txt"
 alias v='vim'
 alias wayland-doas="~/.scripts/7shi/wayland_doas.zsh"
+alias yt="yt-dlp --cookies-from-browser vivaldi"
+alias yta="yt -t mp3"
 
 
 
