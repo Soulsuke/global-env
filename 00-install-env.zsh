@@ -1,5 +1,9 @@
 #! /usr/bin/env zsh
 
+###############################################################################
+### Utility functions                                                       ###
+###############################################################################
+
 # Function to link the given file in ${HOME}, checking if the file
 # already exists and, in case, backing it up.
 # Usage: env_link origin destination
@@ -25,6 +29,26 @@ function env_link()
   mkdir -p "$(dirname ${2})"
   ln -s "${PWD}/${1}" "${2}"
 }
+
+
+
+# Function which calls env_link on all children of ${1} and links it inside of
+# ${2} (ensuring it does exist):
+function env_link_children()
+{
+  mkdir -p "${2}"
+  cd ${1}
+  for i in *; do
+    env_link ${i} "${2}/${i}"
+  done
+  cd ..
+}
+
+
+
+###############################################################################
+### Entry point                                                             ###
+###############################################################################
 
 # Global env's directory:
 local _GLOBAL_ENV_PATH_=${0:A:h}
@@ -102,11 +126,7 @@ for i in *; do
         mv "${HOME}/.config/dunst/dunstrc" "${HOME}/.config/dunst/dunstrc.old"
       fi
       ln -s "${HOME}/.cache/wal/dunstrc" "${HOME}/.config/dunst/dunstrc"
-      cd dunst
-      for ii in *; do
-        env_link ${ii} "${HOME}/.config/dunst/${ii}"
-      done
-      cd ..
+      env_link_children "dunst" "${HOME}/.config/dunst"
     ;;
 
     # Hyprland wants an extra symlink:
@@ -129,6 +149,16 @@ for i in *; do
     # ad-hoc care themselves:
     inputrc)
       env_link ${i} "${HOME}/.${i}"
+    ;;
+
+    # Pipewire stuff must be symlinked inside a user's folder:
+    pipewire)
+      env_link_children "pipewire" "${HOME}/.config/pipewire"
+    ;;
+
+    # Wireplumber stuff must be symlinked inside a user's folder:
+    wireplumber)
+      env_link_children "wireplumber" "${HOME}/.config/wireplumber"
     ;;
 
     # This one is a little bit tricky: always copy it over, but attempt to set
