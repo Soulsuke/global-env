@@ -60,6 +60,12 @@ To set the wal theme from an image: `wal -i /path/to/image`
 
 ### Gnome keyring
 
+To avoid the "insufficient process capabilities" error:
+```sh
+sudo setcap cap_ipc_lock=+ep `which gnome-keyring-daemon`
+
+```
+
 Just areminder that PAM should be configured to unlock gnome-keyring-daemon
 keyrings on login:  
 

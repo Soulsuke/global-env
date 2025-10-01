@@ -70,7 +70,7 @@ esac
 
 
 # Common for Every DE, after the compositor is in place:
-gnome-keyring-daemon --start --unlock
+gnome-keyring-daemon --replace --daemonize
 [[ ${XDG_SESSION_TYPE:l} == "x11" ]] && redshift-gtk &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
 kdeconnect-indicator &
