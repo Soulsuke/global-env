@@ -16,6 +16,7 @@ Table of contents:
         - [Prevent lid closure from suspending to ram](#prevent-lid-closure-from-suspending-to-ram)
         - [Issues with screen sharing](#issues-with-screen-sharing)
         - [Have chrome-based browsers run on wayland instead of xwayland](#have-chrome-based-browsers-run-on-wayland-instead-of-xwayland)
+        - [To change GTK themes/config](#to-change-gtk-themesconfig)
     - [Input methods](#input-methods)
     - [UFW](#ufw)
     - [Xorg nvidia config](#xorg-nvidia-config)
@@ -102,6 +103,7 @@ hyprutils
 hyprwayland-scanner
 mpvpaper
 nerdshade
+nwg-look
 rofi-wayland
 slurp
 waybar
@@ -162,6 +164,10 @@ Or manually launch them with
 
 If they fail to launch (as some electron apps do) it may be necessary to add
 `--disable-gpu`.  
+
+#### To change GTK themes/config
+
+Use `nwg-look`  
 
 
 
