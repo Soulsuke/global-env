@@ -12,8 +12,7 @@ case ${HOST} in
     if [[ ${XDG_SESSION_TYPE:l} == "wayland" ]]; then
       discord \
         --enable-features=UseOzonePlatform \
-        --ozone-platform=wayland \
-        --disable-gpu &
+        --ozone-platform=wayland
     else
       discord &
     fi
