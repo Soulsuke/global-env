@@ -85,8 +85,8 @@ set ignorecase
 " Incremental search
 set incsearch
 
-" Remove trailing spaces from all files EXCEPT md:
-autocmd BufWritePre *\(.md\)\@<! %s/\s\+$//e
+" Remove trailing spaces from all files EXCEPT md and patch:
+autocmd BufWritePre *\(.md\|.patch\)\@<! %s/\s\+$//e
 
 " Source all .vim files in ~/.vim/config/
 for file in glob( "~/.vim/config/*.vim", 0, 1 )
