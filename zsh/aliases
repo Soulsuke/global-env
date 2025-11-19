@@ -52,7 +52,10 @@ alias icat="kitten icat"
 
 
 ### Various ###################################################################
-alias asciirec='asciinema rec -I --tty-size 80x50 ~'
+alias asciirec='asciinema rec -I --window-size 80x50 \
+                 ~/asciinema_$(date "+%Y-%m-%d_%H-%M-%S")'
+alias camon="${SUDO_7SHI} modprobe uvcvideo"
+alias camoff="${SUDO_7SHI} modprobe -r uvcvideo"
 alias df='df -h'
 alias du='du -h'
 alias eject='eject /dev/sr0'
