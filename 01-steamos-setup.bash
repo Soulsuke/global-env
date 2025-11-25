@@ -15,6 +15,7 @@ TO_INSTALL=(
   glibc
   openssh
   rsync
+  screen
   vim
   zsh
 )
