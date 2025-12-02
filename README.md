@@ -98,6 +98,7 @@ hyprland-qtutils
 hyprlang
 hyprlock
 hyprpicker
+hyprpolkitagent
 hyprsunset
 hyprutils
 hyprwayland-scanner
