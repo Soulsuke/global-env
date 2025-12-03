@@ -12,7 +12,7 @@
    "hwmon-path-abs": "/sys/devices/platform/PNP0C14:0b/wmi_bus/wmi_bus-PNP0C14:0b/A70591CE-A997-11DA-B012-B622A1EF5492-34/hwmon",
    // dell_ddv: a little less accurate
    //"hwmon-path-abs": "/sys/devices/platform/PNP0C14:08/wmi_bus/wmi_bus-PNP0C14:08/8A42EA14-4F2A-FD45-6422-0087F7A7E608-27/hwmon",
-    "input-filename": "temp1_input"
+   "input-filename": "temp1_input"
   },
 
 
