@@ -82,6 +82,9 @@ Style/EmptyLiteral:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 Style/NumericPredicate:
   Enabled: false
 
