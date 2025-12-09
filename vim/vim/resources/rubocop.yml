@@ -7,7 +7,7 @@ AllCops:
   DefaultFormatter: progress
   DisplayStyleGuide: true
   DisplayCopNames: true
-  TargetRubyVersion: 3.4.2
+  TargetRubyVersion: 3.4
   NewCops: enable
 
 
