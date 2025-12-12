@@ -15,15 +15,17 @@ function g_status
 # Enables gmode.
 function g_enable
 {
-  echo "\_SB.AMWW.WMAX 0 0x15 {1, 0xab, 0x00, 0x00}" > /proc/acpi/call
+  echo "\_SB.AMWW.WMAX 0 0x14 {0xb, 0x0, 0x0, 0x00}" > /proc/acpi/call
   echo "\_SB.AMWW.WMAX 0 0x25 {1, 0x01, 0x00, 0x00}" > /proc/acpi/call
+  echo "\_SB.AMWW.WMAX 0 0x15 {1, 0xab, 0x00, 0x00}" > /proc/acpi/call
 }
 
 # Disables gmode.
 function g_disable
 {
-  echo "\_SB.AMWW.WMAX 0 0x15 {1, 0xa0, 0x00, 0x00}" > /proc/acpi/call
+  echo "\_SB.AMWW.WMAX 0 0x14 {0xb, 0x0, 0x0, 0x00}" > /proc/acpi/call
   echo "\_SB.AMWW.WMAX 0 0x25 {1, 0x00, 0x00, 0x00}" > /proc/acpi/call
+  echo "\_SB.AMWW.WMAX 0 0x15 {1, 0xa0, 0x00, 0x00}" > /proc/acpi/call
 }
 
 # Toggles gmode.
