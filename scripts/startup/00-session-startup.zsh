@@ -76,5 +76,4 @@ ${HOME}/.scripts/7shi/wpctl_set_mute_all.zsh Sinks 0
 [[ ${XDG_SESSION_TYPE:l} == "x11" ]] && redshift-gtk &
 [[ $(command -v akbl) ]] && akbl --start-indicator &
 [[ $(command -v kdeconnect-indicator) ]] && kdeconnect-indicator &
-[[ $(command -v awcc) ]] && awcc b &
 
