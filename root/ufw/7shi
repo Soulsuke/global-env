@@ -13,6 +13,11 @@ title = 7shi nginx
 description = Nginx ports 80 and 443
 ports = 80,443/tcp
 
+[7shi Ollama]
+title = 7shi Ollama
+description = Ollama
+ports = 11434/tcp
+
 [7shi Plex]
 title = 7shi Plex
 description = Plex Media Server streaming + GDM

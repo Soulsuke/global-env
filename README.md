@@ -194,6 +194,9 @@ Add a rule for a subnet -> `ufw allow from 192.168.1.0/24 to any app "app"`
 Show status with numbered active rules -> `ufw status numbered`  
 Delete an active rule -> `ufw delete <number>`  
 
+For instance, to allow ollama access from docker containers:
+`ufw allow from 172.17.0.0/16 to any app "7shi Ollama`  
+
 
 
 ### Xorg nvidia config
