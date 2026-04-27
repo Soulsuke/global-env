@@ -7,7 +7,7 @@ case ${HOST} in
     vivaldi-stable &
     evolution &
     # Workspace 2:
-    wasistlos &
+    whatsie &
     Telegram &
     if [[ ${XDG_SESSION_TYPE:l} == "wayland" ]]; then
       discord \
