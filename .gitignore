@@ -5,7 +5,6 @@
 *.old
 
 # Excluded files from config:
-/config/hypr/hyprland.conf.d/hostname.conf
 /config/tilda/*.tmp
 
 # Excluded files from vim:
