@@ -19,7 +19,7 @@ LOCK_COMMAND="$(7shi_load_conf ~/.config/7shi/rofi_sessionmgr "locker_${DE}")"
 LOGOUT_CMD=""
 case "${DE}" in
   i3) LOGOUT_CMD='i3-msg exit' ;;
-  hyprland) LOGOUT_CMD='hyprctl dispatch exit' ;;
+  hyprland) LOGOUT_CMD='hyprctl dispatch "hl.dsp.exit()"' ;;
 esac
 
 # Add it in only if present:

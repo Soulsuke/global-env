@@ -129,22 +129,6 @@ for i in *; do
       env_link_children "dunst" "${HOME}/.config/dunst"
     ;;
 
-    # Hyprland wants an extra symlink:
-    hypr)
-      # Link the whole folder:
-      env_link ${i} "${HOME}/.config/${i}"
-
-      # Temporary shorthands:
-      local TMP_FROM="${HOME}/.config/${i}/hyprland.conf.hosts/${HOST}.conf"
-      local TMP_TO="${HOME}/.config/${i}/hyprland.conf.d/hostname.conf"
-
-      # Remove any potential odd symlinks:
-      rm "${TMP_TO}" &> /dev/null
-
-      # Then, link the config file if there's one:
-      [[ -f "${TMP_FROM}" ]] && ln -s "${TMP_FROM}" "${TMP_TO}"
-    ;;
-
     # These should be linked in HOME and not in ~/.config, but do not need any
     # ad-hoc care themselves:
     inputrc)

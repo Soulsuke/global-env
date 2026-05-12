@@ -44,14 +44,22 @@ function toggle_hyprland
   local KW="input:touchpad:disable_while_typing"
 
   # If it's not disabled yet, disable it:
-  if [[ -z "$(hyprctl getoption "${KW}" | grep "int: 1")" ]]; then
-    hyprctl keyword "device[${TOUCHPAD}]:enabled" false &> /dev/null
-    hyprctl keyword "${KW}" true &> /dev/null
+  if [[ -z "$(hyprctl getoption "${KW}" | grep "bool: true")" ]]; then
+    hyprctl eval \
+      "hl.device({ name = \"${TOUCHPAD}\", enabled = false })" \
+      &> /dev/null
+    hyprctl eval \
+      'hl.config({ input = { touchpad = { disable_while_typing = true } } })' \
+      &> /dev/null
 
   # Otherwise, disable it:
   else
-    hyprctl keyword "device[${TOUCHPAD}]:enabled" true &> /dev/null
-    hyprctl keyword "${KW}" false &> /dev/null
+    hyprctl eval \
+      "hl.device({ name = \"${TOUCHPAD}\", enabled = true })" \
+      &> /dev/null
+    hyprctl eval \
+      'hl.config({input = { touchpad = { disable_while_typing = false } }})' \
+      &> /dev/null
   fi
 }
 

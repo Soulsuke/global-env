@@ -1,0 +1,32 @@
+wal_colors = {{
+  foreground = "rgb({foreground.rgb})",
+  background = "rgb({background.rgb})",
+  backgroundRgb = "{background.rgb}",
+  backgroundAlpha = "rgba({background.rgb},0.6)",
+
+  invisible = "rgba(0,0,0,0)",
+
+  lockInputBackground = "rgba({background.rgb},0.2)",
+  lockCheckColor = "rgb({color3.rgb})",
+  lockFailColor  = "rgb({color9.rgb})",
+
+  color0 = "rgb({color0.rgb})",
+  color1 = "rgb({color1.rgb})",
+  color1Alpha = "rgba({color1.rgb},0.6)",
+  color2 = "rgb({color2.rgb})",
+  color2Alpha = "rgba({color2.rgb},0.6)",
+  color3 = "rgb({color3.rgb})",
+  color4 = "rgb({color4.rgb})",
+  color5 = "rgb({color5.rgb})",
+  color6 = "rgb({color6.rgb})",
+  color7 = "rgb({color7.rgb})",
+  color8 = "rgb({color8.rgb})",
+  color9 = "rgb({color9.rgb})",
+  color10 = "rgb({color10.rgb})",
+  color11 = "rgb({color11.rgb})",
+  color12 = "rgb({color12.rgb})",
+  color13 = "rgb({color13.rgb})",
+  color14 = "rgb({color14.rgb})",
+  color15 = "rgb({color15.rgb})"
+}}
+
