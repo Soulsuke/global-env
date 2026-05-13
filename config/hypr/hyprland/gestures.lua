@@ -41,13 +41,4 @@ hl.gesture(
   }
 )
 
--- Show/hide terminal special workspace on vertical scroll:
-hl.gesture(
-  {
-    fingers = 3,
-    direction = "vertical",
-    action = "special",
-    arg = terminal
-  }
-)
 
