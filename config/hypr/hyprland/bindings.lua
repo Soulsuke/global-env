@@ -55,7 +55,7 @@ hl.bind( mod .. " + SHIFT + Q", hl.dsp.window.close() )
 hl.bind( mod .. " + F", hl.dsp.window.fullscreen( { mode = 0 } ) )
 
 -- Maximize focused window:
-hl.bind( mod .. " + F", hl.dsp.window.fullscreen( { mode = 1 } ) )
+hl.bind( mod .. " + M", hl.dsp.window.fullscreen( { mode = 1 } ) )
 
 -- Toggle tiling/floating for focused window:
 hl.bind(
