@@ -6,6 +6,7 @@
   "clock": {
     "interval": 1,
     "timezone": "Europe/Rome",
+    "tooltip": true,
     "tooltip-format": "<tt>{calendar}</tt>",
     "format": "{:%H:%M:%S %Y-%m-%d, %A}",
     "format-alt": "{:%H:%M %m-%d}",
@@ -14,6 +15,7 @@
       "mode-mon-col": 3,
       "weeks-pos": "right",
       "on-scroll": 1,
+      "iso8601": true,
       "format": {
         "months":   "<span color='#ffead3'><b>{}</b></span>",
         "days":     "<span color='#ecc6d9'><b>{}</b></span>",
