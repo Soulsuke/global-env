@@ -7,7 +7,7 @@
 function start_hyprlock()
 {
   # Variables:
-  local HOST_CONFIG="${HOME}/.config/hypr/hyprlock.conf.hosts/${HOST}.conf"
+  local HOST_CONFIG="${HOME}/.config/hypr/hyprlock.conf.hosts/$(hostname).conf"
 
   # If we have a per-host configuration, use it:
   if [[ -f "${HOST_CONFIG}" ]]; then
