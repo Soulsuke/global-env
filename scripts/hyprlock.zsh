@@ -38,5 +38,5 @@ pidof hyprlock || start_hyprlock &
 sleep 1
 
 # Then dim the screen:
-hyprctl dispatch 'hl.dsp.dpms("off")'
+hyprctl dispatch 'hl.dsp.dpms( "off" )'
 
