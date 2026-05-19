@@ -48,6 +48,16 @@ for _, dir in ipairs( { "left", "right", "up", "down" } ) do
   )
 end
 
+-- Move to the previous workspace:
+hl.bind( mod .. " + CTRL + ALT + left", hl.dsp.focus( { workspace = "e-1" } ) )
+hl.bind( mod .. " + CTRL + ALT + down", hl.dsp.focus( { workspace = "e-1" } ) )
+hl.bind( mod .. " + mouse_up", hl.dsp.focus( { workspace = "e-1" } ) )
+
+-- Move to the next workspace:
+hl.bind( mod .. " + CTRL + ALT + right", hl.dsp.focus( { workspace = "e+1" } ) )
+hl.bind( mod .. " + CTRL + ALT + up", hl.dsp.focus( { workspace = "e+1" } ) )
+hl.bind( mod .. " + mouse_down", hl.dsp.focus( { workspace = "e+1" } ) )
+
 -- Close focused window:
 hl.bind( mod .. " + SHIFT + Q", hl.dsp.window.close() )
 
@@ -108,18 +118,18 @@ hl.bind(
 
 -- Master window selection:
 hl.bind( mod .. " + tab", hl.dsp.layout( "swapwithmaster" ) )
-hl.bind( mod .. " + mouse:274", hl.dsp.layout( "swapwithmaster") )
+hl.bind( mod .. " + mouse:274", hl.dsp.layout( "swapwithmaster" ) )
 
 -- Decrease/increase master window ratio with scrollwheel:
-hl.bind( mod .. " + mouse_down", hl.dsp.layout( "mfact -0.2" ) )
-hl.bind( mod .. " + mouse_up",   hl.dsp.layout( "mfact +0.2" ) )
+hl.bind( mod .. " + ALT + mouse_down", hl.dsp.layout( "mfact +0.2" ) )
+hl.bind( mod .. " + ALT + mouse_up",   hl.dsp.layout( "mfact -0.2" ) )
 
 -- Change master layout orientation:
-hl.bind( mod .. " + ALT + left",  hl.dsp.layout( "orientationleft") )
-hl.bind( mod .. " + ALT + right", hl.dsp.layout( "orientationright") )
-hl.bind( mod .. " + ALT + up",    hl.dsp.layout( "orientationtop") )
-hl.bind( mod .. " + ALT + down",  hl.dsp.layout( "orientationbottom") )
-hl.bind( mod .. " + ALT + Space", hl.dsp.layout( "orientationcenter") )
+hl.bind( mod .. " + ALT + left",  hl.dsp.layout( "orientationleft" ) )
+hl.bind( mod .. " + ALT + right", hl.dsp.layout( "orientationright" ) )
+hl.bind( mod .. " + ALT + up",    hl.dsp.layout( "orientationtop" ) )
+hl.bind( mod .. " + ALT + down",  hl.dsp.layout( "orientationbottom" ) )
+hl.bind( mod .. " + ALT + Space", hl.dsp.layout( "orientationcenter" ) )
 
 -- Cycle master layout orientation active window:
 hl.bind( mod .. " + CTRL + left",  hl.dsp.layout( "rollprev" ) )
