@@ -126,11 +126,22 @@ hl.window_rule(
 --- Per-application rules
 -------------------------------------------------------------------------------
 
--- These are portals to open/save files, which should always be floating and
--- fixed size:
+-- Portals dialogues should always be floating:
 hl.window_rule(
   {
-    name = "portals",
+    name = "portals-good",
+    float = true,
+    size = "800 500",
+    match = {
+      class= "xdg-desktop-portal-gtk"
+    }
+  }
+)
+
+-- However, some won't identify themselves as portals, so:
+hl.window_rule(
+  {
+    name = "portals-bad",
     float = true,
     size = "800 500",
     match = {
