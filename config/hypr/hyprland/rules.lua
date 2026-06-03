@@ -84,6 +84,17 @@ hl.window_rule(
   }
 )
 
+-- Make all windows opaque by default, so it can be easily toggled:
+hl.window_rule(
+  {
+    name = "all-windows-opaque",
+    match = {
+      class = ".*"
+    },
+    opaque = true
+  }
+)
+
 
 
 --- Xwayland hacks

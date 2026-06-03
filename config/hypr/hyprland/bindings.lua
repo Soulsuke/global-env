@@ -73,6 +73,18 @@ hl.bind(
   hl.dsp.window.float( { action = "toggle" } )
 )
 
+-- Toggle active window opacity:
+hl.bind(
+  mod .. " + G",
+  hl.dsp.window.set_prop(
+    {
+      window = "active",
+      prop = "opaque",
+      value = "toggle"
+    }
+  )
+)
+
 -- Move window with left click:
 hl.bind( mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true } )
 
