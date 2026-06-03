@@ -521,6 +521,16 @@ hl.window_rule(
 
 hl.window_rule(
   {
+    name = "w10-steam-starting-floating-window",
+    workspace = "10 silent",
+    match = {
+      title = "^Steam$"
+    }
+  }
+)
+
+hl.window_rule(
+  {
     name = "w10-launchers",
     workspace = "10 silent",
     match = {
