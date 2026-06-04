@@ -85,6 +85,18 @@ hl.bind(
   )
 )
 
+-- Toggle screen sharing prevention:
+hl.bind(
+  mod .. " + ALT + H",
+  hl.dsp.window.set_prop(
+    {
+      window = "active",
+      prop = "no_screen_share",
+      value = "toggle"
+    }
+  )
+)
+
 -- Move window with left click:
 hl.bind( mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true } )
 
