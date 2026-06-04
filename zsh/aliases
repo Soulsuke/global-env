@@ -51,6 +51,11 @@ alias icat="kitten icat"
 
 
 
+### Scripts ##################################################################
+alias hyprgetprop="~/.scripts/7shi/hyprgetprop.zsh"
+
+
+
 ### Various ###################################################################
 alias asciirec="asciinema rec -I --window-size 80x50 \
                  ~/asciinema_$(date '+%Y-%m-%d_%H-%M-%S')"
