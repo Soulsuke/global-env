@@ -9,6 +9,17 @@ hl.monitor(
   }
 )
 
+hl.monitor(
+  {
+    output = "HDMI-A-1",
+    mode = "preferred",
+    position = "auto-up",
+    scale = 1.0
+  }
+)
+
+
+
 -- Mouse cursor size:
 hl.env( "XCURSOR_SIZE", "24" )
 hl.env( "HYPRCURSOR_SIZE", "24" )
