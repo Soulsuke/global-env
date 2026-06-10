@@ -6,8 +6,8 @@
   ### Notification area
   #############################################################################
 
-  # On dispaly 0:
-  monitor = 0
+  # On dispaly 0 (this should be 1 for hyprland):
+  monitor = 1
 
   # Width:
   # NOTE: 300 is fixed, (0, 300) is dynamic.
@@ -18,9 +18,9 @@
 
   # Offset, this is tricky:
   #  - on X11 should be 0x28 (below polybar)
-  #  - on wayland it has to be 0x0 (exclusive areas are a pain)
+  #  - on wayland it has to be 0x0 (exclusive areas are cool)
   # We'll let dunst.zsh do its magic here.
-  offset = (0, 28)
+  offset = (0, 0)
 
   # Max number of shown notifications:
   notification_limit = 10

@@ -15,6 +15,17 @@ else
   sed -i "s;offset =.*;offset = (0, 28);" "${CONFIG}"
 fi
 
+# Default monitor changes on DE:
+case ${XDG_SESSION_DESKTOP:l} in
+  hyprland)
+    sed -i "s;monitor = .*;monitor = 1;" "${CONFIG}"
+  ;;
+
+  *)
+    sed -i "s;monitor = .*;monitor = 0;" "${CONFIG}"
+  ;;
+esac
+
 # Kill all running instances:
 killall dunst &> /dev/null
 
