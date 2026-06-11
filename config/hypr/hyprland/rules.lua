@@ -411,7 +411,20 @@ hl.window_rule(
 
 
 
--- Workspaces 5-6 are lawless.
+-- Workspacd 5: documents
+hl.window_rule(
+  {
+    name = "w05-atril",
+    workspace = "4",
+    match = {
+      class = "atril"
+    }
+  }
+)
+
+
+
+-- Workspace 6 is lawless.
 
 
 
