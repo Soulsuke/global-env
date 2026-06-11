@@ -424,7 +424,7 @@ hl.window_rule(
 
 hl.window_rule(
   {
-    name = "w05-atril",
+    name = "w05-libreoffice",
     workspace = "4",
     match = {
       class = "libreoffice.*"
