@@ -422,6 +422,16 @@ hl.window_rule(
   }
 )
 
+hl.window_rule(
+  {
+    name = "w05-atril",
+    workspace = "4",
+    match = {
+      class = "libreoffice.*"
+    }
+  }
+)
+
 
 
 -- Workspace 6 is lawless.
