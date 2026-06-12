@@ -96,6 +96,7 @@ hl.on(
 
     -- hyprland family stuff:
     hl.exec_cmd( "systemctl --user start hyprpolkitagent.service" )
+    hl.exec_cmd( "systemctl --user start hyprland-session.target" )
     hl.exec_cmd( "hypridle" )
     hl.exec_cmd( "hyprsunset" )
     hl.exec_cmd( "nerdshade -latitude 44.4 -longitude 8.94 -loop" )
@@ -115,6 +116,7 @@ hl.on(
   function()
     hl.exec_cmd( "killall hypridle" )
     hl.exec_cmd( "killall nerdshade" )
+    hl.exec_cmd( "systemctl --user stop hyprland-session.target" )
   end
 )
 

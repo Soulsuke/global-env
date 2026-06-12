@@ -140,6 +140,11 @@ for i in *; do
       env_link_children "pipewire" "${HOME}/.config/pipewire"
     ;;
 
+    # Systemd user services must be linked in the right folder:
+    systemd)
+      env_link_children "systemd" "${HOME}/.config/systemd/user"
+    ;;
+
     # Wireplumber stuff must be symlinked inside a user's folder:
     wireplumber)
       env_link_children "wireplumber" "${HOME}/.config/wireplumber"
