@@ -424,10 +424,21 @@ hl.window_rule(
 
 hl.window_rule(
   {
-    name = "w05-libreoffice",
+    name = "w05-libreoffice-class",
     workspace = "4",
     match = {
-      class = "libreoffice.*"
+      class = "(libre|s)office.*"
+    }
+  }
+)
+
+hl.window_rule(
+  {
+    name = "w05-libreoffice-title",
+    workspace = "4",
+    opaque = false,
+    match = {
+      title = "^LibreOffice$"
     }
   }
 )
