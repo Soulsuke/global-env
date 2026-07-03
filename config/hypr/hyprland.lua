@@ -31,11 +31,30 @@ hl.config(
 --- Environment variables                                                   ---
 -------------------------------------------------------------------------------
 
+--- XDG session:
 hl.env( "XDG_CURRENT_DESKTOP", "Hyprland" )
 hl.env( "XDG_SESSION_DESKTOP", "Hyprland" )
 hl.env( "XDG_SESSION_TYPE", "wayland" )
+
+-- Theming:
 hl.env( "QT_QPA_PLATFORM", "wayland;xcb" )
 hl.env( "QT_WAYLAND_DISABLE_WINDOWDECORATION", "1" )
+
+-- Load .profile variables:
+local dot_profile = io.open( os.getenv( "HOME" ) .. "/.profile", "r" )
+if dot_profile then
+  -- The file is very short and simple, so reading each line and checking if
+  -- it starts with export is fine:
+  for line in dot_profile:lines() do
+    if line:match( "^export " ) then
+      -- Extract variable name and content from the line and set them:
+      -- NOTE: future me, this return two strings. The former is the var name,
+      --       the latter the var value.
+      hl.env( line:match( '^export%s+([^=]+)="?(.-)"?$' ) )
+    end
+  end
+  dot_profile:close()
+end
 
 
 
@@ -47,7 +66,7 @@ hl.env( "QT_WAYLAND_DISABLE_WINDOWDECORATION", "1" )
 terminal = "kitty"
 
 -- Hostname:
-hostname = io.popen("uname -n"):read("*a"):gsub("%s+", "")
+hostname = io.popen( "uname -n" ):read( "*a" ):gsub( "%s+", "" )
 
 
 
@@ -89,12 +108,15 @@ pcall(
 hl.on(
   "hyprland.start",
   function()
-    -- common stuff:
+    -- Update the env:
+    hl.exec_cmd( "dbus-update-activation-environment --systemd --all" )
+
+    -- Common stuff:
     hl.exec_cmd(
       os.getenv( "HOME" ) .. "/.scripts/7shi/startup/00-session-startup.zsh"
     )
 
-    -- hyprland family stuff:
+    -- Hyprland family stuff:
     hl.exec_cmd( "systemctl --user start hyprpolkitagent.service" )
     hl.exec_cmd( "systemctl --user start hyprland-session.target" )
     hl.exec_cmd( "hypridle" )
