@@ -3,7 +3,7 @@
 ## cleaner. Also sets the global zsh options.                                ##
 ###############################################################################
 
-### Meain variables setup ######################################################
+### Main variables setup ######################################################
 # Main folder:
 export GLOBAL_ENV="$(dirname $(readlink ~/.zshrc))"
 
@@ -15,7 +15,7 @@ fi
 
 
 
-### Autoloads ################################################################
+### Autoloads #################################################################
 autoload -U compinit
 compinit -u
 autoload -U promptinit
