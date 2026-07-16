@@ -21,7 +21,7 @@ ports = 11434/tcp
 [7shi Pi-hole]
 title = 7shi Pi-hole
 description = Pi-hole
-ports = 53/tcp,53/udp
+ports = 53/tcp|53/udp
 
 [7shi Plex]
 title = 7shi Plex
