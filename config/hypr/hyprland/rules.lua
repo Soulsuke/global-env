@@ -473,6 +473,16 @@ hl.window_rule(
   }
 )
 
+hl.window_rule(
+  {
+    name = "w08-transmission",
+    workspace = "8 silent",
+    match = {
+      class = "com.transmissionbt.transmission_.*"
+    }
+  }
+)
+
 
 
 -- Workspace 9:
