@@ -5,7 +5,7 @@
 
 ### Main variables setup ######################################################
 # Main folder:
-export GLOBAL_ENV="$(dirname $(readlink ~/.zshrc))"
+export GLOBAL_ENV="$(dirname "$(readlink ~/.zshrc)")"
 
 # Apparently Termux won't set USER, so let's fix it:
 if [[ -z ${USER} ]]; then
