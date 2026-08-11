@@ -1,0 +1,13 @@
+###############################################################################
+## Host zsh aliases for: DietPi                                              ##
+###############################################################################
+
+# Add in dietpi's path:
+export PATH="/boot/dietpi:${PATH}"
+
+# And recreate some aliases:
+alias cpu="/boot/dietpi/dietpi-cpuinfo"
+
+# Finally, print out a similar header:
+dietpi-login
+
