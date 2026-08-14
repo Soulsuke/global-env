@@ -2,6 +2,9 @@
 ## Host zsh aliases for: DietPi                                              ##
 ###############################################################################
 
+# Add in this bin folder to the path:
+export PATH="/mnt/dietpi_userdata/7shi/bin:${PATH}"
+
 # Add in dietpi's path:
 export PATH="/boot/dietpi:${PATH}"
 
