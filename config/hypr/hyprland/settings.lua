@@ -62,6 +62,14 @@ hl.config(
       }
     },
 
+    -- Ecosystem
+    -- See: https://wiki.hypr.land/0.50.0/Configuring/Variables/#ecosystem
+    ecosystem = {
+      -- The popup that "shows up twice a year encouraging to donate" is
+      -- appearing too often as of late:
+      no_donation_nag = true
+    },
+
     -- Misc
     -- See: https://wiki.hypr.land/Configuring/Basics/Variables/#misc
     misc = {
