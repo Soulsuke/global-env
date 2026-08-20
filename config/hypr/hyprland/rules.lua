@@ -341,11 +341,11 @@ hl.window_rule(
 
 hl.window_rule(
   {
-    name = "w02-whatsie",
+    name = "w02-whatsapp",
     workspace = "2 silent",
     no_screen_share = true,
     match = {
-      class = "com.ktechpit.whatsie"
+      class = "(com.ktechpit.whatsie|net.shakaran.whatly)"
     }
   }
 )
