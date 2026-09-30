@@ -240,7 +240,7 @@ function prompt_nns_compose_top_prompt_line()
                           $(prompt_nns_length_of ${PROMPT_LINE_1C}) -
                           $(prompt_nns_length_of ${PROMPT_LINE_1_TIMER})
                       ))
-  if [[ ${PROMPT_PADDING_SIZE} -ge 0 ]]; then
+  if [[ ${PROMPT_PADDING_SIZE} -ge 1 ]]; then
     PROMPT_LINE_1="${PROMPT_LINE_1A_GIT}"
     PROMPT_LINE_1+="$(prompt_nns_padding ${PROMPT_PADDING_SIZE})"
     PROMPT_LINE_1+="${PROMPT_LINE_1B}${PROMPT_LINE_1_TIMER}${PROMPT_LINE_1C}"
@@ -250,7 +250,7 @@ function prompt_nns_compose_top_prompt_line()
   # If it won't fit let's try taking out the right part of the prompt,
   # giving priority to the long USER@HOST:PWD GIT part:
   PROMPT_PADDING_SIZE=$(( COLUMNS - PROMPT_LINE_1A_GIT_W ))
-  if [[ ${PROMPT_PADDING_SIZE} -ge 0 ]]; then
+  if [[ ${PROMPT_PADDING_SIZE} -ge 1 ]]; then
     PROMPT_LINE_1="${PROMPT_LINE_1A_GIT}"
     PROMPT_LINE_1+="$(prompt_nns_padding ${PROMPT_PADDING_SIZE})"
     return
@@ -258,7 +258,7 @@ function prompt_nns_compose_top_prompt_line()
 
   # If we're still here, also take out the GIT part:
   PROMPT_PADDING_SIZE=$(( COLUMNS - PROMPT_LINE_1A_W - 2 ))
-  if [[ ${PROMPT_PADDING_SIZE} -ge 0 ]]; then
+  if [[ ${PROMPT_PADDING_SIZE} -ge 1 ]]; then
     PROMPT_LINE_1="${PROMPT_LINE_1A}${PROMPT_R_QUADR}${PROMPT_NNS_HYPHEN}"
     PROMPT_LINE_1+="$(prompt_nns_padding ${PROMPT_PADDING_SIZE})"
     return
