@@ -85,9 +85,9 @@ hl.config(
       -- Windows shouldn't steal focus:
       focus_on_activate = false,
 
-      -- Ensure mouse and keyboard input will turn on screens:
-      mouse_move_enables_dpms = true,
-      key_press_enables_dpms = true
+      -- We want keyboard events to wake up the screen, but not mouse ones:
+      key_press_enables_dpms = true,
+      mouse_move_enables_dpms = false
     },
 
     -- Layouts

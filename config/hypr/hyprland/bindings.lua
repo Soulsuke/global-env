@@ -257,12 +257,49 @@ for _, k in ipairs( mic_mute_keys ) do
 end
 
 -- Brightness down:
-hl.bind( "XF86MonBrightnessDown", hl.dsp.exec_cmd( "light -U 5" ), flags )
-hl.bind( mod .. " + O", hl.dsp.exec_cmd( "light -U 5" ) )
+hl.bind(
+  "XF86MonBrightnessDown",
+  hl.dsp.exec_cmd( "light -U 5" ),
+  flags
+)
+hl.bind(
+  mod .. " + O",
+  hl.dsp.exec_cmd( "light -U 5" ),
+  flags
+)
 
 -- Brightness up:
-hl.bind( "XF86MonBrightnessUp", hl.dsp.exec_cmd( "light -A 5" ), flags )
-hl.bind( mod .. " + P", hl.dsp.exec_cmd( "light -A 5" ) )
+hl.bind(
+  "XF86MonBrightnessUp",
+  hl.dsp.exec_cmd( "light -A 5" ),
+  flags
+)
+hl.bind(
+  mod .. " + P",
+  hl.dsp.exec_cmd( "light -A 5" ),
+  flags
+)
+
+-- Screen off:
+hl.bind(
+  mod .. " + ALT + O",
+  function()
+    hl.timer(
+      function()
+        hl.dispatch( hl.dsp.dpms( { action = "disable" } ) )
+      end,
+      { timeout = 500, type = "oneshot" }
+    )
+  end,
+  { locked = true }
+)
+
+-- Screen on:
+hl.bind(
+  mod .. " + ALT + P",
+  hl.dsp.dpms( "on" ),
+  { locked = true }
+)
 
 -- Media player play:
 hl.bind(
