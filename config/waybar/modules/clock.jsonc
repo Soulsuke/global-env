@@ -11,7 +11,7 @@
     "format": "{:%H:%M:%S %Y-%m-%d, %A}",
     "format-alt": "{:%H:%M %m-%d}",
     "calendar": {
-      "mode": "year",
+      "mode": "month",
       "mode-mon-col": 3,
       "weeks-pos": "right",
       "on-scroll": 1,
@@ -23,6 +23,9 @@
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
         "today":    "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
+    },
+    "actions": {
+      "on-click-right": "mode"
     }
   }
 
