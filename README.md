@@ -105,7 +105,7 @@ hyprwayland-scanner
 mpvpaper
 nerdshade
 nwg-look
-rofi-wayland
+rofi
 slurp
 waybar
 wayland-protocols
