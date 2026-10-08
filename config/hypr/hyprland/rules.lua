@@ -404,7 +404,7 @@ hl.window_rule(
     workspace = "4 silent",
     no_screen_share = true,
     match = {
-      class = "LM-Studio"
+      class = "(LM-Studio|ai.elementlabs.lmstudio)"
     }
   }
 )
