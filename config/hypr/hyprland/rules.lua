@@ -144,7 +144,7 @@ hl.window_rule(
     float = true,
     size = "800 500",
     match = {
-      class= "xdg-desktop-portal-gtk"
+      class = "xdg-desktop-portal-gtk"
     }
   }
 )
@@ -157,6 +157,17 @@ hl.window_rule(
     size = "800 500",
     match = {
       title = "^(Choose|Export|Open|Save) (Attachment|File|Folder|Project)s?$"
+    }
+  }
+)
+
+-- Modals also should be floating:
+hl.window_rule(
+  {
+    name = "modals",
+    float = true,
+    match = {
+      modal = true
     }
   }
 )
