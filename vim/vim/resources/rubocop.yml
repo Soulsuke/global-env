@@ -82,6 +82,9 @@ Style/EmptyLiteral:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/ItBlockParameter:
+  Enabled: false
+
 Style/IfUnlessModifier:
   Enabled: false
 
@@ -210,7 +213,7 @@ Layout/FirstArgumentIndentation:
 
 Layout/LineEndStringConcatenationIndentation:
   Enabled: true
-  EnforcedStyle: indented
+  EnforcedStyle: aligned
   IndentationWidth: 2
 
 # This one is useful if you ever need to touch your code on a server and there
@@ -273,4 +276,9 @@ Lint/AmbiguousRegexpLiteral:
 Lint/SuppressedException:
   Enabled: true
   AllowNil: true
+
+# This JS-style madness has to end.
+Lint/UnusedMethodArgument:
+  Enabled: false
+  AllowUnusedKeywordArguments: true
 
