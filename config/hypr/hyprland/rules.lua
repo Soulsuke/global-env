@@ -172,6 +172,17 @@ hl.window_rule(
   }
 )
 
+--- Zenity modals should be floating as well:
+hl.window_rule(
+  {
+    name = "zenity",
+    float = true,
+    match = {
+      class = "zenity"
+    }
+  }
+)
+
 -- Claws-mail's address book should be a popup:
 hl.window_rule(
   {
