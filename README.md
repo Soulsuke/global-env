@@ -18,6 +18,8 @@ Table of contents:
         - [Have chrome-based browsers run on wayland instead of xwayland](#have-chrome-based-browsers-run-on-wayland-instead-of-xwayland)
         - [To change GTK themes/config](#to-change-gtk-themesconfig)
     - [Input methods](#input-methods)
+    - [SteamOS](#steamos)
+        - [Keep /etc files between updates](#keep-etc-files-between-updates)
     - [UFW](#ufw)
     - [Xorg nvidia config](#xorg-nvidia-config)
 
@@ -178,6 +180,28 @@ Ditched ibus for fcitx5, as it isn't giving any headaches with hyprland.
 ```
 pacman -S fcitx5-im fcitx5-mozc
 ```
+
+
+
+### SteamOS
+
+Being immutable, SteamOS has some quirks.  
+
+#### Keep /etc files between updates
+
+Files in /etc are lost between updates and moved to /etc/previous, unless a
+configuration is added in `/etc/atomic-update.conf.d/to_keep.conf` along the
+lines of:  
+```
+# Custom certificate:
+/etc/ca-certificates/trust-source/myCert.p11-kit
+
+# sshd config:
+/etc/ssh/sshd_config.d/10-my_conf.conf
+```
+
+So this means it's better not to edit default config files and rely instead on
+.d folders.  
 
 
 
