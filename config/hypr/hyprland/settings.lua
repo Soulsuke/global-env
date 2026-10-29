@@ -59,6 +59,11 @@ hl.config(
       -- Blur:
       blur = {
         enabled = false
+      },
+
+      -- Wobble:
+      wobble = {
+        enabled = false
       }
     },
 
