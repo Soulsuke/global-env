@@ -37,14 +37,6 @@ hl.bind(
 --- Special workspace: terminal
 -------------------------------------------------------------------------------
 
--- Make sure this workspace is quite plain, and starts a terminal if empty:
-hl.workspace_rule(
-  {
-    workspace = "special:terminal",
-    on_created_empty = terminal
-  }
-)
-
 -- Toggle binding:
 hl.bind(
   "F12",
